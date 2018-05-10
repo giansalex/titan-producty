@@ -7,6 +7,15 @@ Encore
     .setPublicPath('/build')
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
+    .createSharedEntry('vendor', [
+        'jquery',
+        'bootstrap',
+        'node-waves',
+        'jquery-slimscroll',
+        'sweetalert',
+        'adminbsb-materialdesign',
+        './assets/js/vendor.js',
+    ])
     // uncomment to create hashed filenames (e.g. app.abc123.css)
     // .enableVersioning(Encore.isProduction())
 
@@ -18,7 +27,7 @@ Encore
     // .enableSassLoader()
 
     // uncomment for legacy applications that require $/jQuery as a global variable
-    // .autoProvidejQuery()
+    .autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();
