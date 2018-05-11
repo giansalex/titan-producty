@@ -1,5 +1,5 @@
 {% extends '@FOSUser/layout.html.twig' %}
-{% trans_default_domain 'FOSUserBundle' %}
+
 {% block body %}
 <div class="logo">
     <a href="javascript:void(0);">Admin<b>BSB</b></a>
@@ -7,53 +7,10 @@
 </div>
 <div class="card">
     <div class="body">
-        {{ form_errors(form) }}
-        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register')}) }}
-            <div class="msg">Register a new membership</div>
-            <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
-                <div class="form-line">
-                    {{ form_widget(form.username, { 'attr': {'placeholder': 'form.username', 'autofocus': 'true'} }) }}
-                </div>
-            </div>
-            <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">email</i>
-                        </span>
-                <div class="form-line">
-                    {{ form_widget(form.email, { 'attr': {'placeholder': 'form.email'} }) }}
-                </div>
-            </div>
-            <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                <div class="form-line">
-                    {{ form_widget(form.plainPassword.first, { 'attr': {'placeholder': 'form.password'} }) }}
-                </div>
-            </div>
-            <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                <div class="form-line">
-                    {{ form_widget(form.plainPassword.second, { 'attr': {'placeholder': 'form.password_confirmation'} }) }}
-                </div>
-            </div>
-            {{ form_widget(form._token) }}
-            {#<div class="form-group">#}
-                {#<input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink">#}
-                {#<label for="terms">I read and agree to the <a href="javascript:void(0);">terms of usage</a>.</label>#}
-            {#</div>#}
-
-            <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">{{ 'registration.submit'|trans }}</button>
-
-            <div class="m-t-25 m-b--5 align-center">
-                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans }}</a>
-            </div>
-        {{ form_end(form) }}
+        {% include "@FOSUser/Registration/register_content.html.twig" %}
+        <div class="m-t-25 m-b--5 align-center">
+            <a href="{{ path('fos_user_security_login') }}">Ya tienes una cuenta, inicia sesión</a>
+        </div>
     </div>
 </div>
 {% endblock %}

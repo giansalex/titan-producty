@@ -1,0 +1,40 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{{ form_errors(form) }}
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register')}) }}
+    <div class="msg">Register a new membership</div>
+    <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">person</i>
+                            </span>
+        <div class="form-line">
+            {{ form_widget(form.username, { 'attr': {'placeholder': 'form.username', 'autofocus': 'true'} }) }}
+        </div>
+    </div>
+    <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">email</i>
+                            </span>
+        <div class="form-line">
+            {{ form_widget(form.email, { 'attr': {'placeholder': 'form.email'} }) }}
+        </div>
+    </div>
+    <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">lock</i>
+                            </span>
+        <div class="form-line">
+            {{ form_widget(form.plainPassword.first, { 'attr': {'placeholder': 'form.password'} }) }}
+        </div>
+    </div>
+    <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">lock</i>
+                            </span>
+        <div class="form-line">
+            {{ form_widget(form.plainPassword.second, { 'attr': {'placeholder': 'form.password_confirmation'} }) }}
+        </div>
+    </div>
+{{ form_widget(form._token) }}
+
+<button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">{{ 'registration.submit'|trans }}</button>
+{{ form_end(form) }}
