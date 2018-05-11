@@ -3,8 +3,8 @@ framework:
     templating:
         engines: ['twig']
     translator:
-        fallbacks: ['es']
-    default_locale: 'es'
+        fallbacks: ['%locale%']
+    default_locale: '%locale%'
     csrf_protection: true
     validation: { enable_annotations: true }
     #http_method_override: true

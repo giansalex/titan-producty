@@ -2,10 +2,23 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="es" target-language="es" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="login_title">
+            <trans-unit id="main_title">
                 <source>page.main_title</source>
                 <target>Inventory Main Page</target>
             </trans-unit>
+            <trans-unit id="page_login_msg">
+                <source>page.login.msg</source>
+                <target>Inicia sesión para comenzar</target>
+            </trans-unit>
+            <trans-unit id="page_register_msg">
+                <source>page.register.msg</source>
+                <target>Registra una nueva cuenta</target>
+            </trans-unit>
+            <trans-unit id="page_request_msg">
+                <source>page.request.msg</source>
+                <target>Ingrese su dirección de correo electrónico que utilizó para registrarse. Le enviaremos un correo electrónico con su nombre de usuario y un enlace para restablecer su contraseña</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>
