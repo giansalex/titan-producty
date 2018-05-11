@@ -11,10 +11,10 @@
             {{ include('@FOSUser/Security/login_content.html.twig') }}
             <div class="row m-t-15 m-b--20">
                 <div class="col-xs-6">
-                    <a href="{{ path('fos_user_registration_register') }}">Register Now!</a>
+                    <a href="{{ path('fos_user_registration_register') }}">{{ 'security.layout.register'|trans }}!</a>
                 </div>
                 <div class="col-xs-6 align-right">
-                    <a href="{{ path('fos_user_resetting_request') }}">Forgot Password?</a>
+                    <a href="{{ path('fos_user_resetting_request') }}">{{ 'security.layout.forgot'|trans }}</a>
                 </div>
             </div>
         </div>

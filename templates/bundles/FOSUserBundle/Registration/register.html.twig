@@ -10,7 +10,7 @@
         <div class="msg">{{ 'page.register.msg'|trans }}</div>
         {% include "@FOSUser/Registration/register_content.html.twig" %}
         <div class="m-t-25 m-b--5 align-center">
-            <a href="{{ path('fos_user_security_login') }}">Ya tienes una cuenta, inicia sesión</a>
+            <a href="{{ path('fos_user_security_login') }}">{{ 'page.register.already'|trans }}</a>
         </div>
     </div>
 </div>

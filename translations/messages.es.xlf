@@ -14,11 +14,22 @@
                 <source>page.register.msg</source>
                 <target>Registra una nueva cuenta</target>
             </trans-unit>
+            <trans-unit id="page_register_already">
+                <source>page.register.already</source>
+                <target>Ya tienes una cuenta, inicia sesión</target>
+            </trans-unit>
             <trans-unit id="page_request_msg">
                 <source>page.request.msg</source>
                 <target>Ingrese su dirección de correo electrónico que utilizó para registrarse. Le enviaremos un correo electrónico con su nombre de usuario y un enlace para restablecer su contraseña</target>
             </trans-unit>
-
+            <trans-unit id="security_layout_register">
+                <source>security.layout.register</source>
+                <target>Registrate ahora</target>
+            </trans-unit>
+            <trans-unit id="security_layout_forgot">
+                <source>security.layout.forgot</source>
+                <target>¿Olvidaste tu contraseña?</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

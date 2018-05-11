@@ -9,6 +9,30 @@
         <source>page.main_title</source>
         <target>Admin BootStrap Based - Material Design</target>
       </trans-unit>
+      <trans-unit id="ZSh9Hjw" resname="page.register.msg">
+        <source>page.register.msg</source>
+        <target>Register a new membership</target>
+      </trans-unit>
+      <trans-unit id="y4R7oKB" resname="page.request.msg">
+        <source>page.request.msg</source>
+        <target>Enter your email address that you used to register. We'll send you an email with your username and a link to reset your password.</target>
+      </trans-unit>
+      <trans-unit id="ZICBdoS" resname="page.login.msg">
+        <source>page.login.msg</source>
+        <target>Sign in to start your session</target>
+      </trans-unit>
+      <trans-unit id="xh4z7Gj" resname="page.register.already">
+        <source>page.register.already</source>
+        <target>You already have a membership?</target>
+      </trans-unit>
+      <trans-unit id="odh2bH9" resname="security.layout.register">
+        <source>security.layout.register</source>
+        <target>Register Now</target>
+      </trans-unit>
+      <trans-unit id="KhSBdg2" resname="security.layout.forgot">
+        <source>security.layout.forgot</source>
+        <target>Forgot Password?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
