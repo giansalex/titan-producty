@@ -2,8 +2,9 @@ framework:
     secret: '%env(APP_SECRET)%'
     templating:
         engines: ['twig']
-    translator: ~
-    default_locale: es
+    translator:
+        fallbacks: ['es']
+    default_locale: 'es'
     csrf_protection: true
     validation: { enable_annotations: true }
     #http_method_override: true
