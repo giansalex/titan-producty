@@ -1,5 +1,5 @@
 {% extends '@FOSUser/layout.html.twig' %}
-
+{% trans_default_domain 'FOSUserBundle' %}
 {% block body %}
     <div class="logo">
         <a href="javascript:void(0);">Admin<b>BSB</b></a>
@@ -22,7 +22,7 @@
                             <i class="material-icons">person</i>
                         </span>
                     <div class="form-line">
-                        <input type="text" class="form-control" name="_username" value="{{ last_username }}" placeholder="Username" required autofocus>
+                        <input type="text" class="form-control" name="_username" value="{{ last_username }}" placeholder="{{ 'security.login.username'|trans }}" required autofocus>
                     </div>
                 </div>
                 <div class="input-group">
@@ -30,16 +30,16 @@
                             <i class="material-icons">lock</i>
                         </span>
                     <div class="form-line">
-                        <input type="password" class="form-control" name="_password" placeholder="Password" required>
+                        <input type="password" class="form-control" name="_password" placeholder="{{ 'security.login.password'|trans }}" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-8 p-t-5">
                         <input type="checkbox" name="_remember_me" id="rememberme" class="filled-in chk-col-pink">
-                        <label for="rememberme">Remember Me</label>
+                        <label for="rememberme">{{ 'security.login.remember_me'|trans }}</label>
                     </div>
                     <div class="col-xs-4">
-                        <button class="btn btn-block bg-pink waves-effect" type="submit" name="_submit">SIGN IN</button>
+                        <button class="btn btn-block bg-pink waves-effect" type="submit" name="_submit">{{ 'security.login.submit'|trans }}</button>
                     </div>
                 </div>
                 <div class="row m-t-15 m-b--20">

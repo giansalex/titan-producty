@@ -1,5 +1,5 @@
 {% extends '@FOSUser/layout.html.twig' %}
-
+{% trans_default_domain 'FOSUserBundle' %}
 {% block body %}
 <div class="logo">
     <a href="javascript:void(0);">Admin<b>BSB</b></a>
@@ -7,23 +7,15 @@
 </div>
 <div class="card">
     <div class="body">
-        {%- if errors is defined and errors|length > 0 -%}
-        <div class="alert alert-danger alert-dismissable">
-            <ul>
-                {%- for error in errors -%}
-                    <li class="text-danger">{{ error.message }}</li>
-                {%- endfor -%}
-            </ul>
-        </div>
-        {%- endif -%}
-        <form id="sign_up" action="{{ path('fos_user_registration_register') }}" method="POST">
+        {{ form_errors(form) }}
+        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register')}) }}
             <div class="msg">Register a new membership</div>
             <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                 <div class="form-line">
-                    <input type="text" class="form-control" name="fos_user_registration_form[username]" placeholder="Name Surname" required autofocus>
+                    {{ form_widget(form.username, { 'attr': {'placeholder': 'form.username', 'autofocus': 'true'} }) }}
                 </div>
             </div>
             <div class="input-group">
@@ -31,7 +23,7 @@
                             <i class="material-icons">email</i>
                         </span>
                 <div class="form-line">
-                    <input type="email" class="form-control" name="fos_user_registration_form[email]" placeholder="Email Address" required>
+                    {{ form_widget(form.email, { 'attr': {'placeholder': 'form.email'} }) }}
                 </div>
             </div>
             <div class="input-group">
@@ -39,7 +31,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                 <div class="form-line">
-                    <input type="password" class="form-control" name="fos_user_registration_form[plainPassword][first]" minlength="6" placeholder="Password" required>
+                    {{ form_widget(form.plainPassword.first, { 'attr': {'placeholder': 'form.password'} }) }}
                 </div>
             </div>
             <div class="input-group">
@@ -47,22 +39,21 @@
                             <i class="material-icons">lock</i>
                         </span>
                 <div class="form-line">
-                    <input type="password" class="form-control" name="fos_user_registration_form[plainPassword][second]" minlength="6" placeholder="Confirm Password" required>
+                    {{ form_widget(form.plainPassword.second, { 'attr': {'placeholder': 'form.password_confirmation'} }) }}
                 </div>
             </div>
-            <input type="hidden" name="fos_user_registration_form[_token]"
-                   value="{{ csrf_token('authenticate') }}">
-            <div class="form-group">
-                <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink">
-                <label for="terms">I read and agree to the <a href="javascript:void(0);">terms of usage</a>.</label>
-            </div>
+            {{ form_widget(form._token) }}
+            {#<div class="form-group">#}
+                {#<input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink">#}
+                {#<label for="terms">I read and agree to the <a href="javascript:void(0);">terms of usage</a>.</label>#}
+            {#</div>#}
 
-            <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">SIGN UP</button>
+            <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">{{ 'registration.submit'|trans }}</button>
 
             <div class="m-t-25 m-b--5 align-center">
-                <a href="sign-in.html">You already have a membership?</a>
+                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans }}</a>
             </div>
-        </form>
+        {{ form_end(form) }}
     </div>
 </div>
 {% endblock %}
