@@ -7,14 +7,23 @@
 </div>
 <div class="card">
     <div class="body">
-        <form id="sign_up" method="POST">
+        {%- if errors is defined and errors|length > 0 -%}
+        <div class="alert alert-danger alert-dismissable">
+            <ul>
+                {%- for error in errors -%}
+                    <li class="text-danger">{{ error.message }}</li>
+                {%- endfor -%}
+            </ul>
+        </div>
+        {%- endif -%}
+        <form id="sign_up" action="{{ path('fos_user_registration_register') }}" method="POST">
             <div class="msg">Register a new membership</div>
             <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                 <div class="form-line">
-                    <input type="text" class="form-control" name="namesurname" placeholder="Name Surname" required autofocus>
+                    <input type="text" class="form-control" name="fos_user_registration_form[username]" placeholder="Name Surname" required autofocus>
                 </div>
             </div>
             <div class="input-group">
@@ -22,7 +31,7 @@
                             <i class="material-icons">email</i>
                         </span>
                 <div class="form-line">
-                    <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+                    <input type="email" class="form-control" name="fos_user_registration_form[email]" placeholder="Email Address" required>
                 </div>
             </div>
             <div class="input-group">
@@ -30,7 +39,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                 <div class="form-line">
-                    <input type="password" class="form-control" name="password" minlength="6" placeholder="Password" required>
+                    <input type="password" class="form-control" name="fos_user_registration_form[plainPassword][first]" minlength="6" placeholder="Password" required>
                 </div>
             </div>
             <div class="input-group">
@@ -38,9 +47,11 @@
                             <i class="material-icons">lock</i>
                         </span>
                 <div class="form-line">
-                    <input type="password" class="form-control" name="confirm" minlength="6" placeholder="Confirm Password" required>
+                    <input type="password" class="form-control" name="fos_user_registration_form[plainPassword][second]" minlength="6" placeholder="Confirm Password" required>
                 </div>
             </div>
+            <input type="hidden" name="fos_user_registration_form[_token]"
+                   value="{{ csrf_token('authenticate') }}">
             <div class="form-group">
                 <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink">
                 <label for="terms">I read and agree to the <a href="javascript:void(0);">terms of usage</a>.</label>
