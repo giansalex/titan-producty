@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="https://gurayyarar.github.io/AdminBSBMaterialDesign/plugins/animate-css/animate.css" type="text/css">
+    <link rel="stylesheet" href="{{ asset('build/vendor.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="login-page">
+<div class="login-box">
+    {% block body %}{% endblock %}
+</div>
+<script src="{{ asset('build/manifest.js') }}"></script>
+<script src="{{ asset('build/vendor.js') }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>
