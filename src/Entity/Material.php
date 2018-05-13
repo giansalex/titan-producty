@@ -52,7 +52,7 @@ class Material
     private $stock;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="materials")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
     private $userId;
