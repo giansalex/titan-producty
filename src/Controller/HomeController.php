@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route as Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="home_page")
      * @return Response
      */
     public function index() : Response
