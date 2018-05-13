@@ -11,10 +11,11 @@ Encore
         'jquery',
         'bootstrap',
         'node-waves',
-        'jquery-slimscroll',
+        './assets/js/vendor.js'
+    ])
+    .addEntry('admin', [
         'sweetalert',
-        'adminbsb-materialdesign',
-        './assets/js/vendor.js',
+        './assets/js/admbs.js',
     ])
     // uncomment to create hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
