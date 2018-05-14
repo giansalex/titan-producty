@@ -30,6 +30,10 @@
                 <source>security.layout.forgot</source>
                 <target>¿Olvidaste tu contraseña?</target>
             </trans-unit>
+            <trans-unit id="security_layout_logout">
+                <source>security.layout.logout</source>
+                <target>Cerrar Sessión</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
