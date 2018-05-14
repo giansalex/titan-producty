@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class FormulaApiController  extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"})
+     * @Route("/", methods={"GET"}, name="formula_add", options={"expose": true})
      * @param Request $request
      * @param DenormalizerInterface $serializer
      * @param ModelStateInterface $validator
