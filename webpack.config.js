@@ -14,8 +14,10 @@ Encore
         './assets/js/vendor.js'
     ])
     .addEntry('admin', [
-        'sweetalert',
+        'angular',
         './assets/js/admbs.js',
+        './assets/js/app.js',
+        'sweetalert',
     ])
     // uncomment to create hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
