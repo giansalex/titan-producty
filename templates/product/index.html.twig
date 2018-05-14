@@ -36,7 +36,7 @@
                         <tbody>
                         {% for formula in formulas %}
                             <tr>
-                                <td>{{ product.id }}</td>
+                                <td>{{ loop.index }}</td>
                                 <td>{{ product.name }}</td>
                                 <td>{{ product.code }}</td>
                                 <td>{{ product.amount }}</td>
