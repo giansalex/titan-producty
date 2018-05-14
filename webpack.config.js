@@ -16,7 +16,6 @@ Encore
     .addEntry('admin', [
         'angular',
         './assets/js/admbs.js',
-        './assets/js/app.js',
         'sweetalert',
     ])
     // uncomment to create hashed filenames (e.g. app.abc123.css)
