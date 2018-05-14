@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FormulaRepository")
@@ -17,21 +18,27 @@ class Formula
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max="255")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $amount;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max="10")
      * @ORM\Column(type="string", length=10)
      */
     private $unit;
 
     /**
+     * @Assert\Length(max="255")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $notes;
@@ -39,6 +46,7 @@ class Formula
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull()
      */
     private $user;
 
