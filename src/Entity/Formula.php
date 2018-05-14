@@ -25,7 +25,7 @@ class Formula
     private $name;
 
     /**
-     * @Assert\Type("float")
+     * @Assert\NotNull()
      * @ORM\Column(type="float")
      */
     private $amount;
@@ -44,9 +44,9 @@ class Formula
     private $notes;
 
     /**
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotNull()
      */
     private $user;
 

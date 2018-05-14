@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UnitRepository")
@@ -10,12 +11,16 @@ use Doctrine\ORM\Mapping as ORM;
 class Unit
 {
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max="10")
      * @ORM\Id()
      * @ORM\Column(type="string", length=10)
      */
     private $code;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max="50")
      * @ORM\Column(type="string", length=50)
      */
     private $value;

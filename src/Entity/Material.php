@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MaterialRepository")
@@ -17,41 +18,52 @@ class Material
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max="255")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max="30")
      * @ORM\Column(type="string", length=30)
      */
     private $code;
 
     /**
+     * @Assert\NotNull()
      * @ORM\Column(type="float")
      */
     private $amount;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max="10")
      * @ORM\Column(type="string", length=10)
      */
     private $unit;
 
     /**
+     * @Assert\NotNull()
      * @ORM\Column(type="float")
      */
     private $price;
 
     /**
+     * @Assert\NotNull()
      * @ORM\Column(name="packing_price", type="float")
      */
     private $packingPrice;
 
     /**
+     * @Assert\NotNull()
      * @ORM\Column(type="integer")
      */
     private $stock;
 
     /**
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -17,42 +18,53 @@ class Product
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max="255")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max="30")
      * @ORM\Column(type="string", length=30)
      */
     private $code;
 
     /**
+     * @Assert\NotNull()
      * @ORM\Column(type="float")
      */
     private $amount;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max="10")
      * @ORM\Column(type="string", length=10)
      */
     private $unit;
 
     /**
+     * @Assert\Length(max="255")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $notes;
 
     /**
+     * @Assert\NotNull()
      * @ORM\Column(type="float")
      */
     private $baseAmount;
 
     /**
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="App\Entity\Formula")
      * @ORM\JoinColumn(nullable=false)
      */
     private $formula;
 
     /**
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */

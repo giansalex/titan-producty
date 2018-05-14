@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductDetailRepository")
@@ -17,27 +18,32 @@ class ProductDetail
     private $id;
 
     /**
+     * @Assert\NotNull()
      * @ORM\Column(type="float")
      */
     private $amount;
 
     /**
+     * @Assert\NotNull()
      * @ORM\Column(type="float")
      */
     private $price;
 
     /**
+     * @Assert\NotNull()
      * @ORM\Column(type="float")
      */
     private $total;
 
     /**
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="App\Entity\Material")
      * @ORM\JoinColumn(nullable=false)
      */
     private $material;
 
     /**
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="App\Entity\Product")
      * @ORM\JoinColumn(nullable=false)
      */
