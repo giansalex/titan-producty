@@ -50,13 +50,13 @@ class Product
      * @ORM\ManyToOne(targetEntity="App\Entity\Formula")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $formulaId;
+    private $formula;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $userIdd;
+    private $user;
 
     public function getId()
     {
@@ -135,26 +135,26 @@ class Product
         return $this;
     }
 
-    public function getFormulaId(): ?Formula
+    public function getFormula(): ?Formula
     {
-        return $this->formulaId;
+        return $this->formula;
     }
 
-    public function setFormulaId(?Formula $formulaId): self
+    public function setFormula(?Formula $formula): self
     {
-        $this->formulaId = $formulaId;
+        $this->formula = $formula;
 
         return $this;
     }
 
-    public function getUserIdd(): ?User
+    public function getUser(): ?User
     {
-        return $this->userIdd;
+        return $this->user;
     }
 
-    public function setUserIdd(?User $userIdd): self
+    public function setUser(?User $user): self
     {
-        $this->userIdd = $userIdd;
+        $this->user = $user;
 
         return $this;
     }

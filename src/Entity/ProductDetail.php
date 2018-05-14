@@ -35,13 +35,13 @@ class ProductDetail
      * @ORM\ManyToOne(targetEntity="App\Entity\Material")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $materialId;
+    private $material;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $productId;
+    private $product;
 
     public function getId()
     {
@@ -84,26 +84,26 @@ class ProductDetail
         return $this;
     }
 
-    public function getMaterialId(): ?Material
+    public function getMaterial(): ?Material
     {
-        return $this->materialId;
+        return $this->material;
     }
 
-    public function setMaterialId(?Material $materialId): self
+    public function setMaterial(?Material $material): self
     {
-        $this->materialId = $materialId;
+        $this->material = $material;
 
         return $this;
     }
 
-    public function getProductId(): ?Product
+    public function getProduct(): ?Product
     {
-        return $this->productId;
+        return $this->product;
     }
 
-    public function setProductId(?Product $productId): self
+    public function setProduct(?Product $product): self
     {
-        $this->productId = $productId;
+        $this->product = $product;
 
         return $this;
     }

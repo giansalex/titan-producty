@@ -35,13 +35,13 @@ class FormulaDetail
      * @ORM\ManyToOne(targetEntity="App\Entity\Material")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $materialId;
+    private $material;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Formula")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $formulaId;
+    private $formula;
 
     public function getId()
     {
@@ -84,26 +84,26 @@ class FormulaDetail
         return $this;
     }
 
-    public function getMaterialId(): ?Material
+    public function getMaterial(): ?Material
     {
-        return $this->materialId;
+        return $this->material;
     }
 
-    public function setMaterialId(?Material $materialId): self
+    public function setMaterial(?Material $material): self
     {
-        $this->materialId = $materialId;
+        $this->material = $material;
 
         return $this;
     }
 
-    public function getFormulaId(): ?Formula
+    public function getFormula(): ?Formula
     {
-        return $this->formulaId;
+        return $this->formula;
     }
 
-    public function setFormulaId(?Formula $formulaId): self
+    public function setFormula(?Formula $formula): self
     {
-        $this->formulaId = $formulaId;
+        $this->formula = $formula;
 
         return $this;
     }
