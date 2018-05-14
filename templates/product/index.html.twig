@@ -1,20 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Productos{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/ProductController.php'|file_link(0) }}">src/Controller/ProductController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/product/index.html.twig'|file_link(0) }}">templates/product/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="block-header">
+        <h2>Productos</h2>
+    </div>
+    <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Lista</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li>
+                            <a href="{{ path('product_new') }}">
+                                <i class="material-icons">add</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Amount</th>
+                            <th>Unit</th>
+                            <th>Notes</th>
+                            <th>BaseAmount</th>
+                            <th>acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for formula in formulas %}
+                            <tr>
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.code }}</td>
+                                <td>{{ product.amount }}</td>
+                                <td>{{ product.unit }}</td>
+                                <td>{{ product.notes }}</td>
+                                <td>{{ product.baseAmount }}</td>
+                                <td>
+                                    <a href="{{ path('product_edit', {'id': formula.id}) }}">editar</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6">No se encontraron registros</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
