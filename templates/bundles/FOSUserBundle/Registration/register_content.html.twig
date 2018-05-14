@@ -1,5 +1,4 @@
 {% trans_default_domain 'FOSUserBundle' %}
-{{ form_errors(form) }}
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register')}) }}
     <div class="input-group">
                             <span class="input-group-addon">
@@ -8,6 +7,7 @@
         <div class="form-line">
             {{ form_widget(form.username, { 'attr': {'placeholder': 'form.username', 'autofocus': 'true'} }) }}
         </div>
+        {{ form_errors(form.username) }}
     </div>
     <div class="input-group">
                             <span class="input-group-addon">
@@ -16,6 +16,7 @@
         <div class="form-line">
             {{ form_widget(form.email, { 'attr': {'placeholder': 'form.email'} }) }}
         </div>
+        {{ form_errors(form.email) }}
     </div>
     <div class="input-group">
                             <span class="input-group-addon">
@@ -24,6 +25,7 @@
         <div class="form-line">
             {{ form_widget(form.plainPassword.first, { 'attr': {'placeholder': 'form.password'} }) }}
         </div>
+        {{ form_errors(form.plainPassword.first) }}
     </div>
     <div class="input-group">
                             <span class="input-group-addon">
@@ -32,6 +34,7 @@
         <div class="form-line">
             {{ form_widget(form.plainPassword.second, { 'attr': {'placeholder': 'form.password_confirmation'} }) }}
         </div>
+        {{ form_errors(form.plainPassword.second) }}
     </div>
 {{ form_widget(form._token) }}
 
