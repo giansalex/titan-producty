@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Material index{% endblock %}
+
+{% block body %}
+    <div class="block-header">
+        <h2>Materia Prima</h2>
+    </div>
+    <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Lista</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li>
+                            <a href="{{ path('material_new') }}">
+                                <i class="material-icons">add</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Amount</th>
+                            <th>Unit</th>
+                            <th>Price</th>
+                            <th>PackingPrice</th>
+                            <th>Stock</th>
+                            <th>acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for material in materials %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ material.name }}</td>
+                                <td>{{ material.code }}</td>
+                                <td>{{ material.amount }}</td>
+                                <td>{{ material.unit }}</td>
+                                <td>{{ material.price }}</td>
+                                <td>{{ material.packingPrice }}</td>
+                                <td>{{ material.stock }}</td>
+                                <td>
+                                    <a href="{{ path('material_show', {'id': material.id}) }}">show</a>
+                                    <a href="{{ path('material_edit', {'id': material.id}) }}">edit</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="9">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

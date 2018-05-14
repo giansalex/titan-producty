@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Material{% endblock %}
+
+{% block body %}
+    <div class="block-header">
+        <h2>Materia Prima</h2>
+    </div>
+    <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Crear Nuevo</h2>
+                </div>
+                <div class="body">
+                    {{ include('material/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('material_index') }}">back to list</a>
+{% endblock %}
