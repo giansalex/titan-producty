@@ -47,7 +47,7 @@ class ProductDetail
     private $material;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="details")
      */
     private $product;
 

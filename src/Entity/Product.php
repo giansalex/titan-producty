@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -68,9 +70,19 @@ class Product
     private $formula;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductDetail", mappedBy="product", cascade={"persist", "remove"})
+     */
+    private $details;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $user;
+
+    public function __construct()
+    {
+        $this->details = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -183,5 +195,18 @@ class Product
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|ProductDetail[]
+     */
+    public function getDetails() : Collection
+    {
+        return $this->details;
+    }
+
+    public function addDetail(ProductDetail $detail)
+    {
+        $this->details[] = $detail;
     }
 }
