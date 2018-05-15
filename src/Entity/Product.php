@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\Type;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -84,6 +85,7 @@ class Product
     private $details;
 
     /**
+     * @Exclude()
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $user;

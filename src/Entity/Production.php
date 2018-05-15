@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -64,6 +65,7 @@ class Production
     private $product;
 
     /**
+     * @Exclude()
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $user;

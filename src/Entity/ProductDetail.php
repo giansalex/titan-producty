@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -51,6 +52,7 @@ class ProductDetail
     private $material;
 
     /**
+     * @Exclude()
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="details")
      */
     private $product;
