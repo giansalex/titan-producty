@@ -67,6 +67,7 @@ class Production
     /**
      * @Exclude()
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
