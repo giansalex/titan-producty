@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Formula;
+use App\Entity\Material;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -17,6 +18,20 @@ class FormulaRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Formula::class);
+    }
+
+    public function add(Formula $formula)
+    {
+        $em = $this->getEntityManager();
+
+        foreach ($formula->getDetails() as $detail) {
+            $material = $em->getReference(Material::class, $detail->getMaterialId());
+            $detail->setMaterial($material)
+                   ->setFormula($formula);
+        }
+
+        $em->persist($formula);
+        $em->flush();
     }
 
 //    /**
