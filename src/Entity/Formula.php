@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -44,9 +46,22 @@ class Formula
     private $notes;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\FormulaDetail", mappedBy="formula", cascade={"persist", "remove"})
+     */
+    private $details;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $user;
+
+    /**
+     * Formula constructor.
+     */
+    public function __construct()
+    {
+        $this->details = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -111,5 +126,18 @@ class Formula
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|FormulaDetail[]
+     */
+    public function getDetails() : Collection
+    {
+        return $this->details;
+    }
+
+    public function addDetail(FormulaDetail $detail)
+    {
+        $this->details[] = $detail;
     }
 }

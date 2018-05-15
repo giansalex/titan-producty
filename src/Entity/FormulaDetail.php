@@ -47,7 +47,7 @@ class FormulaDetail
     private $material;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Formula")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Formula", inversedBy="details")
      */
     private $formula;
 
