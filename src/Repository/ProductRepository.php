@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Formula;
+use App\Entity\Material;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -19,9 +21,21 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-//    /**
-//     * @return Product[] Returns an array of Product objects
-//     */
+    public function add(Product $product)
+    {
+        $em = $this->getEntityManager();
+        $product->setFormula($em->getReference(Formula::class, $product->getFormulaId()));
+
+        foreach ($product->getDetails() as $detail) {
+            $material = $em->getReference(Material::class, $detail->getMaterialId());
+            $detail->setMaterial($material)
+                ->setProduct($product);
+        }
+
+        $em->persist($product);
+        $em->flush();
+    }
+
     /*
     public function findByExampleField($value)
     {
