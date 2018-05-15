@@ -37,15 +37,17 @@ class FormulaDetail
 
     /**
      * @Assert\NotNull()
+     * @ORM\Column(name="material_id", type="integer")
+     */
+    private $materialId;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Material")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $material;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Formula")
-     * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotNull()
+     * @ORM\ManyToOne(targetEntity="App\Entity\Formula", inversedBy="details")
      */
     private $formula;
 
@@ -87,6 +89,17 @@ class FormulaDetail
     {
         $this->total = $total;
 
+        return $this;
+    }
+
+    public function getMaterialId(): ?int
+    {
+        return $this->materialId;
+    }
+
+    public function setMaterialId(int $materialId): self
+    {
+        $this->materialId = $materialId;
         return $this;
     }
 

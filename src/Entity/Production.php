@@ -51,15 +51,17 @@ class Production
 
     /**
      * @Assert\NotNull()
+     * @ORM\Column(name="product_id", type="integer")
+     */
+    private $productId;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $product;
 
     /**
-     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
@@ -124,6 +126,18 @@ class Production
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getProductId(): ?int
+    {
+        return $this->productId;
+    }
+
+    public function setProductId(int $productId): self
+    {
+        $this->productId = $productId;
 
         return $this;
     }

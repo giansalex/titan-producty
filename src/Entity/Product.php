@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -58,17 +60,29 @@ class Product
 
     /**
      * @Assert\NotNull()
+     * @ORM\Column(name="formula_id", type="integer")
+     */
+    private $formulaId;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Formula")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $formula;
 
     /**
-     * @Assert\NotNull()
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductDetail", mappedBy="product", cascade={"persist", "remove"})
+     */
+    private $details;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    public function __construct()
+    {
+        $this->details = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -147,6 +161,18 @@ class Product
         return $this;
     }
 
+    public function getFormulaId(): ?int
+    {
+        return $this->formulaId;
+    }
+
+    public function setFormulaId(int $formulaId): self
+    {
+        $this->formulaId = $formulaId;
+
+        return $this;
+    }
+
     public function getFormula(): ?Formula
     {
         return $this->formula;
@@ -169,5 +195,18 @@ class Product
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|ProductDetail[]
+     */
+    public function getDetails() : Collection
+    {
+        return $this->details;
+    }
+
+    public function addDetail(ProductDetail $detail)
+    {
+        $this->details[] = $detail;
     }
 }
