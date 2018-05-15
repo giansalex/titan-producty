@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -70,7 +71,12 @@ class Product
     private $formula;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProductDetail", mappedBy="product", cascade={"persist", "remove"})
+     * @Type("ArrayCollection<App\Entity\ProductDetail>")
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\ProductDetail",
+     *     mappedBy="product",
+     *     cascade={"persist", "remove"}
+     * )
      */
     private $details;
 
