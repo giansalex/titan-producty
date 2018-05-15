@@ -19,24 +19,28 @@ class ProductDetail
 
     /**
      * @Assert\NotNull()
+     * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $amount;
 
     /**
      * @Assert\NotNull()
+     * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $price;
 
     /**
      * @Assert\NotNull()
+     * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $total;
 
     /**
      * @Assert\NotNull()
+     * @Assert\Type("integer")
      * @ORM\Column(name="material_id", type="integer")
      */
     private $materialId;

@@ -36,6 +36,7 @@ class Product
 
     /**
      * @Assert\NotNull()
+     * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $amount;
@@ -55,12 +56,14 @@ class Product
 
     /**
      * @Assert\NotNull()
+     * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $baseAmount;
 
     /**
      * @Assert\NotNull()
+     * @Assert\Type("integer")
      * @ORM\Column(name="formula_id", type="integer")
      */
     private $formulaId;

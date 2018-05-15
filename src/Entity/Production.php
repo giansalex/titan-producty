@@ -33,12 +33,14 @@ class Production
 
     /**
      * @Assert\NotNull()
+     * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $amount;
 
     /**
      * @Assert\NotNull()
+     * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $weight;
@@ -51,6 +53,7 @@ class Production
 
     /**
      * @Assert\NotNull()
+     * @Assert\Type("integer")
      * @ORM\Column(name="product_id", type="integer")
      */
     private $productId;

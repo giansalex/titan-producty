@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\{Exclude, Type};
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -29,6 +29,7 @@ class Formula
 
     /**
      * @Assert\NotNull()
+     * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $amount;
@@ -57,6 +58,7 @@ class Formula
     private $details;
 
     /**
+     * @Exclude()
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $user;
