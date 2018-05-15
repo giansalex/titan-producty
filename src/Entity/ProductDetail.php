@@ -37,15 +37,17 @@ class ProductDetail
 
     /**
      * @Assert\NotNull()
+     * @ORM\Column(name="material_id", type="integer")
+     */
+    private $materialId;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Material")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $material;
 
     /**
-     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="App\Entity\Product")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $product;
 
@@ -87,6 +89,17 @@ class ProductDetail
     {
         $this->total = $total;
 
+        return $this;
+    }
+
+    public function getMaterialId(): ?int
+    {
+        return $this->materialId;
+    }
+
+    public function setMaterialId(int $materialId): self
+    {
+        $this->materialId = $materialId;
         return $this;
     }
 

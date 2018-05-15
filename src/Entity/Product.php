@@ -58,15 +58,17 @@ class Product
 
     /**
      * @Assert\NotNull()
+     * @ORM\Column(name="formula_id", type="integer")
+     */
+    private $formulaId;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Formula")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $formula;
 
     /**
-     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
@@ -143,6 +145,18 @@ class Product
     public function setBaseAmount(float $baseAmount): self
     {
         $this->baseAmount = $baseAmount;
+
+        return $this;
+    }
+
+    public function getFormulaId(): ?int
+    {
+        return $this->formulaId;
+    }
+
+    public function setFormulaId(int $formulaId): self
+    {
+        $this->formulaId = $formulaId;
 
         return $this;
     }

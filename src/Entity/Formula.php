@@ -44,9 +44,7 @@ class Formula
     private $notes;
 
     /**
-     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
