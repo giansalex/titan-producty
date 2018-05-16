@@ -9,53 +9,48 @@
 namespace App\Controller\Api;
 
 use App\Entity\Formula;
-use App\Entity\FormulaDetail;
 use App\Http\BadRequestResponse;
+use App\Repository\FormulaRepository;
 use App\Services\ModelStateInterface;
 use http\Env\Response;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
- * @Route("/api/formula")
+ * @Route("/api/formula", options={"expose": true})
  */
 class FormulaApiController  extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, name="formula_add", options={"expose": true})
+     * @Route("/", methods={"POST"}, name="formulaapi_add")
      * @param Request $request
-     * @param DenormalizerInterface $serializer
+     * @param SerializerInterface $serializer
      * @param ModelStateInterface $validator
+     * @param FormulaRepository $repository
      * @return BadRequestResponse|Response
      */
     public function add(
         Request $request,
-        DenormalizerInterface $serializer,
-        ModelStateInterface $validator)
+        SerializerInterface $serializer,
+        ModelStateInterface $validator,
+        FormulaRepository $repository)
     {
-        $obj = json_decode($request->getContent(), true);
-        $formula = $serializer->denormalize($obj['head'], Formula::class);
-        $details = $serializer->denormalize($obj['details'], FormulaDetail::class.'[]');
-        /**@var $formula Formula */
-        $formula->setUser($this->getUser());
+        $formula = $serializer->deserialize(
+            $request->getContent(),
+            Formula::class,
+            'json'
+        );
 
         if (!$validator->valid($formula)) {
 
             return new BadRequestResponse((string) $validator);
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($formula);
-        $em->flush();
-
-        foreach ($details as $detail) {
-            /**@var $detail FormulaDetail*/
-            $detail->setFormula($formula);
-            $em->persist($detail);
-        }
-        $em->flush();
+        /**@var $formula Formula */
+        $formula->setUser($this->getUser());
+        $repository->add($formula);
 
         return new Response();
     }
