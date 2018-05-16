@@ -3,5 +3,84 @@
 {% block title %}Nueva Formulación{% endblock %}
 
 {% block body %}
-    <h1>Create new Formula</h1>
+    <div class="block-header">
+        <h2>Formulaciones</h2>
+    </div>
+    <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Crear Nueva Formulación</h2>
+                </div>
+                <div class="body">
+                    <div>
+                        <form name="frm">
+                            <label for="name">Nombre</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="name"
+                                           required
+                                           ng-model="formula.name"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="amount">Cantidad Base</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="amount"
+                                           required
+                                           ng-model="formula.amount"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="unit">Unidad Base</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="unit"
+                                           required
+                                           ng-model="formula.unit"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="notes">Observaciones</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                <textarea id="notes"
+                                          rows="3"
+                                          ng-model="formula.notes"
+                                          class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Materia Prima</th>
+                                <th>Cantidad</th>
+                                <th>Unidad</th>
+                                <th>Costo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in selectedItems">
+                                <td ng-bind="x.name"></td>
+                                <td>
+                                    <input type="text" ng-model="x.amount">
+                                </td>
+                                <td ng-bind="x.unit"></td>
+                                <td ng-model="x.price"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="btn btn-primary">Crear Formulación</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
