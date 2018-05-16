@@ -6,7 +6,7 @@
     <div class="block-header">
         <h2>Formulaciones</h2>
     </div>
-    <div class="row clearfix">
+    <div class="row clearfix" ng-controller="default">
         <div class="col-sm-12">
             <div class="card">
                 <div class="header">
@@ -56,31 +56,54 @@
                             </div>
                         </form>
                     </div>
+                    <br>
                     <div class="table-responsive">
-                        <table>
+                        <table class="table table-bordered table-condensed">
                             <thead>
                             <tr>
                                 <th>Materia Prima</th>
                                 <th>Cantidad</th>
                                 <th>Unidad</th>
                                 <th>Costo</th>
+                                <th>Opciones</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="x in selectedItems">
                                 <td ng-bind="x.name"></td>
                                 <td>
-                                    <input type="text" ng-model="x.amount">
+                                    <input type="text" class="form-control" ng-model="x.amount">
                                 </td>
                                 <td ng-bind="x.unit"></td>
-                                <td ng-model="x.price"></td>
+                                <td ng-bind="x.price"></td>
+                                <td>
+                                    <button class="btn btn-xs btn-circle btn-danger">
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
+                        <button class="btn btn-success"><i class="material-icons">add</i></button>
                     </div>
+                    <br>
                     <button class="btn btn-primary">Crear Formulación</button>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        angular.module('main')
+            .controller('default', ['$scope', function ($scope) {
+                $scope.formula = {};
+                $scope.selectedItems = [{
+                    name: 'ds',
+                    amount: 34,
+                    unit: 'NI',
+                    price: 23.45
+                }];
+            }]);
+    </script>
 {% endblock %}
