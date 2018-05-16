@@ -3,6 +3,113 @@
 {% block title %}Nuevo Producto{% endblock %}
 
 {% block body %}
-    <h1>Create new Product</h1>
-
+    <div class="block-header">
+        <h2>{{ 'page.titles.product'|trans }}</h2>
+    </div>
+    <div class="row clearfix" ng-controller="default">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Crear Nuevo Producto</h2>
+                </div>
+                <div class="body">
+                    <div>
+                        <form name="frm">
+                            <label for="name">Nombre</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="name"
+                                           required
+                                           ng-model="product.name"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="code">Código</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="code"
+                                           required
+                                           ng-model="product.code"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="formula">Formulación</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="formula"
+                                           required
+                                           ng-model="product.formulaId"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="amount">Cantidad Equivalente</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="amount"
+                                           required
+                                           ng-model="product.amount"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="unit">Unidad Base</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="unit"
+                                           required
+                                           ng-model="product.unit"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="notes">Observaciones</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                <textarea id="notes"
+                                          rows="3"
+                                          ng-model="product.notes"
+                                          class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Materia Prima</th>
+                                <th>Cantidad</th>
+                                <th>Unidad</th>
+                                <th>Costo</th>
+                                <th>Opciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in selectedItems">
+                                <td ng-bind="x.name"></td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="x.amount">
+                                </td>
+                                <td ng-bind="x.unit"></td>
+                                <td ng-bind="x.price"></td>
+                                <td>
+                                    <button class="btn btn-xs btn-circle btn-danger">
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-success"><i class="material-icons">add</i></button>
+                    </div>
+                    <br>
+                    <button class="btn btn-primary">Crear Producto</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
