@@ -48,6 +48,7 @@ class Formula
     private $notes;
 
     /**
+     * @Assert\Valid()
      * @Type("ArrayCollection<App\Entity\FormulaDetail>")
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\FormulaDetail",

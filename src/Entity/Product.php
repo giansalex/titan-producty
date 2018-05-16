@@ -75,6 +75,7 @@ class Product
     private $formula;
 
     /**
+     * @Assert\Valid()
      * @Type("ArrayCollection<App\Entity\ProductDetail>")
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\ProductDetail",
