@@ -34,6 +34,26 @@
                 <source>security.layout.logout</source>
                 <target>Cerrar Sessión</target>
             </trans-unit>
+            <trans-unit id="page_titles_home">
+                <source>page.titles.home</source>
+                <target>Principal</target>
+            </trans-unit>
+            <trans-unit id="page_titles_material">
+                <source>page.titles.material</source>
+                <target>Materia Prima</target>
+            </trans-unit>
+            <trans-unit id="page_titles_formula">
+                <source>page.titles.formula</source>
+                <target>Formulaciones</target>
+            </trans-unit>
+            <trans-unit id="page_titles_product">
+                <source>page.titles.product</source>
+                <target>Productos</target>
+            </trans-unit>
+            <trans-unit id="page_titles_production">
+                <source>page.titles.production</source>
+                <target>Producción</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
