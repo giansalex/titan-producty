@@ -67,4 +67,17 @@ class ProductApiController extends AbstractController
 
         return new Response();
     }
+
+    /**
+     * @Route("/{id}/material", methods={"GET"}, name="product_api_material")
+     * @param int $id
+     * @param ProductRepository $repository
+     * @return JsonResponse
+     */
+    public function materials(int $id, ProductRepository $repository)
+    {
+        $items = $repository->getMaterials($id, $this->getUser());
+
+        return $this->json($items);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Formula;
 use App\Entity\Material;
 use App\Entity\Product;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -34,5 +35,21 @@ class ProductRepository extends ServiceEntityRepository
 
         $em->persist($product);
         $em->flush();
+    }
+
+
+    public function getMaterials(int $id, User $user)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('m.name, d.amount, m.unit, d.price, d.total')
+            ->leftJoin('p.details', 'd')
+            ->leftJoin('d.material', 'm')
+            ->where('f.id = ?1 AND f.user = ?2')
+            ->setParameters([
+                1 => $id,
+                2 => $user,
+            ])
+            ->getQuery()
+            ->getResult();
     }
 }
