@@ -21,9 +21,19 @@ Encore
         'sweetalert',
     ])
     .addEntry('formula-new', [
-        './assets/js/app/material/service/material',
-        './assets/js/app/formula/service/formula',
-        './assets/js/app/formula/controller/new',
+        './assets/js/app/material/material.service',
+        './assets/js/app/formula/formula.service',
+        './assets/js/app/formula/new.controller',
+    ])
+    .addEntry('product-new', [
+        './assets/js/app/formula/formula.service',
+        './assets/js/app/product/product.service',
+        './assets/js/app/product/new.controller',
+    ])
+    .addEntry('production-new', [
+        './assets/js/app/product/product.service',
+        './assets/js/app/production/production.service',
+        './assets/js/app/production/new.controller',
     ])
     // uncomment to create hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
