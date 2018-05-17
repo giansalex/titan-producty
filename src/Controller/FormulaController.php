@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Formula;
 use App\Repository\FormulaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,34 +13,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class FormulaController extends Controller
 {
     /**
-     * @Route("/", name="formula_index", methods="GET")
+     * @Route("/", name="formula_index", methods="GET", options={"expose": true})
      * @param FormulaRepository $formulaRepository
      * @return Response
      */
     public function index(FormulaRepository $formulaRepository): Response
     {
-        return $this->render('formula/index.html.twig', ['formulas' => $formulaRepository->findAll()]);
+        $items = $formulaRepository->findBy(['user' => $this->getUser()]);
+
+        return $this->render('formula/index.html.twig', ['formulas' => $items]);
     }
 
     /**
-     * @Route("/new", name="formula_new", methods="GET|POST")
+     * @Route("/new", name="formula_new", methods="GET")
      */
-    public function new(Request $request): Response
+    public function new(): Response
     {
-        $formula = new Formula();
-
-        return $this->render('formula/new.html.twig', [
-            'formula' => $formula,
-        ]);
+        return $this->render('formula/new.html.twig');
     }
 
     /**
-     * @Route("/{id}/edit", name="formula_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="formula_edit", methods="GET")
      */
-    public function edit(Request $request, Formula $formula): Response
+    public function edit(): Response
     {
-        return $this->render('formula/edit.html.twig', [
-            'formula' => $formula
-        ]);
+        return $this->render('formula/edit.html.twig');
     }
 }
