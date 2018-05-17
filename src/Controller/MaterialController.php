@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MaterialController extends Controller
 {
     /**
-     * @Route("/", name="material_index", methods="GET")
+     * @Route("/", name="material_index", methods="GET", options={"expose": true})
      * @param MaterialRepository $materialRepository
      * @return Response
      */

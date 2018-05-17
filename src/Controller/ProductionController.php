@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductionController extends Controller
 {
     /**
-     * @Route("/", name="production_index", methods="GET")
+     * @Route("/", name="production_index", methods="GET", options={"expose": true})
      * @param ProductionRepository $repository
      * @return Response
      */

@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends Controller
 {
     /**
-     * @Route("/", name="product_index", methods="GET")
+     * @Route("/", name="product_index", methods="GET", options={"expose": true})
      * @param ProductRepository $repository
      * @return Response
      */
