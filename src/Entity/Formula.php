@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\{Exclude, Type};
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -49,7 +49,7 @@ class Formula
 
     /**
      * @Assert\Valid()
-     * @Type("ArrayCollection<App\Entity\FormulaDetail>")
+     * @Serializer\Type("ArrayCollection<App\Entity\FormulaDetail>")
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\FormulaDetail",
      *     mappedBy="formula",
@@ -59,7 +59,7 @@ class Formula
     private $details;
 
     /**
-     * @Exclude()
+     * @Serializer\Exclude()
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */

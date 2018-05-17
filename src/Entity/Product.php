@@ -5,8 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -76,7 +75,7 @@ class Product
 
     /**
      * @Assert\Valid()
-     * @Type("ArrayCollection<App\Entity\ProductDetail>")
+     * @Serializer\Type("ArrayCollection<App\Entity\ProductDetail>")
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\ProductDetail",
      *     mappedBy="product",
@@ -86,7 +85,7 @@ class Product
     private $details;
 
     /**
-     * @Exclude()
+     * @Serializer\Exclude()
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
