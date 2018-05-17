@@ -67,4 +67,17 @@ class FormulaApiController extends AbstractController
 
         return new Response();
     }
+
+    /**
+     * @Route("/{id}/material", methods={"GET"}, name="formula_api_material")
+     * @param int $id
+     * @param FormulaRepository $repository
+     * @return JsonResponse
+     */
+    public function materials(int $id, FormulaRepository $repository)
+    {
+        $items = $repository->getMaterials($id, $this->getUser());
+
+        return $this->json($items);
+    }
 }

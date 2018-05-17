@@ -11,6 +11,7 @@
         return {
             add: add,
             list: list,
+            materials: materials
         };
 
         function add(formula) {
@@ -19,6 +20,10 @@
 
         function list() {
             return $http.get(Routing.generate('formula_api_list'));
+        }
+
+        function materials(id) {
+            return $http.get(Routing.generate('formula_api_material', {id: id}));
         }
     }
 })();

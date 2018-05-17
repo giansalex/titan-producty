@@ -6,7 +6,8 @@
     <div class="block-header">
         <h2>{{ 'page.titles.product'|trans }}</h2>
     </div>
-    <div class="row clearfix" ng-controller="default">
+    <div class="row clearfix" ng-controller="newProduct as vm">
+        {% include 'formula/_material_modal.html.twig' %}
         <div class="col-sm-12">
             <div class="card">
                 <div class="header">
@@ -21,7 +22,7 @@
                                     <input type="text"
                                            id="name"
                                            required
-                                           ng-model="product.name"
+                                           ng-model="vm.product.name"
                                            class="form-control">
                                 </div>
                             </div>
@@ -31,18 +32,21 @@
                                     <input type="text"
                                            id="code"
                                            required
-                                           ng-model="product.code"
+                                           ng-model="vm.product.code"
                                            class="form-control">
                                 </div>
                             </div>
                             <label for="formula">Formulación</label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text"
-                                           id="formula"
-                                           required
-                                           ng-model="product.formulaId"
-                                           class="form-control">
+                                    <select id="formula"
+                                            required
+                                            class="form-control"
+                                            ng-model="vm.product.formula_id"
+                                            ng-change="changeFormula()">
+                                        <option></option>
+                                        <option ng-repeat="f in formulas" ng-bind="f.name" ng-value="f.id"></option>
+                                    </select>
                                 </div>
                             </div>
                             <label for="amount">Cantidad Equivalente</label>
@@ -51,7 +55,7 @@
                                     <input type="text"
                                            id="amount"
                                            required
-                                           ng-model="product.amount"
+                                           ng-model="vm.product.amount"
                                            class="form-control">
                                 </div>
                             </div>
@@ -61,7 +65,7 @@
                                     <input type="text"
                                            id="unit"
                                            required
-                                           ng-model="product.unit"
+                                           ng-model="vm.product.unit"
                                            class="form-control">
                                 </div>
                             </div>
@@ -70,7 +74,7 @@
                                 <div class="form-line">
                                 <textarea id="notes"
                                           rows="3"
-                                          ng-model="product.notes"
+                                          ng-model="vm.product.notes"
                                           class="form-control"></textarea>
                                 </div>
                             </div>
@@ -89,25 +93,27 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="x in selectedItems">
+                            <tr ng-repeat="x in vm.selected">
                                 <td ng-bind="x.name"></td>
                                 <td>
-                                    <input type="text" class="form-control" ng-model="x.amount">
+                                    <input title="amount" type="text" class="form-control" ng-model="x.amount">
                                 </td>
                                 <td ng-bind="x.unit"></td>
-                                <td ng-bind="x.price"></td>
+                                <td ng-bind="x.price * x.amount"></td>
                                 <td>
-                                    <button class="btn btn-xs btn-circle btn-danger">
+                                    <button class="btn btn-xs btn-circle btn-danger" ng-click="vm.delMaterial($index)">
                                         <i class="material-icons">delete</i>
                                     </button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                        <button class="btn btn-success"><i class="material-icons">add</i></button>
+                        <button class="btn btn-success" data-target="#materialModal" data-toggle="modal">
+                            <i class="material-icons">add</i>
+                        </button>
                     </div>
                     <br>
-                    <button class="btn btn-primary">Crear Producto</button>
+                    <button class="btn btn-primary" ng-click="vm.create()">Crear Producto</button>
                 </div>
             </div>
         </div>
