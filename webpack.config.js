@@ -11,11 +11,13 @@ Encore
         'jquery',
         'bootstrap',
         'node-waves',
-        './assets/js/vendor.js'
+        './assets/js/vendor'
     ])
     .addEntry('admin', [
         'angular',
-        './assets/js/admbs.js',
+        './assets/js/admbs',
+        './assets/js/routing',
+        './assets/js/app/app.module',
         'sweetalert',
     ])
     // uncomment to create hashed filenames (e.g. app.abc123.css)
