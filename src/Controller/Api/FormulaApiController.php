@@ -24,7 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FormulaApiController extends AbstractController
 {
     /**
-     * @Route("/", methods={"POST"}, name="formulaapi_add")
+     * @Route("/", methods={"POST"}, name="formula_api_add")
      * @param Request $request
      * @param SerializerInterface $serializer
      * @param ModelStateInterface $validator

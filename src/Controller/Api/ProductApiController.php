@@ -24,7 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductApiController extends AbstractController
 {
     /**
-     * @Route("/", methods={"POST"}, name="productapi_add")
+     * @Route("/", methods={"POST"}, name="product_api_add")
      * @param Request $request
      * @param SerializerInterface $serializer
      * @param ModelStateInterface $validator
