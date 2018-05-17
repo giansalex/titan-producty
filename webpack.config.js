@@ -20,6 +20,11 @@ Encore
         './assets/js/app/app.module',
         'sweetalert',
     ])
+    .addEntry('formula-new', [
+        './assets/js/app/material/service/material',
+        './assets/js/app/formula/service/formula',
+        './assets/js/app/formula/controller/new',
+    ])
     // uncomment to create hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
 

@@ -6,7 +6,25 @@
     <div class="block-header">
         <h2>{{ 'page.titles.formula'|trans }}</h2>
     </div>
-    <div class="row clearfix" ng-controller="default">
+    <div class="row clearfix" ng-controller="newFormula as vm">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Seleccione Material</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="i in vm.materials"><a href="" ng-click="vm.addMaterial(i)" ng-bind="i.name"></a></li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-sm-12">
             <div class="card">
                 <div class="header">
@@ -21,7 +39,7 @@
                                     <input type="text"
                                            id="name"
                                            required
-                                           ng-model="formula.name"
+                                           ng-model="vm.formula.name"
                                            class="form-control">
                                 </div>
                             </div>
@@ -31,7 +49,7 @@
                                     <input type="text"
                                            id="amount"
                                            required
-                                           ng-model="formula.amount"
+                                           ng-model="vm.formula.amount"
                                            class="form-control">
                                 </div>
                             </div>
@@ -41,7 +59,7 @@
                                     <input type="text"
                                            id="unit"
                                            required
-                                           ng-model="formula.unit"
+                                           ng-model="vm.formula.unit"
                                            class="form-control">
                                 </div>
                             </div>
@@ -50,7 +68,7 @@
                                 <div class="form-line">
                                 <textarea id="notes"
                                           rows="3"
-                                          ng-model="formula.notes"
+                                          ng-model="vm.formula.notes"
                                           class="form-control"></textarea>
                                 </div>
                             </div>
@@ -69,41 +87,30 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="x in selectedItems">
+                            <tr ng-repeat="x in vm.selected">
                                 <td ng-bind="x.name"></td>
                                 <td>
                                     <input type="text" class="form-control" ng-model="x.amount">
                                 </td>
                                 <td ng-bind="x.unit"></td>
-                                <td ng-bind="x.price"></td>
+                                <td ng-bind="x.price * x.amount"></td>
                                 <td>
-                                    <button class="btn btn-xs btn-circle btn-danger">
+                                    <button class="btn btn-xs btn-circle btn-danger" ng-click="vm.delMaterial($index)">
                                         <i class="material-icons">delete</i>
                                     </button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                        <button class="btn btn-success"><i class="material-icons">add</i></button>
+                        <button class="btn btn-success" data-target="#myModal" data-toggle="modal"><i class="material-icons">add</i></button>
                     </div>
                     <br>
-                    <button class="btn btn-primary">Crear Formulación</button>
+                    <button class="btn btn-primary" ng-click="vm.create()">Crear Formulación</button>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
 {% block javascripts %}
-    <script>
-        angular.module('main')
-            .controller('default', ['$scope', function ($scope) {
-                $scope.formula = {};
-                $scope.selectedItems = [{
-                    name: 'ds',
-                    amount: 34,
-                    unit: 'NI',
-                    price: 23.45
-                }];
-            }]);
-    </script>
+    <script src="{{ asset('build/formula-new.js') }}"></script>
 {% endblock %}
