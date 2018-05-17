@@ -45,7 +45,7 @@
                                             ng-model="vm.product.formula_id"
                                             ng-change="changeFormula()">
                                         <option></option>
-                                        <option ng-repeat="f in formulas" ng-bind="f.name" ng-value="f.id"></option>
+                                        <option ng-repeat="f in vm.formulas" ng-bind="f.name" ng-value="f.id"></option>
                                     </select>
                                 </div>
                             </div>

@@ -3,7 +3,7 @@
 
     angular
         .module('app')
-        .controller('newproduction', newController);
+        .controller('newProduction', newController);
 
     newController.$inject = ['productionService', 'productService', '$window'];
     function newController($production, $product, $window) {
