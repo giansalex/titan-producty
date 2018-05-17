@@ -7,24 +7,7 @@
         <h2>{{ 'page.titles.formula'|trans }}</h2>
     </div>
     <div class="row clearfix" ng-controller="newFormula as vm">
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Seleccione Material</h4>
-                    </div>
-                    <div class="modal-body">
-                        <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="i in vm.materials"><a href="" ng-click="vm.addMaterial(i)" ng-bind="i.name"></a></li>
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% include 'formula/_material_modal.html.twig' %}
         <div class="col-sm-12">
             <div class="card">
                 <div class="header">
@@ -102,7 +85,9 @@
                             </tr>
                             </tbody>
                         </table>
-                        <button class="btn btn-success" data-target="#myModal" data-toggle="modal"><i class="material-icons">add</i></button>
+                        <button class="btn btn-success" data-target="#materialModal" data-toggle="modal">
+                            <i class="material-icons">add</i>
+                        </button>
                     </div>
                     <br>
                     <button class="btn btn-primary" ng-click="vm.create()">Crear Formulación</button>

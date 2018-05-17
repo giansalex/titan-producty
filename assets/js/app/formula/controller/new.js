@@ -28,7 +28,7 @@
         }
 
         function addMaterial(material) {
-            $('#myModal').modal('hide');
+            $('#materialModal').modal('hide');
             const detail = {
                 material_id: material.id,
                 name: material.name,
