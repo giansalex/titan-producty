@@ -90,7 +90,7 @@
                             <tr ng-repeat="x in vm.selected">
                                 <td ng-bind="x.name"></td>
                                 <td>
-                                    <input type="text" class="form-control" ng-model="x.amount">
+                                    <input title="amount" type="text" class="form-control" ng-model="x.amount">
                                 </td>
                                 <td ng-bind="x.unit"></td>
                                 <td ng-bind="x.price * x.amount"></td>
