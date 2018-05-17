@@ -22,7 +22,9 @@ class MaterialController extends Controller
      */
     public function index(MaterialRepository $materialRepository): Response
     {
-        return $this->render('material/index.html.twig', ['materials' => $materialRepository->findAll()]);
+        $items = $materialRepository->findBy(['user' => $this->getUser()]);
+
+        return $this->render('material/index.html.twig', ['materials' => $items]);
     }
 
     /**

@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,35 +14,30 @@ class ProductController extends Controller
 {
     /**
      * @Route("/", name="product_index", methods="GET")
-     * @param ProductRepository $productRepository
+     * @param ProductRepository $repository
      * @return Response
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $repository): Response
     {
-        return $this->render('product/index.html.twig', ['products' => $productRepository->findAll()]);
+        $items = $repository->findBy(['user' => $this->getUser()]);
+
+        return $this->render('product/index.html.twig', ['products' => $items]);
     }
 
     /**
-     * @Route("/new", name="product_new", methods="GET|POST")
-     * @param Request $request
+     * @Route("/new", name="product_new", methods="GET")
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(): Response
     {
-        $product = new Product();
-
-        return $this->render('product/new.html.twig', [
-            'product' => $product,
-        ]);
+        return $this->render('product/new.html.twig');
     }
 
     /**
-     * @Route("/{id}/edit", name="product_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="product_edit", methods="GET")
      */
-    public function edit(Request $request, Product $product): Response
+    public function edit(): Response
     {
-        return $this->render('product/edit.html.twig', [
-            'product' => $product,
-        ]);
+        return $this->render('product/edit.html.twig');
     }
 }
