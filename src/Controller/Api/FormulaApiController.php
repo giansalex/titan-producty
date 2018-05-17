@@ -14,6 +14,7 @@ use App\Repository\FormulaRepository;
 use App\Services\ModelStateInterface;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,6 +24,18 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class FormulaApiController extends AbstractController
 {
+    /**
+     * @Route("/", methods={"GET"}, name="formula_api_list")
+     * @param FormulaRepository $repository
+     * @return JsonResponse
+     */
+    public function list(FormulaRepository $repository): JsonResponse
+    {
+        $items = $repository->findBy(['user' => $this->getUser()]);
+
+        return $this->json($items);
+    }
+
     /**
      * @Route("/", methods={"POST"}, name="formula_api_add")
      * @param Request $request

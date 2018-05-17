@@ -2,15 +2,15 @@
 /**
  * Created by PhpStorm.
  * User: LPALQUILER-11
- * Date: 16/05/2018
- * Time: 17:00
+ * Date: 17/05/2018
+ * Time: 17:03
  */
 
 namespace App\Controller\Api;
 
-use App\Entity\Product;
+use App\Entity\Production;
 use App\Http\BadRequestResponse;
-use App\Repository\ProductRepository;
+use App\Repository\ProductionRepository;
 use App\Services\ModelStateInterface;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,16 +20,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/api/product", options={"expose": true})
+ * @Route("/api/production", options={"expose": true})
  */
-class ProductApiController extends AbstractController
+class ProductionApiController extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, name="product_api_list")
-     * @param ProductRepository $repository
+     * @Route("/", methods={"GET"}, name="production_api_list")
+     * @param ProductionRepository $repository
      * @return JsonResponse
      */
-    public function list(ProductRepository $repository): JsonResponse
+    public function list(ProductionRepository $repository): JsonResponse
     {
         $items = $repository->findBy(['user' => $this->getUser()]);
 
@@ -37,33 +37,33 @@ class ProductApiController extends AbstractController
     }
 
     /**
-     * @Route("/", methods={"POST"}, name="product_api_add")
+     * @Route("/", methods={"POST"}, name="production_api_add")
      * @param Request $request
      * @param SerializerInterface $serializer
      * @param ModelStateInterface $validator
-     * @param ProductRepository $repository
+     * @param ProductionRepository $repository
      * @return BadRequestResponse|Response
      */
     public function add(
         Request $request,
         SerializerInterface $serializer,
         ModelStateInterface $validator,
-        ProductRepository $repository)
+        ProductionRepository $repository)
     {
-        $product = $serializer->deserialize(
+        $production = $serializer->deserialize(
             $request->getContent(),
-            Product::class,
+            Production::class,
             'json'
         );
 
-        if (!$validator->valid($product)) {
+        if (!$validator->valid($production)) {
 
             return new BadRequestResponse((string) $validator);
         }
 
-        /**@var $product Product */
-        $product->setUser($this->getUser());
-        $repository->add($product);
+        /**@var $production Production */
+        $production->setUser($this->getUser());
+        $repository->add($production);
 
         return new Response();
     }

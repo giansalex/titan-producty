@@ -2,9 +2,15 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Material;
+use App\Http\BadRequestResponse;
 use App\Repository\MaterialRepository;
+use App\Services\ModelStateInterface;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -22,5 +28,38 @@ class MaterialApiController extends AbstractController
         $items = $repository->findBy(['user' => $this->getUser()]);
 
         return $this->json($items);
+    }
+
+    /**
+     * @Route("/", methods={"POST"}, name="material_api_add")
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param ModelStateInterface $validator
+     * @return BadRequestResponse|Response
+     */
+    public function add(
+        Request $request,
+        SerializerInterface $serializer,
+        ModelStateInterface $validator)
+    {
+        $product = $serializer->deserialize(
+            $request->getContent(),
+            Material::class,
+            'json'
+        );
+
+        if (!$validator->valid($product)) {
+
+            return new BadRequestResponse((string) $validator);
+        }
+
+        /**@var $product Material */
+        $product->setUser($this->getUser());
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+
+        return new Response();
     }
 }
