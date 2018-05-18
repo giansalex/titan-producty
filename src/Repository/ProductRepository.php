@@ -44,11 +44,8 @@ class ProductRepository extends ServiceEntityRepository
             ->select('m.name, d.amount, m.unit, d.price, d.total')
             ->leftJoin('p.details', 'd')
             ->leftJoin('d.material', 'm')
-            ->where('f.id = ?1 AND f.user = ?2')
-            ->setParameters([
-                1 => $id,
-                2 => $user,
-            ])
+            ->where('p.id = ?0 AND p.user = ?1')
+            ->setParameters([$id, $user])
             ->getQuery()
             ->getResult();
     }
