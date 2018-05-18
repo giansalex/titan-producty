@@ -34,7 +34,7 @@ class Material
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("float")
+     * @Assert\Type("number")
      * @ORM\Column(type="float")
      */
     private $amount;
@@ -48,21 +48,21 @@ class Material
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("float")
+     * @Assert\Type("number")
      * @ORM\Column(type="float")
      */
     private $price;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("float")
+     * @Assert\Type("number")
      * @ORM\Column(name="packing_price", type="float")
      */
     private $packingPrice;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("integer")
+     * @Assert\Type("number")
      * @ORM\Column(type="integer")
      */
     private $stock;

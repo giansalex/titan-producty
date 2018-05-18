@@ -34,21 +34,21 @@ class Production
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("float")
+     * @Assert\Type("number")
      * @ORM\Column(type="float")
      */
     private $amount;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("float")
+     * @Assert\Type("number")
      * @ORM\Column(type="float")
      */
     private $weight;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("float")
+     * @Assert\Type("number")
      * @ORM\Column(type="float")
      */
     private $price;

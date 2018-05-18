@@ -20,21 +20,21 @@ class FormulaDetail
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("float")
+     * @Assert\Type("number")
      * @ORM\Column(type="float")
      */
     private $amount;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("float")
+     * @Assert\Type("number")
      * @ORM\Column(type="float")
      */
     private $price;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("float")
+     * @Assert\Type("number")
      * @ORM\Column(type="float")
      */
     private $total;

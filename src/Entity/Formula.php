@@ -29,7 +29,7 @@ class Formula
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("float")
+     * @Assert\Type("number")
      * @ORM\Column(type="float")
      */
     private $amount;

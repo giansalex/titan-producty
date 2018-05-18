@@ -14,8 +14,8 @@
                     <h2>Crear Nueva Formulación</h2>
                 </div>
                 <div class="body">
-                    <div>
-                        <form name="frm">
+                    <form name="vm.frm" ng-submit="vm.create()">
+                        <div>
                             <label for="name">Nombre</label>
                             <div class="form-group">
                                 <div class="form-line">
@@ -55,42 +55,42 @@
                                           class="form-control"></textarea>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <br>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-condensed">
-                            <thead>
-                            <tr>
-                                <th>Materia Prima</th>
-                                <th>Cantidad</th>
-                                <th>Unidad</th>
-                                <th>Costo</th>
-                                <th>Opciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="x in vm.selected">
-                                <td ng-bind="x.name"></td>
-                                <td>
-                                    <input title="amount" type="text" class="form-control" ng-model="x.amount">
-                                </td>
-                                <td ng-bind="x.unit"></td>
-                                <td ng-bind="x.price * x.amount"></td>
-                                <td>
-                                    <button class="btn btn-xs btn-circle btn-danger" ng-click="vm.delMaterial($index)">
-                                        <i class="material-icons">delete</i>
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <button class="btn btn-success" data-target="#materialModal" data-toggle="modal">
-                            <i class="material-icons">add</i>
-                        </button>
-                    </div>
-                    <br>
-                    <button class="btn btn-primary" ng-click="vm.create()">Crear Formulación</button>
+                        </div>
+                        <br>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Materia Prima</th>
+                                    <th>Cantidad</th>
+                                    <th>Unidad</th>
+                                    <th>Costo</th>
+                                    <th>Opciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="x in vm.selected">
+                                    <td ng-bind="x.name"></td>
+                                    <td>
+                                        <input title="amount" type="text" class="form-control" ng-model="x.amount">
+                                    </td>
+                                    <td ng-bind="x.unit"></td>
+                                    <td ng-bind="x.price * x.amount"></td>
+                                    <td>
+                                        <button class="btn btn-xs btn-circle btn-danger" ng-click="vm.delMaterial($index)">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-success" data-target="#materialModal" data-toggle="modal">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </div>
+                        <br>
+                        <button class="btn btn-primary" ng-disabled="vm.frm.$invalid">Crear Formulación</button>
+                    </form>
                 </div>
             </div>
         </div>
