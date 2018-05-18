@@ -33,33 +33,35 @@ class Production
     private $state;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $amount;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $weight;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
+     * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $price;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("integer")
      * @ORM\Column(name="product_id", type="integer")
      */
     private $productId;
 
     /**
+     * @Serializer\Exclude()
      * @ORM\ManyToOne(targetEntity="App\Entity\Product")
      */
     private $product;

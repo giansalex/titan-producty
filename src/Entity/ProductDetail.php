@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,21 +19,21 @@ class ProductDetail
     private $id;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $amount;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $price;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
@@ -47,12 +47,13 @@ class ProductDetail
     private $materialId;
 
     /**
+     * @Serializer\Exclude()
      * @ORM\ManyToOne(targetEntity="App\Entity\Material")
      */
     private $material;
 
     /**
-     * @Exclude()
+     * @Serializer\Exclude()
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="details")
      */
     private $product;

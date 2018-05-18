@@ -33,7 +33,7 @@ class Material
     private $code;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
@@ -47,21 +47,21 @@ class Material
     private $unit;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
     private $price;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("float")
      * @ORM\Column(name="packing_price", type="float")
      */
     private $packingPrice;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("integer")
      * @ORM\Column(type="integer")
      */

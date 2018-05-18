@@ -28,7 +28,7 @@ class Formula
     private $name;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
@@ -49,6 +49,7 @@ class Formula
 
     /**
      * @Assert\Valid()
+     * @Assert\Count(min="1")
      * @Serializer\Type("ArrayCollection<App\Entity\FormulaDetail>")
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\FormulaDetail",

@@ -35,7 +35,7 @@ class Product
     private $code;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("float")
      * @ORM\Column(type="float")
      */
@@ -62,19 +62,21 @@ class Product
     private $baseAmount;
 
     /**
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Type("integer")
      * @ORM\Column(name="formula_id", type="integer")
      */
     private $formulaId;
 
     /**
+     * @Serializer\Exclude()
      * @ORM\ManyToOne(targetEntity="App\Entity\Formula")
      */
     private $formula;
 
     /**
      * @Assert\Valid()
+     * @Assert\Count(min="1")
      * @Serializer\Type("ArrayCollection<App\Entity\ProductDetail>")
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\ProductDetail",
