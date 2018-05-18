@@ -14,7 +14,7 @@
                     <h2>Crear Nueva Formulación</h2>
                 </div>
                 <div class="body">
-                    <form name="vm.frm" ng-submit="vm.create()">
+                    <form name="vm.frm" ng-submit="vm.create()" novalidate>
                         <div>
                             <label for="name">Nombre</label>
                             <div class="form-group">
@@ -29,7 +29,7 @@
                             <label for="amount">Cantidad Base</label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text"
+                                    <input type="number"
                                            id="amount"
                                            required
                                            ng-model="vm.formula.amount"
