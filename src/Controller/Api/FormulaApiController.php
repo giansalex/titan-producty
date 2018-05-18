@@ -69,6 +69,27 @@ class FormulaApiController extends AbstractController
     }
 
     /**
+     * @Route("/{id}", methods={"DELETE"}, name="formula_api_remove")
+     * @param int $id
+     * @param FormulaRepository $repository
+     * @return Response
+     */
+    public function remove($id, FormulaRepository $repository): Response
+    {
+        $formula = $repository->findBy(['id' => $id, 'user' => $this->getUser()]);
+
+        if (empty($formula)) {
+            $this->createNotFoundException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($formula);
+        $em->flush();
+
+        return new Response();
+    }
+
+    /**
      * @Route("/{id}/material", methods={"GET"}, name="formula_api_material")
      * @param int $id
      * @param FormulaRepository $repository
