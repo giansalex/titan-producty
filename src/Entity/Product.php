@@ -36,7 +36,7 @@ class Product
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("number")
+     * @Assert\Type("numeric")
      * @ORM\Column(type="float")
      */
     private $amount;
@@ -55,8 +55,8 @@ class Product
     private $notes;
 
     /**
-     * @Assert\NotNull()
-     * @Assert\Type("number")
+     * @Assert\NotBlank()
+     * @Assert\Type("numeric")
      * @ORM\Column(type="float")
      */
     private $baseAmount;

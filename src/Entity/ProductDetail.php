@@ -20,21 +20,21 @@ class ProductDetail
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("number")
+     * @Assert\Type("numeric")
      * @ORM\Column(type="float")
      */
     private $amount;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("number")
+     * @Assert\Type("numeric")
      * @ORM\Column(type="float")
      */
     private $price;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Type("number")
+     * @Assert\Type("numeric")
      * @ORM\Column(type="float")
      */
     private $total;
