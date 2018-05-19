@@ -18,9 +18,10 @@ RUN docker-php-ext-install pdo_mysql
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 
-ADD docker/config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+COPY docker/config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+COPY docker/config/symfony-site.conf /etc/apache2/sites-available/000-default.conf
 
-WORKDIR /var/www/html/
-VOLUME /var/www/html/
+WORKDIR /var/www/symfony/
+VOLUME /var/www/symfony/
 
 COPY . .
