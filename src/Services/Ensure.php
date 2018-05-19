@@ -6,12 +6,12 @@
  * Time: 18:18.
  */
 
-namespace AppBundle\Util;
+namespace App\Services;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Ayuda en validaciones.
+ * Validations Helper
  *
  * Class Ensure
  */

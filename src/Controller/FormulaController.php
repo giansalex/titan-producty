@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\FormulaRepository;
-use AppBundle\Util\Ensure;
+use App\Services\Ensure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
