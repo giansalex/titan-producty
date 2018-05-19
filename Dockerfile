@@ -1,6 +1,6 @@
-FROM php:7.1-fpm
-
-MAINTAINER Giancarlos Salas <giansalex@gmail.com>
+FROM php:7.1-apache
+LABEL owner="Giancarlos Salas"
+LABEL maintainer="giansalex@gmail.com"
 
 RUN apt-get update && apt-get install -y \
     openssl \
@@ -9,10 +9,6 @@ RUN apt-get update && apt-get install -y \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Composer
-RUN curl --silent --show-error -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer --version
-
 # Type docker-php-ext-install to see available extensions
 RUN docker-php-ext-install pdo_mysql
 
@@ -20,13 +16,11 @@ RUN docker-php-ext-install pdo_mysql
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 
-ADD docker/config/php.ini /usr/local/etc/php/php.ini
+ADD docker/config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
-WORKDIR /var/www/symfony
-VOLUME /var/www/symfony
+WORKDIR /var/www/html/
+VOLUME /var/www/html/
 
 COPY . .
 
-RUN echo 'alias sf="php bin/console"' >> ~/.bashrc
-
-ENTRYPOINT ["sf", "server:run"]
+ENTRYPOINT ["php", "bin/console", "server:start", "0.0.0.0:8000"]
