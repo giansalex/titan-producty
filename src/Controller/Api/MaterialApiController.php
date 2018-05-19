@@ -62,4 +62,25 @@ class MaterialApiController extends AbstractController
 
         return new Response();
     }
+
+    /**
+     * @Route("/{id}", methods={"DELETE"}, name="material_api_remove")
+     * @param int $id
+     * @param MaterialRepository $repository
+     * @return Response
+     */
+    public function remove($id, MaterialRepository $repository): Response
+    {
+        $formula = $repository->findBy(['id' => $id, 'user' => $this->getUser()]);
+
+        if (empty($formula)) {
+            $this->createNotFoundException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($formula);
+        $em->flush();
+
+        return new Response();
+    }
 }

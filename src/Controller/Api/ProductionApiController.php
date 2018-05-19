@@ -67,4 +67,25 @@ class ProductionApiController extends AbstractController
 
         return new Response();
     }
+
+    /**
+     * @Route("/{id}", methods={"DELETE"}, name="production_api_remove")
+     * @param int $id
+     * @param ProductionRepository $repository
+     * @return Response
+     */
+    public function remove($id, ProductionRepository $repository): Response
+    {
+        $formula = $repository->findBy(['id' => $id, 'user' => $this->getUser()]);
+
+        if (empty($formula)) {
+            $this->createNotFoundException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($formula);
+        $em->flush();
+
+        return new Response();
+    }
 }

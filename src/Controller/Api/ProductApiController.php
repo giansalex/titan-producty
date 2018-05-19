@@ -80,4 +80,25 @@ class ProductApiController extends AbstractController
 
         return $this->json($items);
     }
+
+    /**
+     * @Route("/{id}", methods={"DELETE"}, name="product_api_remove")
+     * @param int $id
+     * @param ProductRepository $repository
+     * @return Response
+     */
+    public function remove($id, ProductRepository $repository): Response
+    {
+        $formula = $repository->findBy(['id' => $id, 'user' => $this->getUser()]);
+
+        if (empty($formula)) {
+            $this->createNotFoundException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($formula);
+        $em->flush();
+
+        return new Response();
+    }
 }
