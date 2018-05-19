@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ProductionRepository;
+use AppBundle\Util\Ensure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,6 +33,20 @@ class ProductionController extends Controller
     {
         return $this->render('production/new.html.twig');
     }
+
+    /**
+     * @Route("/{id}", name="production_show", methods="GET")
+     */
+    public function show($id, ProductionRepository $repository, Ensure $ensure): Response
+    {
+        $production = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+        $ensure->ifNotEmpty($production);
+
+        return $this->render('production/show.html.twig', [
+            'production' => $production
+        ]);
+    }
+
 
     /**
      * @Route("/{id}/edit", name="production_edit", methods="GET")

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ProductRepository;
+use AppBundle\Util\Ensure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,6 +32,19 @@ class ProductController extends Controller
     public function new(): Response
     {
         return $this->render('product/new.html.twig');
+    }
+
+    /**
+     * @Route("/{id}", name="product_show", methods="GET")
+     */
+    public function show($id, ProductRepository $repository, Ensure $ensure): Response
+    {
+        $product = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+        $ensure->ifNotEmpty($product);
+
+        return $this->render('product/show.html.twig', [
+            'product' => $product
+        ]);
     }
 
     /**
