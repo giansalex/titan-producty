@@ -22,5 +22,3 @@ WORKDIR /var/www/html/
 VOLUME /var/www/html/
 
 COPY . .
-
-ENTRYPOINT ["php", "bin/console", "server:start", "0.0.0.0:8000"]

@@ -5,10 +5,11 @@ services:
     build: .
     ports:
       - "8000:8000"
+      - "80:80"
     depends_on:
       - db
     volumes:
-      - ./:/var/www/symfony
+      - ./:/var/www/html
     environment:
       - XDEBUG_CONFIG=remote_host=localhost
     networks:
