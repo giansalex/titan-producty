@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+RUN a2enmod rewrite
+
 # Type docker-php-ext-install to see available extensions
 RUN docker-php-ext-install pdo_mysql
 
