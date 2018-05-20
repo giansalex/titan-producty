@@ -37,8 +37,10 @@ class MapperTest extends TestCase
         $dto = $this->mapper->map($formula, FormulaDto::class);
 
         $this->assertEquals($formula->getName(), $dto->name);
-        $this->assertEquals($formula->getName(), $dto->amount);
-        $this->assertEquals($formula->getName(), $dto->unit);
-        $this->assertEquals($formula->getName(), $dto->notes);
+        $this->assertEquals($formula->getAmount(), $dto->amount);
+        $this->assertEquals($formula->getUnit(), $dto->unit);
+        $this->assertEquals($formula->getNotes(), $dto->notes);
+        $this->assertTrue(is_string($dto->name));
+        $this->assertTrue(is_float($dto->amount));
     }
 }
