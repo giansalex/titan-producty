@@ -8,9 +8,11 @@
 
 namespace App\Controller\Api;
 
+use App\Dto\ProductDto;
 use App\Entity\Product;
 use App\Http\BadRequestResponse;
 use App\Repository\ProductRepository;
+use App\Services\Mapper;
 use App\Services\ModelStateInterface;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,13 +29,15 @@ class ProductApiController extends AbstractController
     /**
      * @Route("/", methods={"GET"}, name="product_api_list")
      * @param ProductRepository $repository
+     * @param Mapper $mapper
      * @return JsonResponse
      */
-    public function list(ProductRepository $repository): JsonResponse
+    public function list(ProductRepository $repository, Mapper $mapper): JsonResponse
     {
         $items = $repository->findBy(['user' => $this->getUser()]);
+        $dtos = $mapper->mapArray($items, ProductDto::class);
 
-        return $this->json($items);
+        return $this->json($dtos);
     }
 
     /**

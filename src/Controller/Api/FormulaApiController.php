@@ -8,9 +8,11 @@
 
 namespace App\Controller\Api;
 
+use App\Dto\FormulaDto;
 use App\Entity\Formula;
 use App\Http\BadRequestResponse;
 use App\Repository\FormulaRepository;
+use App\Services\Mapper;
 use App\Services\ModelStateInterface;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,13 +29,15 @@ class FormulaApiController extends AbstractController
     /**
      * @Route("/", methods={"GET"}, name="formula_api_list")
      * @param FormulaRepository $repository
+     * @param Mapper $mapper
      * @return JsonResponse
      */
-    public function list(FormulaRepository $repository): JsonResponse
+    public function list(FormulaRepository $repository, Mapper $mapper): JsonResponse
     {
         $items = $repository->findBy(['user' => $this->getUser()]);
+        $dtos = $mapper->mapArray($items, FormulaDto::class);
 
-        return $this->json($items);
+        return $this->json($dtos);
     }
 
     /**
