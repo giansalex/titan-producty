@@ -1,22 +1,89 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Material{% endblock %}
+{% block title %}Nueva Materia Prima{% endblock %}
 
 {% block body %}
     <div class="block-header">
-        <h2>Materia Prima</h2>
+        <h2>{{ 'page.titles.material'|trans }}</h2>
     </div>
-    <div class="row clearfix">
+    <div class="row clearfix" ng-controller="newMaterial as vm">
         <div class="col-sm-12">
             <div class="card">
                 <div class="header">
-                    <h2>Crear Nuevo</h2>
+                    <h2>Crear Nueva Materia Prima</h2>
                 </div>
                 <div class="body">
-                    {{ include('material/_form.html.twig') }}
+                    <form name="vm.frm" ng-submit="vm.create()" novalidate>
+                        <div>
+                            <label for="name">Nombre</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="name"
+                                           required
+                                           ng-model="vm.material.name"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="code">Código</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="code"
+                                           required
+                                           ng-model="vm.material.code"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="amount">Cantidad por Presentación</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="number"
+                                           id="amount"
+                                           required
+                                           ng-model="vm.material.amount"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="unit">Unidad Base</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="unit"
+                                           required
+                                           ng-model="vm.material.unit"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="packing_price">Costo por Presentación</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="number"
+                                           id="packing_price"
+                                           required
+                                           ng-model="vm.material.packing_price"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="price">Costo Unitario</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="number"
+                                           id="price"
+                                           required
+                                           ng-model="vm.material.price"
+                                           class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <button class="btn btn-primary" ng-disabled="vm.frm.$invalid">Crear Materia Prima</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <a href="{{ path('material_index') }}">back to list</a>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/material-new.js') }}"></script>
 {% endblock %}
