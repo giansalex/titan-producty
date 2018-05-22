@@ -14,6 +14,7 @@
                 </div>
                 <div class="body">
                     <form name="vm.frm" ng-submit="vm.create()" novalidate>
+                        <h2 class="card-inside-title">Información de la Materia Prima</h2>
                         <div>
                             <label for="name">Nombre</label>
                             <div class="form-group">
@@ -74,6 +75,20 @@
                                            ng-model="vm.material.price"
                                            class="form-control">
                                 </div>
+                            </div>
+                        </div>
+                        <h2 class="card-inside-title">Información del Inventario</h2>
+                        <div>
+                            <label for="stock">Cantidad Inicial</label>
+                            <div class="input-group">
+                                <div class="form-line">
+                                    <input type="number"
+                                           id="stock"
+                                           required
+                                           ng-model="vm.material.stock"
+                                           class="form-control">
+                                </div>
+                                <span class="input-group-addon" ng-bind="vm.material.unit"></span>
                             </div>
                         </div>
                         <br>

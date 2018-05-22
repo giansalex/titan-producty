@@ -20,6 +20,10 @@ Encore
         './assets/js/app/app.module',
         'sweetalert',
     ])
+    .addEntry('material-new', [
+        './assets/js/app/material/material.service',
+        './assets/js/app/material/new.controller',
+    ])
     .addEntry('formula-new', [
         './assets/js/app/material/material.service',
         './assets/js/app/formula/formula.service',
