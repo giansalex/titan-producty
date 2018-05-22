@@ -13,7 +13,7 @@
                     <h2>Lista</h2>
                     <ul class="header-dropdown m-r--5">
                         <li>
-                            <a href="{{ path('material_new') }}">
+                            <a href="{{ path('material_new') }}" title="Agregar">
                                 <i class="material-icons">add</i>
                             </a>
                         </li>
@@ -24,14 +24,12 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th>Amount</th>
-                            <th>Unit</th>
-                            <th>Price</th>
-                            <th>PackingPrice</th>
-                            <th>Stock</th>
-                            <th>acciones</th>
+                            <th>Nombre</th>
+                            <th>Código</th>
+                            <th>Cantidad</th>
+                            <th>Unidad</th>
+                            <th>Costo Unitario</th>
+                            <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -43,16 +41,20 @@
                                 <td>{{ material.amount }}</td>
                                 <td>{{ material.unit }}</td>
                                 <td>{{ material.price }}</td>
-                                <td>{{ material.packingPrice }}</td>
-                                <td>{{ material.stock }}</td>
                                 <td>
-                                    <a href="{{ path('material_show', {'id': material.id}) }}">show</a>
-                                    <a href="{{ path('material_edit', {'id': material.id}) }}">edit</a>
+                                    <a href="{{ path('material_show', {'id': material.id}) }}"
+                                       class="waves-effect">
+                                        <i class="material-icons">arrow_forward_ios</i>
+                                    </a>
+                                    <a href="{{ path('material_edit', {'id': material.id}) }}"
+                                       class="waves-effect">
+                                        <i class="material-icons">edit</i>
+                                    </a>
                                 </td>
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="9">no records found</td>
+                                <td colspan="7">No fueron encontrados registros</td>
                             </tr>
                         {% endfor %}
                         </tbody>
