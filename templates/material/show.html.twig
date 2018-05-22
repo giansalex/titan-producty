@@ -1,50 +1,81 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Material{% endblock %}
+{% block title %} {{ material.name }}{% endblock %}
 
 {% block body %}
-    <h1>Material</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ material.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ material.name }}</td>
-            </tr>
-            <tr>
-                <th>Code</th>
-                <td>{{ material.code }}</td>
-            </tr>
-            <tr>
-                <th>Amount</th>
-                <td>{{ material.amount }}</td>
-            </tr>
-            <tr>
-                <th>Unit</th>
-                <td>{{ material.unit }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ material.price }}</td>
-            </tr>
-            <tr>
-                <th>PackingPrice</th>
-                <td>{{ material.packingPrice }}</td>
-            </tr>
-            <tr>
-                <th>Stock</th>
-                <td>{{ material.stock }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('material_index') }}">back to list</a>
-
-    <a href="{{ path('material_edit', {'id': material.id}) }}">edit</a>
-
+    <div class="block-header">
+        <h2>{{ 'page.titles.material'|trans }}</h2>
+    </div>
+    <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>{{ material.name }}</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li>
+                            <a href="{{ path('material_edit', {'id': material.id}) }}" title="Editar">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"
+                               onclick="remove()"
+                               class="text-danger"
+                               title="Eliminar">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <table class="table table-condensed">
+                        <tbody>
+                        <tr>
+                            <th class="col-xs-6">Name</th>
+                            <td>{{ material.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Código</th>
+                            <td>{{ material.code }}</td>
+                        </tr>
+                        <tr>
+                            <th>Cantidad por Presentación</th>
+                            <td>{{ material.amount }}</td>
+                        </tr>
+                        <tr>
+                            <th>Unidad</th>
+                            <td>{{ material.unit }}</td>
+                        </tr>
+                        <tr>
+                            <th>Costo por Presentación</th>
+                            <td>{{ material.packingPrice }}</td>
+                        </tr>
+                        <tr>
+                            <th>Costo Unitario</th>
+                            <td>{{ material.price }}</td>
+                        </tr>
+                        <tr>
+                            <th>Stock</th>
+                            <td>{{ material.stock }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     {{ include('material/_delete_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function remove() {
+            var result = confirm('Are you sure you want to delete this item?');
+
+            if (!result) {
+                return;
+            }
+
+            document.getElementById('frmDelete').submit();
+        }
+    </script>
 {% endblock %}
