@@ -1,16 +1,16 @@
-version: '3.1'
+version: '3'
 
 services:
   web:
     build: .
     ports:
-      - "8000:80"
+      - "8000:8000"
     depends_on:
       - db
     volumes:
       - ./:/var/www/symfony
     extra_hosts:
-      - "idedockerhost:192.168.0.12"
+      - "idedockerhost:192.168.99.1"
     networks:
       - backend
 
