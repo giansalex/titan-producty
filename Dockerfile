@@ -1,19 +1,22 @@
-FROM php:7.1.17-cli
+FROM php:7.1-alpine
 LABEL owner="Giancarlos Salas"
 LABEL maintainer="giansalex@gmail.com"
 
-RUN apt-get update && apt-get install -y \
+RUN apk update && apk add --no-cache \
     openssl \
     git \
-    unzip && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    unzip
 
-# Type docker-php-ext-install to see available extensions
+RUN apk add --no-cache --virtual .build-deps \
+    $PHPIZE_DEPS && \
+    pecl install xdebug && \
+    apk del .build-deps && \
+    rm -rf /var/cache/apk/*
+
+# Install Composer
+RUN curl --silent --show-error -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 RUN docker-php-ext-install pdo pdo_mysql
-
-# install xdebug
-RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 
 COPY docker/config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
