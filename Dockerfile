@@ -5,7 +5,8 @@ LABEL maintainer="giansalex@gmail.com"
 RUN apk update && apk add --no-cache \
     openssl \
     git \
-    unzip
+    unzip \
+    nodejs
 
 RUN apk add --no-cache --virtual .build-deps \
     $PHPIZE_DEPS && \
@@ -16,7 +17,7 @@ RUN apk add --no-cache --virtual .build-deps \
 # Install Composer
 RUN curl --silent --show-error -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-enable xdebug
 
 COPY docker/config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
@@ -26,5 +27,7 @@ VOLUME /var/www/symfony/
 
 COPY . .
 
+#RUN composer install && composer run routing && npm i && npm run dev
 EXPOSE 8000
+
 ENTRYPOINT ["php", "bin/console", "server:run", "0.0.0.0:8000"]
