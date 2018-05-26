@@ -66,7 +66,7 @@ class MaterialApiController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", methods={"PUT"}, name="material_api_update")
+     * @Route("/{id}", methods={"PUT"}, name="material_api_edit")
      * @param int $id
      * @param Request $request
      * @param SerializerInterface $serializer
