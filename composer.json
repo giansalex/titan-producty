@@ -71,7 +71,9 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "routing" : "php bin/console fos:js-routing:dump --format=json --target=public/js/fos_js_routes.json"
+        "routing" : "php bin/console fos:js-routing:dump --format=json --target=public/js/fos_js_routes.json",
+        "fixtures" : "php bin/console doctrine:fixtures:load",
+        "up-db" : "php bin/console doctrine:schema:update --force --dump-sql "
     },
     "conflict": {
         "symfony/symfony": "*"
