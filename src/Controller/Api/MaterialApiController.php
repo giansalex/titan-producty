@@ -44,22 +44,22 @@ class MaterialApiController extends AbstractController
         SerializerInterface $serializer,
         ModelStateInterface $validator)
     {
-        $product = $serializer->deserialize(
+        $material = $serializer->deserialize(
             $request->getContent(),
             Material::class,
             'json'
         );
 
-        if (!$validator->valid($product)) {
+        if (!$validator->valid($material)) {
 
             return new BadRequestResponse((string) $validator);
         }
 
-        /**@var $product Material */
-        $product->setUser($this->getUser());
+        /**@var $material Material */
+        $material->setUser($this->getUser());
 
         $em = $this->getDoctrine()->getManager();
-        $em->persist($product);
+        $em->persist($material);
         $em->flush();
 
         return new Response();
@@ -112,18 +112,16 @@ class MaterialApiController extends AbstractController
      * @Route("/{id}", methods={"DELETE"}, name="material_api_remove")
      * @param int $id
      * @param MaterialRepository $repository
+     * @param Ensure $ensure
      * @return Response
      */
-    public function remove($id, MaterialRepository $repository): Response
+    public function remove($id, MaterialRepository $repository, Ensure $ensure): Response
     {
-        $formula = $repository->findBy(['id' => $id, 'user' => $this->getUser()]);
-
-        if (empty($formula)) {
-            $this->createNotFoundException();
-        }
+        $material = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+        $ensure->ifNotEmpty($material);
 
         $em = $this->getDoctrine()->getManager();
-        $em->remove($formula);
+        $em->remove($material);
         $em->flush();
 
         return new Response();
