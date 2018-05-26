@@ -18,7 +18,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)"
+                            <a href="#"
+                               type="button"
                                onclick="remove()"
                                class="text-danger"
                                title="Eliminar">
@@ -69,13 +70,20 @@
 {% block javascripts %}
     <script>
         function remove() {
-            var result = confirm('Are you sure you want to delete this item?');
-
-            if (!result) {
-                return;
-            }
-
-            document.getElementById('frmDelete').submit();
+            swal({
+                title: "Estas Seguro?",
+                text: "Tú no podras revertir esta acción!",
+                icon: "warning",
+                dangerMode: true,
+                buttons: {
+                    cancel: true,
+                    confirm: true,
+                },
+            }).then(willDelete => {
+                    if (willDelete) {
+                        document.getElementById('frmDelete').submit();
+                    }
+                });
         }
     </script>
 {% endblock %}
