@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editar {{ material.name }}{% endblock %}
+{% block title %}Editar Materia Prima{% endblock %}
 
 {% block body %}
     <div class="block-header">
         <h2>{{ 'page.titles.material'|trans }}</h2>
     </div>
-    <div class="row clearfix" ng-controller="newMaterial as vm">
+    <div class="row clearfix" ng-controller="newMaterial as vm" ng-init="vm.get('{{ id }}')">
         <div class="col-sm-12">
             <div class="card">
                 <div class="header">
-                    <h2>Editar {{ material.name }}</h2>
+                    <h2>Editar <span ng-bind="vm.material.name"></span></h2>
                 </div>
                 <div class="body">
-                    <form name="vm.frm" ng-submit="vm.create()" novalidate>
+                    <form name="vm.frm" ng-submit="vm.edit('{{ id }}')" novalidate>
                         <h2 class="card-inside-title">Información de la Materia Prima</h2>
                         <div>
                             <label for="name">Nombre</label>
@@ -23,7 +23,6 @@
                                            id="name"
                                            required
                                            ng-model="vm.material.name"
-                                           ng-value="'{{ material.name }}'"
                                            class="form-control">
                                 </div>
                             </div>
@@ -93,7 +92,7 @@
                             </div>
                         </div>
                         <br>
-                        <button class="btn btn-primary" ng-disabled="vm.frm.$invalid">Crear Materia Prima</button>
+                        <button class="btn btn-primary" ng-disabled="vm.frm.$invalid">Guardar</button>
                     </form>
                 </div>
             </div>
