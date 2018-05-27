@@ -37,6 +37,19 @@ class ProductionApiController extends AbstractController
     }
 
     /**
+     * @Route("/{id}", methods={"GET"}, name="production_api_get")
+     * @param int $id
+     * @param ProductionRepository $repository
+     * @return JsonResponse
+     */
+    public function getItem($id, ProductionRepository $repository)
+    {
+        $production = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+
+        return $this->json($production);
+    }
+
+    /**
      * @Route("/", methods={"POST"}, name="production_api_add")
      * @param Request $request
      * @param SerializerInterface $serializer

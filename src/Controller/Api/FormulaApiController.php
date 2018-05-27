@@ -41,6 +41,21 @@ class FormulaApiController extends AbstractController
     }
 
     /**
+     * @Route("/{id}", methods={"GET"}, name="formula_api_get")
+     * @param int $id
+     * @param FormulaRepository $repository
+     * @param Mapper $mapper
+     * @return JsonResponse
+     */
+    public function getItem($id, FormulaRepository $repository, Mapper $mapper)
+    {
+        $formula = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+        $dto = $mapper->map($formula, FormulaDto::class);
+
+        return $this->json($dto);
+    }
+
+    /**
      * @Route("/", methods={"POST"}, name="formula_api_add")
      * @param Request $request
      * @param SerializerInterface $serializer

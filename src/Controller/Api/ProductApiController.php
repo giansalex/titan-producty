@@ -41,6 +41,21 @@ class ProductApiController extends AbstractController
     }
 
     /**
+     * @Route("/{id}", methods={"GET"}, name="product_api_get")
+     * @param int $id
+     * @param ProductRepository $repository
+     * @param Mapper $mapper
+     * @return JsonResponse
+     */
+    public function getItem($id, ProductRepository $repository, Mapper $mapper)
+    {
+        $product = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+        $dto = $mapper->map($product, ProductDto::class);
+
+        return $this->json($dto);
+    }
+
+    /**
      * @Route("/", methods={"POST"}, name="product_api_add")
      * @param Request $request
      * @param SerializerInterface $serializer
