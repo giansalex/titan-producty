@@ -32,13 +32,12 @@ class Mapper
      *
      * @param object $source
      * @param object $target
-     * @return mixed
      */
     public function mapToObject($source, $target)
     {
         $properties = $this->getProperties(get_class($target));
 
-        return $this->applyObject($source, $target, $properties);
+        $this->applyObject($source, $target, $properties);
     }
 
     /**
@@ -64,7 +63,9 @@ class Mapper
     {
         $obj = new $targetClass();
 
-        return $this->applyObject($sourceObject, $obj, $properties);
+        $this->applyObject($sourceObject, $obj, $properties);
+
+        return $obj;
     }
 
     private function applyObject($source, $target, $properties)
@@ -73,8 +74,6 @@ class Mapper
             $value = $this->getProperty($source, $prop);
             $this->setValue($target, $prop, $value);
         }
-
-        return $target;
     }
 
     private function getProperty($target, $property)
