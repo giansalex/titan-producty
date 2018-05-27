@@ -24,11 +24,10 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Amount</th>
-                            <th>Unit</th>
-                            <th>Notes</th>
-                            <th>acciones</th>
+                            <th>Nombre</th>
+                            <th>Cantidad Base</th>
+                            <th>Unidad Base</th>
+                            <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -38,14 +37,20 @@
                                 <td>{{ formula.name }}</td>
                                 <td>{{ formula.amount }}</td>
                                 <td>{{ formula.unit }}</td>
-                                <td>{{ formula.notes }}</td>
                                 <td>
-                                    <a href="{{ path('formula_edit', {'id': formula.id}) }}">editar</a>
+                                    <a href="{{ path('formula_show', {'id': formula.id}) }}"
+                                       class="waves-effect">
+                                        <i class="material-icons">visibility</i>
+                                    </a>
+                                    <a href="{{ path('formula_edit', {'id': formula.id}) }}"
+                                       class="waves-effect">
+                                        <i class="material-icons">edit</i>
+                                    </a>
                                 </td>
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="6">No se encontraron registros</td>
+                                <td colspan="5">No se encontraron registros</td>
                             </tr>
                         {% endfor %}
                         </tbody>
