@@ -6,8 +6,8 @@ use App\Entity\Material;
 use App\Http\BadRequestResponse;
 use App\Repository\MaterialRepository;
 use App\Services\Ensure;
+use App\Services\Mapper;
 use App\Services\ModelStateInterface;
-use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,6 +33,19 @@ class MaterialApiController extends AbstractController
     }
 
     /**
+     * @Route("/{id}", methods={"GET"}, name="material_api_get")
+     * @param int $id
+     * @param MaterialRepository $repository
+     * @return JsonResponse
+     */
+    public function getItem($id, MaterialRepository $repository)
+    {
+        $material = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+
+        return $this->json($material);
+    }
+
+    /**
      * @Route("/", methods={"POST"}, name="material_api_add")
      * @param Request $request
      * @param SerializerInterface $serializer
@@ -44,11 +57,7 @@ class MaterialApiController extends AbstractController
         SerializerInterface $serializer,
         ModelStateInterface $validator)
     {
-        $material = $serializer->deserialize(
-            $request->getContent(),
-            Material::class,
-            'json'
-        );
+        $material = $this->getMaterial($request, $serializer);
 
         if (!$validator->valid($material)) {
 
@@ -72,6 +81,7 @@ class MaterialApiController extends AbstractController
      * @param SerializerInterface $serializer
      * @param ModelStateInterface $validator
      * @param MaterialRepository $repository
+     * @param Mapper $mapper
      * @param Ensure $ensure
      * @return BadRequestResponse|Response
      */
@@ -81,20 +91,14 @@ class MaterialApiController extends AbstractController
         SerializerInterface $serializer,
         ModelStateInterface $validator,
         MaterialRepository $repository,
+        Mapper $mapper,
         Ensure $ensure)
     {
         $material = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
         $ensure->ifNotEmpty($material);
 
-        $context = new DeserializationContext();
-        $context->attributes->set('target', $material);
-
-        $serializer->deserialize(
-            $request->getContent(),
-            Material::class,
-            'json',
-            $context
-        );
+        $newMaterial = $this->getMaterial($request, $serializer);
+        $mapper->mapToObject($newMaterial, $material);
 
         if (!$validator->valid($material)) {
 
@@ -102,7 +106,6 @@ class MaterialApiController extends AbstractController
         }
 
         $em = $this->getDoctrine()->getManager();
-        $em->persist($material);
         $em->flush();
 
         return new Response();
@@ -125,5 +128,20 @@ class MaterialApiController extends AbstractController
         $em->flush();
 
         return new Response();
+    }
+
+    /**
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @return object
+     */
+    private function getMaterial(Request $request, SerializerInterface $serializer)
+    {
+        $material = $serializer->deserialize(
+            $request->getContent(),
+            Material::class,
+            'json'
+        );
+        return $material;
     }
 }

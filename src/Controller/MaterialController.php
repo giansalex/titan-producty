@@ -46,9 +46,9 @@ class MaterialController extends Controller
     /**
      * @Route("/{id}/edit", name="material_edit", methods="GET|POST")
      */
-    public function edit(Material $material): Response
+    public function edit($id): Response
     {
-        return $this->render('material/edit.html.twig', ['material' => $material]);
+        return $this->render('material/edit.html.twig', ['id' => $id]);
     }
 
     /**
