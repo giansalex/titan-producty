@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Material;
-use App\Form\MaterialType;
 use App\Repository\MaterialRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,28 +28,11 @@ class MaterialController extends Controller
 
     /**
      * @Route("/new", name="material_new", methods="GET|POST")
-     * @param Request $request
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(): Response
     {
-        $material = new Material();
-        $form = $this->createForm(MaterialType::class, $material);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $material->setUser($this->getUser());
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($material);
-            $em->flush();
-
-            return $this->redirectToRoute('material_index');
-        }
-
-        return $this->render('material/new.html.twig', [
-            'material' => $material,
-            'form' => $form->createView(),
-        ]);
+        return $this->render('material/new.html.twig');
     }
 
     /**
@@ -64,21 +46,9 @@ class MaterialController extends Controller
     /**
      * @Route("/{id}/edit", name="material_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Material $material): Response
+    public function edit(Material $material): Response
     {
-        $form = $this->createForm(MaterialType::class, $material);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('material_edit', ['id' => $material->getId()]);
-        }
-
-        return $this->render('material/edit.html.twig', [
-            'material' => $material,
-            'form' => $form->createView(),
-        ]);
+        return $this->render('material/edit.html.twig', ['material' => $material]);
     }
 
     /**
