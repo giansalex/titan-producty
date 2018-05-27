@@ -83,16 +83,19 @@ class MapperTest extends TestCase
             ->setName($gen->text)
             ->setAmount($gen->randomFloat())
             ->setUnit($gen->text)
-            ->setNotes($gen->text)
+            ->setNotes($gen->text);
+
+        $other = new Formula();
+        $other
             ->addDetail(new FormulaDetail());
 
         /**@var $other Formula */
-        $other = $this->mapper->mapToObject($formula, $formula);
+        $this->mapper->mapToObject($formula, $other);
         $this->assertEquals($formula->getName(), $other->getName());
         $this->assertEquals($formula->getAmount(), $other->getAmount());
         $this->assertEquals($formula->getUnit(), $other->getUnit());
         $this->assertEquals($formula->getNotes(), $other->getNotes());
-        $this->assertEquals(1, count($formula->getDetails()));
+        $this->assertEquals(1, count($other->getDetails()));
     }
 
     public function testMapArray(): void
