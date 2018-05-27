@@ -1,0 +1,6 @@
+<form method="post"
+      id="frmDelete"
+      action="{{ path('formula_delete', {'id': formula.id}) }}">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ formula.id) }}">
+</form>

@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Formula;
 use App\Repository\FormulaRepository;
 use App\Services\Ensure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -49,8 +51,22 @@ class FormulaController extends Controller
     /**
      * @Route("/{id}/edit", name="formula_edit", methods="GET")
      */
-    public function edit(): Response
+    public function edit($id): Response
     {
-        return $this->render('formula/edit.html.twig');
+        return $this->render('formula/edit.html.twig', ['id' => $id]);
+    }
+
+    /**
+     * @Route("/{id}", name="formula_delete", methods="DELETE")
+     */
+    public function delete(Request $request, Formula $formula): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$formula->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($formula);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('formula_index');
     }
 }
