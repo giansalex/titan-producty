@@ -10,6 +10,7 @@ namespace App\Tests\Services;
 
 use App\Dto\FormulaDto;
 use App\Entity\Formula;
+use App\Entity\FormulaDetail;
 use App\Services\Mapper;
 use Faker\Factory;
 use Faker\Generator;
@@ -52,6 +53,46 @@ class MapperTest extends TestCase
         $this->assertEquals($formula->getNotes(), $dto->notes);
         $this->assertTrue(is_string($dto->name));
         $this->assertTrue(is_float($dto->amount));
+    }
+
+    public function testMapSetterObject()
+    {
+        $gen = $this->faker;
+
+        $formula = new Formula();
+        $formula
+            ->setName($gen->text)
+            ->setAmount($gen->randomFloat())
+            ->setUnit($gen->text)
+            ->setNotes($gen->text);
+
+        /**@var $other Formula */
+        $other = $this->mapper->map($formula, Formula::class);
+        $this->assertEquals($formula->getName(), $other->getName());
+        $this->assertEquals($formula->getAmount(), $other->getAmount());
+        $this->assertEquals($formula->getUnit(), $other->getUnit());
+        $this->assertEquals($formula->getNotes(), $other->getNotes());
+    }
+
+    public function testMapExistingObject()
+    {
+        $gen = $this->faker;
+
+        $formula = new Formula();
+        $formula
+            ->setName($gen->text)
+            ->setAmount($gen->randomFloat())
+            ->setUnit($gen->text)
+            ->setNotes($gen->text)
+            ->addDetail(new FormulaDetail());
+
+        /**@var $other Formula */
+        $other = $this->mapper->mapToObject($formula, $formula);
+        $this->assertEquals($formula->getName(), $other->getName());
+        $this->assertEquals($formula->getAmount(), $other->getAmount());
+        $this->assertEquals($formula->getUnit(), $other->getUnit());
+        $this->assertEquals($formula->getNotes(), $other->getNotes());
+        $this->assertEquals(1, count($formula->getDetails()));
     }
 
     public function testMapArray(): void
