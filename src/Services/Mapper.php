@@ -85,6 +85,10 @@ class Mapper
 
     private function setValue($target, $property, $value): void
     {
+        if (is_null($value)) {
+            return;
+        }
+
         if (property_exists($target, $property)) {
             $target->{$property} = $value;
             return;
