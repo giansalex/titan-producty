@@ -13,26 +13,99 @@ namespace App\Services;
  */
 class Mapper
 {
-    public function map($object, $class)
+    /**
+     * Map to object from class.
+     *
+     * @param object $object
+     * @param string $class
+     * @return mixed
+     */
+    public function map($object, string $class)
     {
         $properties = $this->getProperties($class);
 
-        return $this->mapObject($object, $class, $properties);
+        return $this->mapNewObject($object, $class, $properties);
     }
 
-    public function mapArray($collection, $class)
+    /**
+     * Map to existing object.
+     *
+     * @param object $source
+     * @param object $target
+     * @return mixed
+     */
+    public function mapToObject($source, $target)
     {
-        $properties = iterator_to_array($this->getProperties($class));
+        $properties = $this->getProperties(get_class($target));
+
+        return $this->applyObject($source, $target, $properties);
+    }
+
+    /**
+     * Map to array objects from class.
+     *
+     * @param $collection
+     * @param string $class
+     * @return array
+     */
+    public function mapArray($collection, string $class)
+    {
+        $properties = $this->getProperties($class);
         $items = [];
 
         foreach ($collection as $object) {
-            $items[] = $this->mapObject($object, $class, $properties);
+            $items[] = $this->mapNewObject($object, $class, $properties);
         }
 
         return $items;
     }
 
+    private function mapNewObject($sourceObject, $targetClass, $properties)
+    {
+        $obj = new $targetClass();
+
+        return $this->applyObject($sourceObject, $obj, $properties);
+    }
+
+    private function applyObject($source, $target, $properties)
+    {
+        foreach ($properties as $prop) {
+            $value = $this->getProperty($source, $prop);
+            $this->setValue($target, $prop, $value);
+        }
+
+        return $target;
+    }
+
+    private function getProperty($target, $property)
+    {
+        $method = 'get'.$property;
+
+         return call_user_func([$target, $method]);
+    }
+
+    private function setValue($target, $property, $value): void
+    {
+        if (property_exists($target, $property)) {
+            $target->{$property} = $value;
+            return;
+        }
+
+        $method = 'set'.$property;
+        if (method_exists($target, $method)) {
+            call_user_func_array([$target, $method], [$value]);
+        }
+    }
+
     private function getProperties($class)
+    {
+        $fields = $this->getFields($class);
+        $setters = $this->getSetters($class);
+
+        return array_merge(iterator_to_array($fields), iterator_to_array($setters));
+    }
+
+    private function getFields($class)
     {
         $object = new $class();
         $props = get_object_vars($object);
@@ -42,20 +115,14 @@ class Mapper
         }
     }
 
-    private function mapObject($sourceObject, $targetClass, $properties)
+    private function getSetters($class)
     {
-        $obj = new $targetClass();
-        foreach ($properties as $prop) {
-            $obj->{$prop} = $this->getProperty($sourceObject, $prop);
+        $methods = get_class_methods($class);
+
+        foreach ($methods as $method) {
+            if (substr($method, 0, 3) === 'set') {
+                yield substr($method, 3);
+            }
         }
-
-        return $obj;
-    }
-
-    private function getProperty($target, $property)
-    {
-        $method = 'get'.$property;
-
-         return call_user_func([$target, $method]);
     }
 }
