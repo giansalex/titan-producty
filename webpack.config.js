@@ -18,14 +18,13 @@ Encore
         './assets/js/admbs',
         './assets/js/routing',
         './assets/js/app/app.module',
+        './assets/js/app/material/material.service',
         'sweetalert',
     ])
     .addEntry('material-new', [
-        './assets/js/app/material/material.service',
         './assets/js/app/material/new.controller',
     ])
     .addEntry('formula-new', [
-        './assets/js/app/material/material.service',
         './assets/js/app/formula/formula.service',
         './assets/js/app/formula/new.controller',
     ])
