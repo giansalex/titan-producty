@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Productos{% endblock %}
+{% block title %}{{ 'page.titles.product'|trans }}{% endblock %}
 
 {% block body %}
     <div class="block-header">
@@ -24,12 +24,10 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th>Amount</th>
-                            <th>Unit</th>
-                            <th>Notes</th>
-                            <th>BaseAmount</th>
+                            <th>Nombre</th>
+                            <th>Código</th>
+                            <th>Unidad</th>
+                            <th>Cantidad</th>
                             <th>acciones</th>
                         </tr>
                         </thead>
@@ -39,12 +37,17 @@
                                 <td>{{ loop.index }}</td>
                                 <td>{{ product.name }}</td>
                                 <td>{{ product.code }}</td>
-                                <td>{{ product.amount }}</td>
                                 <td>{{ product.unit }}</td>
-                                <td>{{ product.notes }}</td>
-                                <td>{{ product.baseAmount }}</td>
+                                <td>{{ product.amount }}</td>
                                 <td>
-                                    <a href="{{ path('product_edit', {'id': product.id}) }}">editar</a>
+                                    <a href="{{ path('product_show', {'id': product.id}) }}"
+                                       class="waves-effect">
+                                        <i class="material-icons">visibility</i>
+                                    </a>
+                                    <a href="{{ path('product_edit', {'id': product.id}) }}"
+                                       class="waves-effect">
+                                        <i class="material-icons">edit</i>
+                                    </a>
                                 </td>
                             </tr>
                         {% else %}
