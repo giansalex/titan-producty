@@ -52,9 +52,9 @@ class ProductController extends Controller
     /**
      * @Route("/{id}/edit", name="product_edit", methods="GET")
      */
-    public function edit(): Response
+    public function edit($id): Response
     {
-        return $this->render('product/edit.html.twig');
+        return $this->render('product/edit.html.twig', ['id' => $id]);
     }
 
     /**

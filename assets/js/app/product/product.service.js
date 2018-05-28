@@ -10,12 +10,22 @@
     function productService($http) {
         return {
             add: add,
+            get: get,
+            edit: edit,
             list: list,
             materials: materials,
         };
 
         function add(product) {
             return $http.post(Routing.generate('product_api_add'), product);
+        }
+
+        function get(id) {
+            return $http.get(Routing.generate('product_api_get', {id: id}));
+        }
+
+        function edit(id, product) {
+            return $http.put(Routing.generate('product_api_edit', {id: id}), product);
         }
 
         function list() {

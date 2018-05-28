@@ -3,5 +3,134 @@
 {% block title %}Editar Producto{% endblock %}
 
 {% block body %}
-    <h1>Edit Product</h1>
+    <div class="block-header">
+        <h2>{{ 'page.titles.product'|trans }}</h2>
+    </div>
+    <div class="row clearfix" ng-controller="newProduct as vm" ng-init="vm.get('{{ id }}')">
+        {% include 'formula/_material_modal.html.twig' %}
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Editar <span ng-bind="vm.product.name"></span></h2>
+                </div>
+                <div class="body">
+                    <form name="vm.frm" ng-submit="vm.edit('{{ id }}')" novalidate>
+                        <div>
+                            <label for="name">Nombre</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="name"
+                                           required
+                                           ng-model="vm.product.name"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="code">Código</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="code"
+                                           required
+                                           ng-model="vm.product.code"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="formula">Formulación</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="formula"
+                                            required
+                                            class="form-control"
+                                            ng-model="vm.product.formula_id"
+                                            ng-change="vm.changeFormula($event)">
+                                        <option></option>
+                                        <option ng-repeat="f in vm.formulas"
+                                                ng-bind="f.name"
+                                                ng-value="f.id"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label for="amount">Cantidad Equivalente</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="amount"
+                                           required
+                                           ng-model="vm.product.amount"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="unit">Unidad Base</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="unit"
+                                           required
+                                           ng-model="vm.product.unit"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="base_amount">Cantidad Relación</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="base_amount"
+                                           required
+                                           ng-model="vm.product.base_amount"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="notes">Observaciones</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                <textarea id="notes"
+                                          rows="3"
+                                          ng-model="vm.product.notes"
+                                          class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Materia Prima</th>
+                                    <th>Cantidad</th>
+                                    <th>Unidad</th>
+                                    <th>Costo</th>
+                                    <th>Opciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="x in vm.selected">
+                                    <td ng-bind="x.name"></td>
+                                    <td>
+                                        <input title="amount" type="text" class="form-control" ng-model="x.amount">
+                                    </td>
+                                    <td ng-bind="x.unit"></td>
+                                    <td ng-bind="x.price * x.amount"></td>
+                                    <td>
+                                        <button class="btn btn-xs btn-circle btn-danger" ng-click="vm.delMaterial($index)">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button type="button" class="btn btn-success" data-target="#materialModal" data-toggle="modal">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary" ng-disabled="vm.frm.$invalid">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/product-new.js') }}"></script>
 {% endblock %}

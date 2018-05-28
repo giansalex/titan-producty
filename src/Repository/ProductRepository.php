@@ -59,7 +59,7 @@ class ProductRepository extends ServiceEntityRepository
     public function getMaterials(int $id, User $user)
     {
         return $this->createQueryBuilder('p')
-            ->select('m.name, d.amount, m.unit, d.price, d.total')
+            ->select('d.materialId AS material_id, m.name, d.amount, m.unit, d.price, d.total')
             ->leftJoin('p.details', 'd')
             ->leftJoin('d.material', 'm')
             ->where('p.id = ?0 AND p.user = ?1')

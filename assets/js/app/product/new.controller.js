@@ -14,7 +14,9 @@
         vm.addMaterial = addMaterial;
         vm.delMaterial = delMaterial;
         vm.changeFormula = changeFormula;
+        vm.get = get;
         vm.create = create;
+        vm.edit = edit;
 
         activate();
 
@@ -24,7 +26,22 @@
 
             function getFormulas(res) {
                 vm.formulas = res.data;
-                console.log(vm.materials);
+                console.log(vm.formulas);
+            }
+        }
+
+        function get(id) {
+            $product.get(id)
+                .then(function (r) {
+                    vm.product = r.data;
+                    console.log(vm.product);
+                });
+            $product.materials(id)
+                .then(getMaterials);
+
+            function getMaterials(res) {
+                vm.selected = res.data;
+                console.log(vm.selected);
             }
         }
 
@@ -51,6 +68,18 @@
             product.details = getDetails(vm.selected);
 
             $product.add(product)
+                .then(successAdded);
+
+            function successAdded() {
+                $window.location.href = Routing.generate('product_index');
+            }
+        }
+
+        function edit(id) {
+            const product = vm.product;
+            product.details = getDetails(vm.selected);
+
+            $product.edit(id, product)
                 .then(successAdded);
 
             function successAdded() {
