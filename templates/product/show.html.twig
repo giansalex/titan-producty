@@ -1,7 +1,100 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Producto | {{ product.name }}{% endblock %}
+{% block title %}{{ product.name }}{% endblock %}
 
 {% block body %}
-
+    <div class="block-header">
+        <h2>{{ 'page.titles.product'|trans }}</h2>
+    </div>
+    <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>{{ product.name }}</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li>
+                            <a href="{{ path('product_edit', {'id': product.id}) }}" title="Editar">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                               type="button"
+                               onclick="remove()"
+                               class="text-danger"
+                               title="Eliminar">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <table class="table table-condensed">
+                        <tbody>
+                        <tr>
+                            <th class="col-xs-6">Nombre</th>
+                            <td>{{ product.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Cantidad Base</th>
+                            <td>{{ product.amount }}</td>
+                        </tr>
+                        <tr>
+                            <th>Unidad Base</th>
+                            <td>{{ product.unit }}</td>
+                        </tr>
+                        <tr>
+                            <th>Observaciones</th>
+                            <td>{{ product.notes }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h2 class="card-inside-title">Detalles</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Materia Prima</th>
+                                <th>Cantidad</th>
+                                <th>Unidad</th>
+                                <th>Costo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for detail in product.details %}
+                                <tr>
+                                    <td>{{ detail.material.name }}</td>
+                                    <td>{{ detail.amount }}</td>
+                                    <td>{{ detail.material.unit }}</td>
+                                    <td>{{ detail.amount * detail.price }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include('product/_delete_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function remove() {
+            swal({
+                title: "Estas Seguro?",
+                text: "Tú no podras revertir esta acción!",
+                icon: "warning",
+                dangerMode: true,
+                buttons: {
+                    cancel: true,
+                    confirm: true,
+                },
+            }).then(willDelete => {
+                if (willDelete) {
+                    document.getElementById('frmDelete').submit();
+                }
+            });
+        }
+    </script>
 {% endblock %}

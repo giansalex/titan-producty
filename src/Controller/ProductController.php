@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Repository\ProductRepository;
 use App\Services\Ensure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -53,5 +55,19 @@ class ProductController extends Controller
     public function edit(): Response
     {
         return $this->render('product/edit.html.twig');
+    }
+
+    /**
+     * @Route("/{id}", name="product_delete", methods="DELETE")
+     */
+    public function delete(Request $request, Product $formula): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$formula->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($formula);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('product_index');
     }
 }
