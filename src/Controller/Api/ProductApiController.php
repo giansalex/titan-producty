@@ -12,6 +12,7 @@ use App\Dto\ProductDto;
 use App\Entity\Product;
 use App\Http\BadRequestResponse;
 use App\Repository\ProductRepository;
+use App\Services\Ensure;
 use App\Services\Mapper;
 use App\Services\ModelStateInterface;
 use JMS\Serializer\SerializerInterface;
@@ -69,11 +70,7 @@ class ProductApiController extends AbstractController
         ModelStateInterface $validator,
         ProductRepository $repository)
     {
-        $product = $serializer->deserialize(
-            $request->getContent(),
-            Product::class,
-            'json'
-        );
+        $product = $this->getProduct($request, $serializer);
 
         if (!$validator->valid($product)) {
 
@@ -83,6 +80,42 @@ class ProductApiController extends AbstractController
         /**@var $product Product */
         $product->setUser($this->getUser());
         $repository->add($product);
+
+        return new Response();
+    }
+
+    /**
+     * @Route("/{id}", methods={"PUT"}, name="product_api_edit")
+     * @param int $id
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param ModelStateInterface $validator
+     * @param ProductRepository $repository
+     * @param Mapper $mapper
+     * @param Ensure $ensure
+     * @return BadRequestResponse|Response
+     */
+    public function edit(
+        $id,
+        Request $request,
+        SerializerInterface $serializer,
+        ModelStateInterface $validator,
+        ProductRepository $repository,
+        Mapper $mapper,
+        Ensure $ensure)
+    {
+        $product = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+        $ensure->ifNotEmpty($product);
+
+        /**@var $newProduct Product */
+        $newProduct = $this->getProduct($request, $serializer);
+        $mapper->mapToObject($newProduct, $product);
+
+        if (!$validator->valid($product)) {
+
+            return new BadRequestResponse((string) $validator);
+        }
+        $repository->edit($newProduct, $product);
 
         return new Response();
     }
@@ -119,5 +152,20 @@ class ProductApiController extends AbstractController
         $em->flush();
 
         return new Response();
+    }
+
+    /**
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @return object
+     */
+    private function getProduct(Request $request, SerializerInterface $serializer)
+    {
+        $product = $serializer->deserialize(
+            $request->getContent(),
+            Product::class,
+            'json'
+        );
+        return $product;
     }
 }

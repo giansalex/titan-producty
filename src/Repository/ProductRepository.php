@@ -37,6 +37,24 @@ class ProductRepository extends ServiceEntityRepository
         $em->flush();
     }
 
+    public function edit(Product $newProduct, Product $product)
+    {
+        $em = $this->getEntityManager();
+
+        foreach ($product->getDetails() as $detail) {
+            $em->remove($detail);
+        }
+
+        $product->getDetails()->clear();
+        foreach ($newProduct->getDetails() as $detail) {
+            $material = $em->getReference(Material::class, $detail->getMaterialId());
+            $detail->setMaterial($material)
+                ->setProduct($product);
+            $product->addDetail($detail);
+        }
+
+        $em->flush();
+    }
 
     public function getMaterials(int $id, User $user)
     {
