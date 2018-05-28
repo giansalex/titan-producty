@@ -27,6 +27,7 @@ class FormulaFixtures extends Fixture implements DependentFixtureInterface
     {
         /**@var $user User */
         $user = $this->getReference(UserFixtures::USER_REFERENCE);
+        $matIds = $this->getMaterialIds($manager);
 
         for ($i = 0; $i < 10; $i++) {
             $formula = new Formula();
@@ -39,18 +40,34 @@ class FormulaFixtures extends Fixture implements DependentFixtureInterface
             $count = random_int(1, 4);
 
             for ($j = 0; $j < $count; $j++) {
+                $materialId = $matIds[array_rand($matIds)];
                 $detail = new FormulaDetail();
                 $detail
                     ->setAmount(4)
                     ->setPrice(2.3)
                     ->setTotal(9.2)
-                    ->setMaterial($manager->find(Material::class, random_int(1, 10)))
+                    ->setMaterial($manager->find(Material::class, $materialId))
                     ->setFormula($formula);
+
+                $formula->addDetail($detail);
             }
 
             $manager->persist($formula);
         }
 
         $manager->flush();
+    }
+
+    private function getMaterialIds(ObjectManager $manager)
+    {
+        $ids = $manager->getRepository(Material::class)
+            ->createQueryBuilder('c')
+            ->select('c.id')
+            ->getQuery()
+            ->getArrayResult();
+
+        return array_map(function ($item) {
+            return $item['id'];
+        }, $ids);
     }
 }

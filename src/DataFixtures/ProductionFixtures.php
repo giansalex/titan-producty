@@ -26,11 +26,13 @@ class ProductionFixtures extends Fixture implements DependentFixtureInterface
     {
         /**@var $user User */
         $user = $this->getReference(UserFixtures::USER_REFERENCE);
+        $prodIds = $this->getProductIds($manager);
 
         for ($i = 0; $i < 10; $i++) {
+            $productId = $prodIds[array_rand($prodIds)];
             $production = new Production();
             $production
-                ->setProduct($manager->find(Product::class, random_int(1, 10)))
+                ->setProduct($manager->find(Product::class, $productId))
                 ->setState('NONE')
                 ->setClient('CLIENTE')
                 ->setWeight(50)
@@ -42,5 +44,18 @@ class ProductionFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $manager->flush();
+    }
+
+    private function getProductIds(ObjectManager $manager)
+    {
+        $ids = $manager->getRepository(Product::class)
+            ->createQueryBuilder('c')
+            ->select('c.id')
+            ->getQuery()
+            ->getArrayResult();
+
+        return array_map(function ($item) {
+            return $item['id'];
+        }, $ids);
     }
 }
