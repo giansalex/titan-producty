@@ -35,6 +35,25 @@ class FormulaRepository extends ServiceEntityRepository
         $em->flush();
     }
 
+    public function edit(Formula $newFormula, Formula $formula)
+    {
+        $em = $this->getEntityManager();
+
+        foreach ($formula->getDetails() as $detail) {
+            $em->remove($detail);
+        }
+
+        $formula->getDetails()->clear();
+        foreach ($newFormula->getDetails() as $detail) {
+            $material = $em->getReference(Material::class, $detail->getMaterialId());
+            $detail->setMaterial($material)
+                ->setFormula($formula);
+            $formula->addDetail($detail);
+        }
+
+        $em->flush();
+    }
+
     public function getMaterials(int $id, User $user)
     {
         return $this->createQueryBuilder('f')

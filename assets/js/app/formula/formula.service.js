@@ -10,7 +10,9 @@
     function formulaService($http) {
         return {
             add: add,
+            get: get,
             list: list,
+            edit: edit,
             materials: materials
         };
 
@@ -18,8 +20,16 @@
             return $http.post(Routing.generate('formula_api_add'), formula);
         }
 
+        function get(id) {
+            return $http.get(Routing.generate('formula_api_get', {id: id}));
+        }
+
         function list() {
             return $http.get(Routing.generate('formula_api_list'));
+        }
+
+        function edit(id, formula) {
+            return $http.put(Routing.generate('formula_api_edit', {id: id}), formula);
         }
 
         function materials(id) {

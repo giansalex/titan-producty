@@ -12,6 +12,7 @@ use App\Dto\FormulaDto;
 use App\Entity\Formula;
 use App\Http\BadRequestResponse;
 use App\Repository\FormulaRepository;
+use App\Services\Ensure;
 use App\Services\Mapper;
 use App\Services\ModelStateInterface;
 use JMS\Serializer\SerializerInterface;
@@ -69,11 +70,7 @@ class FormulaApiController extends AbstractController
         ModelStateInterface $validator,
         FormulaRepository $repository)
     {
-        $formula = $serializer->deserialize(
-            $request->getContent(),
-            Formula::class,
-            'json'
-        );
+        $formula = $this->getFormula($request, $serializer);
 
         if (!$validator->valid($formula)) {
 
@@ -83,6 +80,43 @@ class FormulaApiController extends AbstractController
         /**@var $formula Formula */
         $formula->setUser($this->getUser());
         $repository->add($formula);
+
+        return new Response();
+    }
+
+    /**
+     * @Route("/{id}", methods={"PUT"}, name="formula_api_edit")
+     * @param int $id
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param ModelStateInterface $validator
+     * @param FormulaRepository $repository
+     * @param Mapper $mapper
+     * @param Ensure $ensure
+     * @return BadRequestResponse|Response
+     */
+    public function edit(
+        $id,
+        Request $request,
+        SerializerInterface $serializer,
+        ModelStateInterface $validator,
+        FormulaRepository $repository,
+        Mapper $mapper,
+        Ensure $ensure)
+    {
+        $formula = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+        $ensure->ifNotEmpty($formula);
+
+        /**@var $newFormula Formula */
+        $newFormula = $this->getFormula($request, $serializer);
+        $mapper->mapToObject($newFormula, $formula);
+
+        if (!$validator->valid($formula)) {
+
+            return new BadRequestResponse((string) $validator);
+        }
+
+        $repository->edit($newFormula, $formula);
 
         return new Response();
     }
@@ -119,5 +153,20 @@ class FormulaApiController extends AbstractController
         $items = $repository->getMaterials($id, $this->getUser());
 
         return $this->json($items);
+    }
+
+    /**
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @return object
+     */
+    private function getFormula(Request $request, SerializerInterface $serializer)
+    {
+        $formula = $serializer->deserialize(
+            $request->getContent(),
+            Formula::class,
+            'json'
+        );
+        return $formula;
     }
 }

@@ -1,8 +1,101 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Formula{% endblock %}
+{% block title %}Editar Formulación{% endblock %}
 
 {% block body %}
-    <h1>Edit Formula</h1>
-
+    <div class="block-header">
+        <h2>{{ 'page.titles.formula'|trans }}</h2>
+    </div>
+    <div class="row clearfix" ng-controller="newFormula as vm" ng-init="vm.get('{{ id }}')">
+        {% include 'formula/_material_modal.html.twig' %}
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Editar <span ng-bind="vm.formula.name"></span></h2>
+                </div>
+                <div class="body">
+                    <form name="vm.frm" ng-submit="vm.edit('{{ id }}')" novalidate>
+                        <div>
+                            <label for="name">Nombre</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="name"
+                                           required
+                                           ng-model="vm.formula.name"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="amount">Cantidad Base</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="number"
+                                           id="amount"
+                                           required
+                                           ng-model="vm.formula.amount"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="unit">Unidad Base</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="unit"
+                                           required
+                                           ng-model="vm.formula.unit"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="notes">Observaciones</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                <textarea id="notes"
+                                          rows="3"
+                                          ng-model="vm.formula.notes"
+                                          class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Materia Prima</th>
+                                    <th>Cantidad</th>
+                                    <th>Unidad</th>
+                                    <th>Costo</th>
+                                    <th>Opciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="x in vm.selected">
+                                    <td ng-bind="x.name"></td>
+                                    <td>
+                                        <input title="amount" type="text" class="form-control" ng-model="x.amount">
+                                    </td>
+                                    <td ng-bind="x.unit"></td>
+                                    <td ng-bind="x.price * x.amount"></td>
+                                    <td>
+                                        <button class="btn btn-xs btn-circle btn-danger" ng-click="vm.delMaterial($index)">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-success" data-target="#materialModal" data-toggle="modal">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </div>
+                        <br>
+                        <button class="btn btn-primary" ng-disabled="vm.frm.$invalid">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/formula-new.js') }}"></script>
 {% endblock %}
