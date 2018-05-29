@@ -3,5 +3,108 @@
 {% block title %}Producción{% endblock %}
 
 {% block body %}
-
+    <div class="block-header">
+        <h2>{{ 'page.titles.production'|trans }}</h2>
+    </div>
+    <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Detalle de Producción</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li>
+                            <a href="{{ path('production_edit', {'id': production.id}) }}" title="Editar">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                               type="button"
+                               onclick="remove()"
+                               class="text-danger"
+                               title="Eliminar">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <table class="table table-condensed">
+                        <tbody>
+                        <tr>
+                            <th class="col-xs-6">Producto</th>
+                            <td>{{ production.product.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Cliente</th>
+                            <td>{{ production.client }}</td>
+                        </tr>
+                        <tr>
+                            <th>Total Unidades</th>
+                            <td>{{ production.amount }}</td>
+                        </tr>
+                        <tr>
+                            <th>Total Kg</th>
+                            <td>{{ production.weight }}</td>
+                        </tr>
+                        <tr>
+                            <th>Costo Unitario</th>
+                            <td>{{ production.price }}</td>
+                        </tr>
+                        <tr>
+                            <th>Estado</th>
+                            <td>{{ production.state|state }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h2 class="card-inside-title">Detalles</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Materia Prima</th>
+                                <th>Cantidad</th>
+                                <th>Unidad</th>
+                                <th>Precio</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for detail in production.product.details %}
+                                <tr>
+                                    <td>{{ detail.material.name }}</td>
+                                    <td>{{ detail.amount }}</td>
+                                    <td>{{ detail.material.unit }}</td>
+                                    <td>{{ detail.price }}</td>
+                                    <td>{{ detail.amount * detail.price }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include('production/_delete_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function remove() {
+            swal({
+                title: "Estas Seguro?",
+                text: "Tú no podras revertir esta acción!",
+                icon: "warning",
+                dangerMode: true,
+                buttons: {
+                    cancel: true,
+                    confirm: true,
+                },
+            }).then(willDelete => {
+                if (willDelete) {
+                    document.getElementById('frmDelete').submit();
+                }
+            });
+        }
+    </script>
 {% endblock %}
