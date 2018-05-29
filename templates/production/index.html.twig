@@ -24,12 +24,14 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Client</th>
-                            <th>State</th>
-                            <th>Amount</th>
-                            <th>Weight</th>
-                            <th>Price</th>
-                            <th>acciones</th>
+                            <th>Cliente</th>
+                            <th>Producto</th>
+                            <th>Total de Unidades</th>
+                            <th>Costo Unitario</th>
+                            <th>Total Kg</th>
+                            <th>Total Costo</th>
+                            <th>Estado</th>
+                            <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -37,17 +39,26 @@
                             <tr>
                                 <td>{{ loop.index }}</td>
                                 <td>{{ production.client }}</td>
-                                <td>{{ production.state }}</td>
+                                <td>{{ production.product.name }}</td>
                                 <td>{{ production.amount }}</td>
-                                <td>{{ production.weight }}</td>
                                 <td>{{ production.price }}</td>
+                                <td>{{ production.weight }}</td>
+                                <td>{{ production.price * production.amount }}</td>
+                                <td>{{ production.state|state }}</td>
                                 <td>
-                                    <a href="{{ path('production_edit', {'id': production.id}) }}">editar</a>
+                                    <a href="{{ path('production_show', {'id': production.id}) }}"
+                                       class="waves-effect">
+                                        <i class="material-icons">visibility</i>
+                                    </a>
+                                    <a href="{{ path('production_edit', {'id': production.id}) }}"
+                                       class="waves-effect">
+                                        <i class="material-icons">edit</i>
+                                    </a>
                                 </td>
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="6">No se encontraron registros</td>
+                                <td colspan="9">No se encontraron registros</td>
                             </tr>
                         {% endfor %}
                         </tbody>
