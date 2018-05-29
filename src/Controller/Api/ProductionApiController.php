@@ -11,6 +11,8 @@ namespace App\Controller\Api;
 use App\Entity\Production;
 use App\Http\BadRequestResponse;
 use App\Repository\ProductionRepository;
+use App\Services\Ensure;
+use App\Services\Mapper;
 use App\Services\ModelStateInterface;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -63,11 +65,7 @@ class ProductionApiController extends AbstractController
         ModelStateInterface $validator,
         ProductionRepository $repository)
     {
-        $production = $serializer->deserialize(
-            $request->getContent(),
-            Production::class,
-            'json'
-        );
+        $production = $this->getProduction($request, $serializer);
 
         if (!$validator->valid($production)) {
 
@@ -80,6 +78,43 @@ class ProductionApiController extends AbstractController
 
         return new Response();
     }
+
+    /**
+     * @Route("/{id}", methods={"PUT"}, name="production_api_edit")
+     * @param int $id
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param ModelStateInterface $validator
+     * @param ProductionRepository $repository
+     * @param Mapper $mapper
+     * @param Ensure $ensure
+     * @return BadRequestResponse|Response
+     */
+    public function edit(
+        $id,
+        Request $request,
+        SerializerInterface $serializer,
+        ModelStateInterface $validator,
+        ProductionRepository $repository,
+        Mapper $mapper,
+        Ensure $ensure)
+    {
+        $production = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+        $ensure->ifNotEmpty($production);
+
+        /**@var $newProduct Production */
+        $newProduct = $this->getProduction($request, $serializer);
+        $mapper->mapToObject($newProduct, $production);
+
+        if (!$validator->valid($production)) {
+
+            return new BadRequestResponse((string) $validator);
+        }
+        $repository->edit($production);
+
+        return new Response();
+    }
+
 
     /**
      * @Route("/{id}", methods={"DELETE"}, name="production_api_remove")
@@ -100,5 +135,20 @@ class ProductionApiController extends AbstractController
         $em->flush();
 
         return new Response();
+    }
+
+    /**
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @return object
+     */
+    private function getProduction(Request $request, SerializerInterface $serializer)
+    {
+        $production = $serializer->deserialize(
+            $request->getContent(),
+            Production::class,
+            'json'
+        );
+        return $production;
     }
 }

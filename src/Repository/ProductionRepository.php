@@ -28,4 +28,12 @@ class ProductionRepository extends ServiceEntityRepository
         $em->persist($production);
         $em->flush();
     }
+
+    public function edit(Production $production)
+    {
+        $em = $this->getEntityManager();
+        $production->setProduct($em->getReference(Product::class, $production->getProductId()));
+
+        $em->flush();
+    }
 }

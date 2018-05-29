@@ -53,9 +53,9 @@ class ProductionController extends Controller
     /**
      * @Route("/{id}/edit", name="production_edit", methods="GET")
      */
-    public function edit(): Response
+    public function edit($id): Response
     {
-        return $this->render('production/edit.html.twig');
+        return $this->render('production/edit.html.twig', ['id' => $id]);
     }
 
     /**
