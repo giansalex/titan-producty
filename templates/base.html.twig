@@ -2,7 +2,7 @@
 <html ng-app="app">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Inventory!{% endblock %}</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="{{ asset('build/vendor.css') }}">
@@ -31,40 +31,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="{{ path('home_page') }}">ADMINBSB - MATERIAL DESIGN</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            <i class="material-icons">notifications</i>
-                            <span class="label-count">7</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">NOTIFICATIONS</li>
-                            <li class="body">
-                                <ul class="menu">
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="icon-circle bg-light-green">
-                                                <i class="material-icons">person_add</i>
-                                            </div>
-                                            <div class="menu-info">
-                                                <h4>12 new members joined</h4>
-                                                <p>
-                                                    <i class="material-icons">access_time</i> 14 mins ago
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer">
-                                <a href="javascript:void(0);">View All Notifications</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                <a class="navbar-brand" href="{{ path('home_page') }}">ADMINBSB</a>
             </div>
         </div>
     </nav>
@@ -97,37 +64,33 @@
                     </li>
                     <li>
                         <a href="{{ path('material_index') }}">
-                            <i class="material-icons">view_list</i>
+                            <i class="material-icons">dns</i>
                             <span>{{ 'page.titles.material'|trans }}</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ path('formula_index') }}">
-                            <i class="material-icons">view_list</i>
+                            <i class="material-icons">assignment</i>
                             <span>{{ 'page.titles.formula'|trans }}</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ path('product_index') }}">
-                            <i class="material-icons">view_list</i>
+                            <i class="material-icons">extension</i>
                             <span>{{ 'page.titles.product'|trans }}</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ path('production_index') }}">
-                            <i class="material-icons col-light-blue">donut_large</i>
+                            <i class="material-icons col-light-blue">collections_bookmark</i>
                             <span>{{ 'page.titles.production'|trans }}</span>
                         </a>
                     </li>
                 </ul>
             </div>
-            <!-- #Menu -->
             <div class="legal">
-                <div class="copyright">
-                    &copy; 2016 - 2017 <a href="javascript:void(0);">AdminBSB - Material Design</a>.
-                </div>
                 <div class="version">
-                    <b>Version: </b> 1.0.5
+                    <b>Version: </b> 1.0.0
                 </div>
             </div>
         </aside>
