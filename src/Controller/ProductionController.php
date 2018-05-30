@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Production;
 use App\Repository\ProductionRepository;
 use App\Services\Ensure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -51,8 +53,22 @@ class ProductionController extends Controller
     /**
      * @Route("/{id}/edit", name="production_edit", methods="GET")
      */
-    public function edit(): Response
+    public function edit($id): Response
     {
-        return $this->render('production/edit.html.twig');
+        return $this->render('production/edit.html.twig', ['id' => $id]);
+    }
+
+    /**
+     * @Route("/{id}", name="production_delete", methods="DELETE")
+     */
+    public function delete(Request $request, Production $production): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$production->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($production);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('production_index');
     }
 }

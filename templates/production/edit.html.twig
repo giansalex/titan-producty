@@ -3,5 +3,107 @@
 {% block title %}Editar Producción{% endblock %}
 
 {% block body %}
-    <h1>Editar Producción</h1>
+    <div class="block-header">
+        <h2>{{ 'page.titles.production'|trans }}</h2>
+    </div>
+    <div class="row clearfix" ng-controller="newProduction as vm" ng-init="vm.get('{{ id }}')">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Editar Producción</h2>
+                </div>
+                <div class="body">
+                    <form name="vm.frm" ng-submit="vm.edit('{{ id }}')">
+                        <div>
+                            <label for="product">Producción</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="product"
+                                            required
+                                            class="form-control"
+                                            ng-model="vm.production.product_id"
+                                            ng-change="vm.changeproduct()">
+                                        <option></option>
+                                        <option ng-repeat="p in vm.products"
+                                                ng-bind="p.name"
+                                                ng-value="p.id"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label for="client">Cliente</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="client"
+                                           required
+                                           ng-model="vm.production.client"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="amount">Total de unidades</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="amount"
+                                           required
+                                           ng-model="vm.production.amount"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="weight">Total Kg</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="weight"
+                                           required
+                                           ng-model="vm.production.weight"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <label for="price">Costo Unitario</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="price"
+                                           required
+                                           ng-model="vm.production.price"
+                                           class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Materia Prima</th>
+                                    <th>Cantidad</th>
+                                    <th>Unidad</th>
+                                    <th>Precio</th>
+                                    <th>Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="x in vm.selected">
+                                    <td ng-bind="x.name"></td>
+                                    <td ng-bind="x.amount"></td>
+                                    <td ng-bind="x.unit"></td>
+                                    <td ng-bind="x.price"></td>
+                                    <td ng-bind="x.total"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                        <button type="submit"
+                                class="btn btn-primary"
+                                ng-disabled="vm.frm.$invalid">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/production-new.js') }}"></script>
 {% endblock %}

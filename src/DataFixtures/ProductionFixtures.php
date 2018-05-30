@@ -33,7 +33,7 @@ class ProductionFixtures extends Fixture implements DependentFixtureInterface
             $production = new Production();
             $production
                 ->setProduct($manager->find(Product::class, $productId))
-                ->setState('NONE')
+                ->setState('01')
                 ->setClient('CLIENTE')
                 ->setWeight(50)
                 ->setPrice(1.24)

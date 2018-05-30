@@ -12,7 +12,9 @@
         vm.selected = [];
         vm.production = {};
         vm.changeproduct = changeproduct;
+        vm.get = get;
         vm.create = create;
+        vm.edit = edit;
 
         activate();
 
@@ -26,6 +28,17 @@
             }
         }
 
+        function get(id) {
+            $production.get(id)
+                .then(getProduction);
+
+            function getProduction(res) {
+                vm.production = res.data;
+                console.log(vm.production);
+                vm.changeproduct();
+            }
+        }
+
         function create() {
             const production = vm.production;
 
@@ -36,7 +49,18 @@
                 $window.location.href = Routing.generate('production_index');
             }
         }
-        
+
+        function edit(id) {
+            const production = vm.production;
+
+            $production.edit(id, production)
+                .then(successAdded);
+
+            function successAdded() {
+                $window.location.href = Routing.generate('production_index');
+            }
+        }
+
         function changeproduct() {
             const id = vm.production.product_id;
             if (!id) {

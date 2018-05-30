@@ -60,11 +60,11 @@ class ProductController extends Controller
     /**
      * @Route("/{id}", name="product_delete", methods="DELETE")
      */
-    public function delete(Request $request, Product $formula): Response
+    public function delete(Request $request, Product $product): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$formula->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($formula);
+            $em->remove($product);
             $em->flush();
         }
 
