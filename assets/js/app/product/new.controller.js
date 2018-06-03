@@ -5,8 +5,8 @@
         .module('app')
         .controller('newProduct', newController);
 
-    newController.$inject = ['productService', 'formulaService', '$window'];
-    function newController($product, $formula, $window) {
+    newController.$inject = ['productService', 'formulaService', 'materialService', '$window'];
+    function newController($product, $formula, $material, $window) {
         const vm = this;
         vm.formulas = [];
         vm.selected = [];
@@ -17,16 +17,25 @@
         vm.get = get;
         vm.create = create;
         vm.edit = edit;
+        vm.getCosto = getCosto;
+        vm.getTotal = getTotal;
 
         activate();
 
         function activate() {
             $formula.list()
                 .then(getFormulas);
+            $material.list()
+                .then(getMaterials);
 
             function getFormulas(res) {
                 vm.formulas = res.data;
                 console.log(vm.formulas);
+            }
+
+            function getMaterials(res) {
+                vm.materials = res.data;
+                console.log(vm.materials);
             }
         }
 
@@ -43,6 +52,24 @@
                 vm.selected = res.data;
                 console.log(vm.selected);
             }
+        }
+
+        function getCosto(detail) {
+            var price = detail.price || 0;
+            var amount = detail.amount || 0;
+
+            detail.total = price * amount;
+
+            return detail.total;
+        }
+
+        function getTotal() {
+            var total = 0;
+            vm.selected.forEach(function (element) {
+                total += element.total;
+            });
+
+            return total;
         }
 
         function addMaterial(material) {
@@ -63,16 +90,16 @@
             vm.selected.splice(index, 1);
         }
 
+        function successAdded() {
+            $window.location.href = Routing.generate('product_index');
+        }
+
         function create() {
             const product = vm.product;
             product.details = getDetails(vm.selected);
 
             $product.add(product)
                 .then(successAdded);
-
-            function successAdded() {
-                $window.location.href = Routing.generate('product_index');
-            }
         }
 
         function edit(id) {
@@ -81,10 +108,6 @@
 
             $product.edit(id, product)
                 .then(successAdded);
-
-            function successAdded() {
-                $window.location.href = Routing.generate('product_index');
-            }
         }
         
         function changeFormula() {
@@ -108,7 +131,7 @@
                     material_id: item.material_id,
                     amount: item.amount,
                     price: item.price,
-                    total: item.price * item.amount,
+                    total: item.total,
                 };
             })
         }
