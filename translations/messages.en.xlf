@@ -5,9 +5,9 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="pKPaoM4" resname="page.main_title">
-        <source>page.main_title</source>
-        <target>Admin BootStrap Based - Material Design</target>
+      <trans-unit id="pKPaoM4" resname="page.main_description">
+        <source>page.main_description</source>
+        <target>Getting Started</target>
       </trans-unit>
       <trans-unit id="ZSh9Hjw" resname="page.register.msg">
         <source>page.register.msg</source>
