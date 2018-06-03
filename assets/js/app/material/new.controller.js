@@ -12,6 +12,7 @@
         vm.get = get;
         vm.create = create;
         vm.edit = edit;
+        vm.getPrice = getPrice;
 
         activate();
 
@@ -23,6 +24,17 @@
                 .then(function (r) {
                     vm.material = r.data;
                 });
+        }
+
+        function getPrice() {
+            if (!vm.material.amount) {
+                return 0;
+            }
+            var total = vm.material.packing_price || 0;
+
+            vm.material.price = total / vm.material.amount;
+
+            return vm.material.price;
         }
 
         function successAdded() {

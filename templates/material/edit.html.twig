@@ -69,11 +69,7 @@
                             <label for="price">Costo Unitario</label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="number"
-                                           id="price"
-                                           required
-                                           ng-model="vm.material.price"
-                                           class="form-control">
+                                    <p ng-bind="vm.getPrice()"></p>
                                 </div>
                             </div>
                         </div>
