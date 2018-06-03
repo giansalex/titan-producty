@@ -91,6 +91,10 @@
                                     <td ng-bind="x.price"></td>
                                     <td ng-bind="x.total"></td>
                                 </tr>
+                                <tr>
+                                    <td class="text-center" colspan="4"><b>Total</b></td>
+                                    <td ng-bind="vm.getTotal()"></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

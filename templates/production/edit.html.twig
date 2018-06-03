@@ -70,6 +70,18 @@
                                            class="form-control">
                                 </div>
                             </div>
+                            <label for="state">Estado</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="state"
+                                            required
+                                            class="form-control"
+                                            ng-model="vm.production.state">
+                                        <option value="01">En Proceso</option>
+                                        <option value="02">Terminado</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <br>
                         <div class="table-responsive">
@@ -90,6 +102,10 @@
                                     <td ng-bind="x.unit"></td>
                                     <td ng-bind="x.price"></td>
                                     <td ng-bind="x.total"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center" colspan="4"><b>Total</b></td>
+                                    <td ng-bind="vm.getTotal()"></td>
                                 </tr>
                                 </tbody>
                             </table>

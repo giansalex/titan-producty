@@ -15,6 +15,7 @@
         vm.get = get;
         vm.create = create;
         vm.edit = edit;
+        vm.getTotal = getTotal;
 
         activate();
 
@@ -39,15 +40,24 @@
             }
         }
 
+        function getTotal() {
+            var total = 0;
+            vm.selected.forEach(function (element) {
+                total += element.total;
+            });
+
+            return total;
+        }
+
+        function successAdded() {
+            $window.location.href = Routing.generate('production_index');
+        }
+
         function create() {
             const production = vm.production;
 
             $production.add(production)
                 .then(successAdded);
-
-            function successAdded() {
-                $window.location.href = Routing.generate('production_index');
-            }
         }
 
         function edit(id) {
@@ -55,10 +65,6 @@
 
             $production.edit(id, production)
                 .then(successAdded);
-
-            function successAdded() {
-                $window.location.href = Routing.generate('production_index');
-            }
         }
 
         function changeproduct() {
