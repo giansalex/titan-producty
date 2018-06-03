@@ -29,10 +29,11 @@
                     </ul>
                 </div>
                 <div class="body">
+                    <h2 class="card-inside-title">Información de Materia Prima</h2>
                     <table class="table table-condensed">
                         <tbody>
                         <tr>
-                            <th class="col-xs-6">Name</th>
+                            <th class="col-xs-6">Nombre</th>
                             <td>{{ material.name }}</td>
                         </tr>
                         <tr>
@@ -55,9 +56,18 @@
                             <th>Costo Unitario</th>
                             <td>{{ material.price }}</td>
                         </tr>
+                        </tbody>
+                    </table>
+                    <h2 class="card-inside-title">Información del Inventario</h2>
+                    <table class="table table-condensed">
+                        <tbody>
                         <tr>
-                            <th>Stock</th>
+                            <th class="col-xs-6">Cantidad Actual</th>
                             <td>{{ material.stock }}</td>
+                        </tr>
+                        <tr>
+                            <th>Valor de Inventario</th>
+                            <td>{{ material.stock * material.price }}</td>
                         </tr>
                         </tbody>
                     </table>
