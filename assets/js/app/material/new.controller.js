@@ -25,15 +25,30 @@
                 });
         }
 
+        function successAdded() {
+            $window.location.href = Routing.generate('material_index');
+        }
+
+        function errorAdded(err) {
+            if (err.status !== 400) {
+                return;
+            }
+            var data = err.data;
+            if (!data || !data.errors) {
+                return;
+            }
+            var errors = data.errors;
+            for (var i = 0; i < errors.length; i++) {
+                var element = errors[i];
+                console.log(element.field + ':' + element.message);
+            }
+        }
+
         function create() {
             const material = vm.material;
 
             $material.add(material)
-                .then(successAdded);
-
-            function successAdded() {
-                $window.location.href = Routing.generate('material_index');
-            }
+                .then(successAdded, errorAdded);
         }
 
         function edit(id) {
@@ -41,11 +56,7 @@
             console.log(material);
 
             $material.edit(id, material)
-                .then(successAdded);
-
-            function successAdded() {
-                $window.location.href = Routing.generate('material_index');
-            }
+                .then(successAdded, errorAdded);
         }
     }
 })();

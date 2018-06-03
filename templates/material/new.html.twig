@@ -18,7 +18,7 @@
                         <div>
                             <label for="name">Nombre</label>
                             <div class="form-group">
-                                <div class="form-line">
+                                <div class="form-line" ng-class="{'error': vm.material.name.$invalid}">
                                     <input type="text"
                                            id="name"
                                            required
