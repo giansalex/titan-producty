@@ -73,18 +73,22 @@
                                     <td ng-bind="x.name"></td>
                                     <td>
                                         <input title="amount"
-                                               type="text"
+                                               type="number"
                                                class="form-control"
                                                ng-model="x.amount">
                                     </td>
                                     <td ng-bind="x.unit"></td>
-                                    <td ng-bind="x.price * x.amount"></td>
+                                    <td ng-bind="vm.getCosto(x)"></td>
                                     <td>
                                         <button class="btn btn-xs btn-circle btn-danger"
                                                 ng-click="vm.delMaterial($index)">
                                             <i class="material-icons">delete</i>
                                         </button>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center" colspan="3"><b>Total</b></td>
+                                    <td ng-bind="vm.getTotal()"></td>
                                 </tr>
                                 </tbody>
                             </table>

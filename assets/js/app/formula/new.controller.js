@@ -16,6 +16,8 @@
         vm.edit = edit;
         vm.delMaterial = delMaterial;
         vm.create = create;
+        vm.getCosto = getCosto;
+        vm.getTotal = getTotal;
 
         activate();
 
@@ -42,6 +44,24 @@
                 vm.selected = res.data;
                 console.log(vm.selected);
             }
+        }
+
+        function getCosto(detail) {
+            var price = detail.price || 0;
+            var amount = detail.amount || 0;
+
+            detail.total = price * amount;
+
+            return detail.total;
+        }
+
+        function getTotal() {
+            var total = 0;
+            vm.selected.forEach(function (element) {
+                total += element.total;
+            });
+
+            return total;
         }
 
         function addMaterial(material) {
@@ -92,7 +112,7 @@
                     material_id: item.material_id,
                     amount: item.amount,
                     price: item.price,
-                    total: item.price * item.amount,
+                    total: item.total,
                 };
             })
         }
