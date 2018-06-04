@@ -75,6 +75,29 @@ class MaterialApiController extends AbstractController
     }
 
     /**
+     * @Route("/inventory", methods={"PUT"}, name="material_api_inventory")
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param MaterialRepository $repository
+     * @return Response
+     */
+    public function updateInventory(
+        Request $request,
+        SerializerInterface $serializer,
+        MaterialRepository $repository)
+    {
+        $list = $serializer->deserialize(
+            $request->getContent(),
+            'ArrayCollection<App\Dto\SimpleDto>',
+            'json'
+        );
+
+        $repository->updateInventory($list, $this->getUser());
+
+        return new Response();
+    }
+
+    /**
      * @Route("/{id}", methods={"PUT"}, name="material_api_edit")
      * @param int $id
      * @param Request $request

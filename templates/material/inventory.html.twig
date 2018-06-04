@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'page.titles.material'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="block-header">
+        <h2>{{ 'page.titles.material'|trans }}</h2>
+    </div>
+    <div class="row clearfix" ng-controller="inventoryMaterial as vm">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Ajuste de Inventario</h2>
+                </div>
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Código</th>
+                                <th>Cantidad Actual</th>
+                                <th>Cantidad ajustada</th>
+                                <th>Unidad</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="x in vm.selected">
+                                <td ng-bind="x.name"></td>
+                                <td ng-bind="x.code"></td>                                
+                                <td ng-bind="x.stock"></td>
+                                <td>
+                                    <input title="ajuste"
+                                            type="number"
+                                            class="form-control"
+                                            ng-model="x.change">
+                                </td>
+                                <td ng-bind="x.unit"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="btn btn-primary" ng-click="vm.save()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/material-inventory.js') }}"></script>
+{% endblock %}

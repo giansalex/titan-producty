@@ -27,12 +27,21 @@ class MaterialController extends Controller
     }
 
     /**
-     * @Route("/new", name="material_new", methods="GET|POST")
+     * @Route("/new", name="material_new", methods="GET")
      * @return Response
      */
     public function new(): Response
     {
         return $this->render('material/new.html.twig');
+    }
+
+    /**
+     * @Route("/inventory", name="material_inventory", methods="GET")
+     * @return Response
+     */
+    public function inventory(): Response
+    {
+        return $this->render('material/inventory.html.twig');
     }
 
     /**
@@ -44,7 +53,7 @@ class MaterialController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="material_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="material_edit", methods="GET")
      */
     public function edit($id): Response
     {
