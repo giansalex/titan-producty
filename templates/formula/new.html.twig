@@ -80,7 +80,10 @@
                                     <td ng-bind="x.unit"></td>
                                     <td ng-bind="vm.getCosto(x)"></td>
                                     <td>
-                                        <button class="btn btn-xs btn-circle btn-danger" ng-click="vm.delMaterial($index)">
+                                        <button
+                                            type="button"
+                                            class="btn btn-xs btn-circle btn-danger"
+                                            ng-click="vm.delMaterial($index)">
                                             <i class="material-icons">delete</i>
                                         </button>
                                     </td>
@@ -91,12 +94,17 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <button type="button" class="btn btn-success" data-target="#materialModal" data-toggle="modal">
+                            <button type="button"
+                                    class="btn btn-success"
+                                    data-target="#materialModal"
+                                    data-toggle="modal">
                                 <i class="material-icons">add</i>
                             </button>
                         </div>
                         <br>
-                        <button class="btn btn-primary" ng-disabled="vm.frm.$invalid">Crear Formulación</button>
+                        <button type="submit"
+                                class="btn btn-primary"
+                                ng-disabled="vm.frm.$invalid">Crear Formulación</button>
                     </form>
                 </div>
             </div>
