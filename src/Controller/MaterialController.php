@@ -15,13 +15,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class MaterialController extends Controller
 {
     /**
-     * @Route("/", name="material_index", methods="GET", options={"expose": true})
+     * @Route("/", name="material_index", methods="GET|POST", options={"expose": true})
+     * @param Request $request
      * @param MaterialRepository $materialRepository
      * @return Response
      */
-    public function index(MaterialRepository $materialRepository): Response
+    public function index(Request $request, MaterialRepository $materialRepository): Response
     {
-        $items = $materialRepository->findBy(['user' => $this->getUser()]);
+        if ($request->request->has('search')) {
+            $search = $request->request->get('search');
+            $items = $materialRepository->createQueryBuilder('c')
+                ->select('c')
+                ->where('c.user = ?0 and c.name LIKE ?1')
+                ->setParameters([$this->getUser(), '%'.$search.'%'])
+                ->getQuery()
+                ->getResult();
+        } else {
+            $items = $materialRepository->findBy(['user' => $this->getUser()]);
+        }
 
         return $this->render('material/index.html.twig', ['materials' => $items]);
     }
