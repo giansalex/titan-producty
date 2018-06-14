@@ -57,6 +57,8 @@ class MaterialController extends Controller
 
     /**
      * @Route("/{id}", name="material_show", methods="GET")
+     * @param Material $material
+     * @return Response
      */
     public function show(Material $material): Response
     {
@@ -65,6 +67,8 @@ class MaterialController extends Controller
 
     /**
      * @Route("/{id}/edit", name="material_edit", methods="GET")
+     * @param int $id
+     * @return Response
      */
     public function edit($id): Response
     {
@@ -73,6 +77,9 @@ class MaterialController extends Controller
 
     /**
      * @Route("/{id}", name="material_delete", methods="DELETE")
+     * @param Request $request
+     * @param Material $material
+     * @return Response
      */
     public function delete(Request $request, Material $material): Response
     {
