@@ -18,6 +18,11 @@
                     </ul>
                 </div>
                 <div class="body table-responsive">
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            {% include 'shared/_search.htmt.twig' with {url: path('product_index')} only %}
+                        </div>
+                    </div>
                     <table class="table">
                         <thead>
                         <tr>
