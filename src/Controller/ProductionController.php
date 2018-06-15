@@ -38,6 +38,10 @@ class ProductionController extends Controller
 
     /**
      * @Route("/{id}", name="production_show", methods="GET")
+     * @param int $id
+     * @param ProductionRepository $repository
+     * @param Ensure $ensure
+     * @return Response
      */
     public function show($id, ProductionRepository $repository, Ensure $ensure): Response
     {
@@ -52,6 +56,8 @@ class ProductionController extends Controller
 
     /**
      * @Route("/{id}/edit", name="production_edit", methods="GET")
+     * @param int $id
+     * @return Response
      */
     public function edit($id): Response
     {
@@ -60,6 +66,9 @@ class ProductionController extends Controller
 
     /**
      * @Route("/{id}", name="production_delete", methods="DELETE")
+     * @param Request $request
+     * @param Production $production
+     * @return Response
      */
     public function delete(Request $request, Production $production): Response
     {
