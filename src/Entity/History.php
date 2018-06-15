@@ -23,6 +23,11 @@ class History
     private $type;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $itemId;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $date;
@@ -54,7 +59,7 @@ class History
      */
     private $user;
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -67,6 +72,18 @@ class History
     public function setType(int $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getItemId(): ?int
+    {
+        return $this->itemId;
+    }
+
+    public function setItemId(int $itemId): self
+    {
+        $this->itemId = $itemId;
 
         return $this;
     }
