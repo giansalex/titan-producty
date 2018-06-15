@@ -16,13 +16,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends Controller
 {
     /**
-     * @Route("/", name="product_index", methods="GET", options={"expose": true})
+     * @Route("/", name="product_index", methods="GET|POST", options={"expose": true})
+     * @param Request $request
      * @param ProductRepository $repository
      * @return Response
      */
-    public function index(ProductRepository $repository): Response
+    public function index(Request $request, ProductRepository $repository): Response
     {
-        $items = $repository->findBy(['user' => $this->getUser()]);
+        if ($request->request->has('search')) {
+            $search = $request->request->get('search');
+            $items = $repository->createQueryBuilder('c')
+                ->select('c')
+                ->where('c.user = ?0 and c.name LIKE ?1')
+                ->setParameters([$this->getUser(), '%'.$search.'%'])
+                ->getQuery()
+                ->getResult();
+        } else {
+            $items = $repository->findBy(['user' => $this->getUser()]);
+        }
 
         return $this->render('product/index.html.twig', ['products' => $items]);
     }
@@ -38,6 +49,10 @@ class ProductController extends Controller
 
     /**
      * @Route("/{id}", name="product_show", methods="GET")
+     * @param int $id
+     * @param ProductRepository $repository
+     * @param Ensure $ensure
+     * @return Response
      */
     public function show($id, ProductRepository $repository, Ensure $ensure): Response
     {
@@ -51,6 +66,8 @@ class ProductController extends Controller
 
     /**
      * @Route("/{id}/edit", name="product_edit", methods="GET")
+     * @param int $id
+     * @return Response
      */
     public function edit($id): Response
     {
@@ -59,6 +76,9 @@ class ProductController extends Controller
 
     /**
      * @Route("/{id}", name="product_delete", methods="DELETE")
+     * @param Request $request
+     * @param Product $product
+     * @return Response
      */
     public function delete(Request $request, Product $product): Response
     {
