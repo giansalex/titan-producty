@@ -17,21 +17,21 @@ class MaterialController extends Controller
     /**
      * @Route("/", name="material_index", methods="GET|POST", options={"expose": true})
      * @param Request $request
-     * @param MaterialRepository $materialRepository
+     * @param MaterialRepository $repository
      * @return Response
      */
-    public function index(Request $request, MaterialRepository $materialRepository): Response
+    public function index(Request $request, MaterialRepository $repository): Response
     {
         if ($request->request->has('search')) {
             $search = $request->request->get('search');
-            $items = $materialRepository->createQueryBuilder('c')
+            $items = $repository->createQueryBuilder('c')
                 ->select('c')
                 ->where('c.user = ?0 and c.name LIKE ?1')
                 ->setParameters([$this->getUser(), '%'.$search.'%'])
                 ->getQuery()
                 ->getResult();
         } else {
-            $items = $materialRepository->findBy(['user' => $this->getUser()]);
+            $items = $repository->findBy(['user' => $this->getUser()]);
         }
 
         return $this->render('material/index.html.twig', ['materials' => $items]);
