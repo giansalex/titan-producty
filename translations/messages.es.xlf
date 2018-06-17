@@ -62,6 +62,10 @@
                 <source>page.titles.production</source>
                 <target>Producción</target>
             </trans-unit>
+            <trans-unit id="page_titles_history">
+                <source>page.titles.history</source>
+                <target>Historial</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

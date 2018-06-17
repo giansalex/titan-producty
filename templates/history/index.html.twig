@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'page.titles.history'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="block-header">
+        <h2>{{ 'page.titles.history'|trans }}</h2>
+    </div>
+    <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Lista</h2>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha</th>
+                            <th>Nombre</th>
+                            <th>Código</th>
+                            <th>Tipo de Movimiento</th>
+                            <th>Cambio</th>
+                            <th>Cantidad Final</th>
+                            <th>Responsable</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for history in histories %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ history.date|date('d-m-Y') }}</td>
+                                <td>{{ history.name }}</td>
+                                <td>{{ history.code }}</td>
+                                <td>{{ history.action }}</td>
+                                <td>{{ history.amount }}</td>
+                                <td>{{ history.total }}</td>
+                                <td>{{ history.username }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">No fueron encontrados registros</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
