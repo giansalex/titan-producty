@@ -27,7 +27,8 @@ VOLUME /var/www/symfony/
 
 COPY . .
 
-#RUN composer install && composer run routing && npm i && npm run dev
+RUN composer install && composer run routing && npm i && npm run dev
+
 EXPOSE 8000
 
 ENTRYPOINT ["php", "bin/console", "server:run", "0.0.0.0:8000"]
