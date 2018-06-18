@@ -66,6 +66,10 @@
                 <source>page.titles.history</source>
                 <target>Historial</target>
             </trans-unit>
+            <trans-unit id="page_no_records">
+                <source>page.no_records</source>
+                <target>No fueron encontrados registros</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
