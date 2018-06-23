@@ -56,31 +56,34 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">{{ 'page.titles.menu'|trans }}</li>
-                    <li class="active">
+                    {% if menu is not defined %}
+                        {% set menu = 0 %}
+                    {% endif %}
+                    <li {% if menu == 1 %}class="active"{% endif %}>
                         <a href="{{ path('home_page') }}">
                             <i class="material-icons">home</i>
                             <span>{{ 'page.titles.home'|trans }}</span>
                         </a>
                     </li>
-                    <li>
+                    <li {% if menu == 2 %}class="active"{% endif %}>
                         <a href="{{ path('material_index') }}">
                             <i class="material-icons">dns</i>
                             <span>{{ 'page.titles.material'|trans }}</span>
                         </a>
                     </li>
-                    <li>
+                    <li {% if menu == 3 %}class="active"{% endif %}>
                         <a href="{{ path('formula_index') }}">
                             <i class="material-icons">assignment</i>
                             <span>{{ 'page.titles.formula'|trans }}</span>
                         </a>
                     </li>
-                    <li>
+                    <li {% if menu == 4 %}class="active"{% endif %}>
                         <a href="{{ path('product_index') }}">
                             <i class="material-icons">extension</i>
                             <span>{{ 'page.titles.product'|trans }}</span>
                         </a>
                     </li>
-                    <li>
+                    <li {% if menu == 5 %}class="active"{% endif %}>
                         <a href="{{ path('production_index') }}">
                             <i class="material-icons">collections_bookmark</i>
                             <span>{{ 'page.titles.production'|trans }}</span>
