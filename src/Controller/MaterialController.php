@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Material;
-use App\Repository\MaterialRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,26 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class MaterialController extends Controller
 {
     /**
-     * @Route("/", name="material_index", methods="GET|POST", options={"expose": true})
-     * @param Request $request
-     * @param MaterialRepository $repository
+     * @Route("/", name="material_index", methods="GET", options={"expose": true})
      * @return Response
      */
-    public function index(Request $request, MaterialRepository $repository): Response
+    public function index(): Response
     {
-        if ($request->request->has('search')) {
-            $search = $request->request->get('search');
-            $items = $repository->createQueryBuilder('c')
-                ->select('c')
-                ->where('c.user = ?0 and c.name LIKE ?1')
-                ->setParameters([$this->getUser(), '%'.$search.'%'])
-                ->getQuery()
-                ->getResult();
-        } else {
-            $items = $repository->findBy(['user' => $this->getUser()]);
-        }
-
-        return $this->render('material/index.html.twig', ['materials' => $items]);
+        return $this->render('material/index.html.twig');
     }
 
     /**
@@ -56,7 +41,7 @@ class MaterialController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="material_show", methods="GET")
+     * @Route("/{id}", name="material_show", methods="GET", options={"expose": true})
      * @param Material $material
      * @return Response
      */
@@ -66,7 +51,7 @@ class MaterialController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="material_edit", methods="GET")
+     * @Route("/{id}/edit", name="material_edit", methods="GET", options={"expose": true})
      * @param int $id
      * @return Response
      */
