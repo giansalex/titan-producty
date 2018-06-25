@@ -1,17 +1,12 @@
-<form id="frmSearch" action="{{ url }}" method="post">
-    <div class="row">
-        <div class="col-md-10">
-            <div class="form-group">
-                <div class="form-line">
-                    <input type="text"
-                           name="search"
-                           class="form-control"
-                           placeholder="Escribir...">
-                </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="form-line">
+                <input type="text"
+                       ng-model="vm.q"
+                       class="form-control"
+                       placeholder="Buscar">
             </div>
         </div>
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-info waves-effect">Buscar</button>
-        </div>
     </div>
-</form>
+</div>
