@@ -16,26 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends Controller
 {
     /**
-     * @Route("/", name="product_index", methods="GET|POST", options={"expose": true})
-     * @param Request $request
-     * @param ProductRepository $repository
+     * @Route("/", name="product_index", methods="GET", options={"expose": true})
      * @return Response
      */
-    public function index(Request $request, ProductRepository $repository): Response
+    public function index(): Response
     {
-        if ($request->request->has('search')) {
-            $search = $request->request->get('search');
-            $items = $repository->createQueryBuilder('c')
-                ->select('c')
-                ->where('c.user = ?0 and c.name LIKE ?1')
-                ->setParameters([$this->getUser(), '%'.$search.'%'])
-                ->getQuery()
-                ->getResult();
-        } else {
-            $items = $repository->findBy(['user' => $this->getUser()]);
-        }
-
-        return $this->render('product/index.html.twig', ['products' => $items]);
+        return $this->render('product/index.html.twig');
     }
 
     /**
@@ -48,7 +34,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="product_show", methods="GET")
+     * @Route("/{id}", name="product_show", methods="GET", options={"expose": true})
      * @param int $id
      * @param ProductRepository $repository
      * @param Ensure $ensure
@@ -65,7 +51,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="product_edit", methods="GET")
+     * @Route("/{id}/edit", name="product_edit", methods="GET", options={"expose": true})
      * @param int $id
      * @return Response
      */

@@ -7,7 +7,7 @@
     <div class="block-header">
         <h2>{{ 'page.titles.product'|trans }}</h2>
     </div>
-    <div class="row clearfix">
+    <div class="row clearfix" ng-controller="indexProduct as vm">
         <div class="col-sm-12">
             <div class="card">
                 <div class="header">
@@ -21,7 +21,7 @@
                 <div class="body table-responsive">
                     <div class="row clearfix">
                         <div class="col-md-6">
-                            {% include 'shared/_search.htmt.twig' with {url: path('product_index')} only %}
+                            {% include 'shared/_search.htmt.twig' %}
                         </div>
                     </div>
                     <table class="table">
@@ -36,33 +36,33 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for product in products %}
-                            <tr>
-                                <td>{{ loop.index }}</td>
-                                <td>{{ product.name }}</td>
-                                <td>{{ product.code }}</td>
-                                <td>{{ product.unit }}</td>
-                                <td>{{ product.amount }}</td>
-                                <td>
-                                    <a href="{{ path('product_show', {'id': product.id}) }}"
+                            <tr ng-repeat="product in vm.products | filter: {name: vm.q} as results">
+                                <td ng-bind="$index + 1"></td>
+                                <td ng-bind="product.name"></td>
+                                <td ng-bind="product.code"></td>
+                                <td ng-bind="product.unit"></td>
+                                <td ng-bind="product.amount"></td>
+                                <td>{% verbatim %}
+                                    <a ng-href="{{ vm.getShowUrl(product.id) }}"
                                        class="waves-effect">
                                         <i class="material-icons">visibility</i>
                                     </a>
-                                    <a href="{{ path('product_edit', {'id': product.id}) }}"
+                                    <a ng-href="{{ vm.getEditUrl(product.id) }}"
                                        class="waves-effect">
                                         <i class="material-icons">edit</i>
                                     </a>
-                                </td>
+                                </td>{% endverbatim %}
                             </tr>
-                        {% else %}
-                            <tr>
+                            <tr ng-if="results.length === 0">
                                 <td colspan="6">{{ 'page.no_records'|trans }}</td>
                             </tr>
-                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/product-index.js') }}"></script>
 {% endblock %}

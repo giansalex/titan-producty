@@ -36,6 +36,10 @@ Encore
         './assets/js/app/formula/formula.service',
         './assets/js/app/formula/new.controller',
     ])
+    .addEntry('product-index', [
+        './assets/js/app/product/product.service',
+        './assets/js/app/product/index.controller',
+    ])
     .addEntry('product-new', [
         './assets/js/app/formula/formula.service',
         './assets/js/app/product/product.service',
