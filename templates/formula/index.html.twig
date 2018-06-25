@@ -7,7 +7,7 @@
     <div class="block-header">
         <h2>{{ 'page.titles.formula'|trans }}</h2>
     </div>
-    <div class="row clearfix">
+    <div class="row clearfix" ng-controller="indexFormula as vm">
         <div class="col-sm-12">
             <div class="card">
                 <div class="header">
@@ -21,7 +21,7 @@
                 <div class="body table-responsive">
                     <div class="row clearfix">
                         <div class="col-md-6">
-                            {% include 'shared/_search.htmt.twig' with {url: path('formula_index')} only %}
+                            {% include 'shared/_search.htmt.twig' %}
                         </div>
                     </div>
                     <table class="table">
@@ -35,32 +35,32 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for formula in formulas %}
-                            <tr>
-                                <td>{{ loop.index }}</td>
-                                <td>{{ formula.name }}</td>
-                                <td>{{ formula.amount }}</td>
-                                <td>{{ formula.unit }}</td>
-                                <td>
-                                    <a href="{{ path('formula_show', {'id': formula.id}) }}"
+                            <tr ng-repeat="formula in vm.formulas | filter: {name: vm.q} as results">
+                                <td ng-bind="$index + 1"></td>
+                                <td ng-bind="formula.name"></td>
+                                <td ng-bind="formula.amount"></td>
+                                <td ng-bind="formula.unit"></td>
+                                <td>{% verbatim %}
+                                    <a ng-href="{{ vm.getShowUrl(formula.id) }}"
                                        class="waves-effect">
                                         <i class="material-icons">visibility</i>
                                     </a>
-                                    <a href="{{ path('formula_edit', {'id': formula.id}) }}"
+                                    <a ng-href="{{ vm.getEditUrl(formula.id) }}"
                                        class="waves-effect">
                                         <i class="material-icons">edit</i>
                                     </a>
-                                </td>
+                                </td>{% endverbatim %}
                             </tr>
-                        {% else %}
-                            <tr>
+                            <tr ng-if="results.length === 0">
                                 <td colspan="5">{{ 'page.no_records'|trans }}</td>
                             </tr>
-                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/formula-index.js') }}"></script>
 {% endblock %}

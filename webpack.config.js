@@ -28,6 +28,10 @@ Encore
         './assets/js/app/material/inventory.service',
         './assets/js/app/material/inventory.controller',
     ])
+    .addEntry('formula-index', [
+        './assets/js/app/formula/formula.service',
+        './assets/js/app/formula/index.controller',
+    ])
     .addEntry('formula-new', [
         './assets/js/app/formula/formula.service',
         './assets/js/app/formula/new.controller',

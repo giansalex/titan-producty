@@ -17,27 +17,11 @@ class FormulaController extends Controller
 {
     /**
      * @Route("/", name="formula_index", methods="GET|POST", options={"expose": true})
-     * @param Request $request
-     * @param FormulaRepository $repository
      * @return Response
      */
-    public function index(Request $request, FormulaRepository $repository): Response
+    public function index(): Response
     {
-        if ($request->request->has('search')) {
-            $search = $request->request->get('search');
-            $items = $repository->createQueryBuilder('c')
-                ->select('c')
-                ->where('c.user = ?0 and c.name LIKE ?1')
-                ->setParameters([$this->getUser(), '%'.$search.'%'])
-                ->getQuery()
-                ->getResult();
-        } else {
-            $items = $repository->findBy(['user' => $this->getUser()]);
-        }
-
-        return $this->render('formula/index.html.twig', [
-            'formulas' => $items
-        ]);
+        return $this->render('formula/index.html.twig');
     }
 
     /**
@@ -49,7 +33,7 @@ class FormulaController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="formula_show", methods="GET")
+     * @Route("/{id}", name="formula_show", methods="GET", options={"expose": true})
      * @param $id
      * @param FormulaRepository $repository
      * @param Ensure $ensure
@@ -66,7 +50,7 @@ class FormulaController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="formula_edit", methods="GET")
+     * @Route("/{id}/edit", name="formula_edit", methods="GET", options={"expose": true})
      * @param int $id
      * @return Response
      */
