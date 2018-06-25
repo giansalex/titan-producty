@@ -7,7 +7,7 @@
     <div class="block-header">
         <h2>{{ 'page.titles.material'|trans }}</h2>
     </div>
-    <div class="row clearfix">
+    <div class="row clearfix" ng-controller="newMaterial as vm" ng-init="vm.list()">
         <div class="col-sm-12">
             <div class="card">
                 <div class="header">
@@ -43,34 +43,35 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for material in materials %}
-                            <tr>
-                                <td>{{ loop.index }}</td>
-                                <td>{{ material.name }}</td>
-                                <td>{{ material.code }}</td>
-                                <td>{{ material.amount }}</td>
-                                <td>{{ material.unit }}</td>
-                                <td>{{ material.price }}</td>
-                                <td>
-                                    <a href="{{ path('material_show', {'id': material.id}) }}"
+                            <tr ng-repeat="material in vm.materials | filter: {name: vm.q} as results">
+                                <td ng-bind="$index + 1"></td>
+                                <td ng-bind="material.name"></td>
+                                <td ng-bind="material.code"></td>
+                                <td ng-bind="material.amount"></td>
+                                <td ng-bind="material.unit"></td>
+                                <td ng-bind="material.price"></td>
+                                <td>{% verbatim %}
+                                    <a ng-href="{{ vm.getShowUrl(material.id) }}"
                                        class="waves-effect">
                                         <i class="material-icons">visibility</i>
                                     </a>
-                                    <a href="{{ path('material_edit', {'id': material.id}) }}"
+                                    <a ng-href="{{ vm.getEditUrl(material.id) }}"
                                        class="waves-effect">
                                         <i class="material-icons">edit</i>
                                     </a>
-                                </td>
+                                </td>{% endverbatim %}
                             </tr>
-                        {% else %}
-                            <tr>
+                            <tr ng-if="results.length === 0">
                                 <td colspan="7">{{ 'page.no_records'|trans }}</td>
                             </tr>
-                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/material-new.js') }}"></script>
 {% endblock %}

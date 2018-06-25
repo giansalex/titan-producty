@@ -12,11 +12,29 @@
         vm.get = get;
         vm.create = create;
         vm.edit = edit;
+        vm.list = list;
         vm.getPrice = getPrice;
+        vm.getShowUrl = getShowUrl;
+        vm.getEditUrl = getEditUrl;
 
         activate();
 
         function activate() {
+        }
+
+        function list() {
+            $material.list()
+                .then(function (r) {
+                    vm.materials = r.data;
+                });
+        }
+
+        function getShowUrl(id) {
+            return Routing.generate('material_show', {id: id});
+        }
+
+        function getEditUrl(id) {
+            return Routing.generate('material_edit', {id: id});
         }
 
         function get(id) {
