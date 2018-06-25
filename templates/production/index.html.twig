@@ -40,9 +40,9 @@
                                 <td>{{ production.client }}</td>
                                 <td>{{ production.product.name }}</td>
                                 <td>{{ production.amount }}</td>
-                                <td>{{ production.price }}</td>
+                                <td>${{ production.price|number_format(2, '.', ',') }}</td>
                                 <td>{{ production.weight }}</td>
-                                <td>{{ production.price * production.amount }}</td>
+                                <td>${{ (production.price * production.amount)|number_format(2, '.', ',') }}</td>
                                 <td>{{ production.state|state }}</td>
                                 <td>
                                     <a href="{{ path('production_show', {'id': production.id}) }}"
