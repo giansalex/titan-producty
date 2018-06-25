@@ -118,6 +118,7 @@ class MaterialApiController extends AbstractController
         Ensure $ensure)
     {
         $material = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+        $old = $material->getStock();
         $ensure->ifNotEmpty($material);
 
         $newMaterial = $this->getMaterial($request, $serializer);
@@ -129,6 +130,13 @@ class MaterialApiController extends AbstractController
         }
 
         $em = $this->getDoctrine()->getManager();
+
+        $diff = $material->getStock() - $old;
+        if ($diff !== 0) {
+            $history = $repository->createHistory($material, $this->getUser(), $diff);
+            $em->persist($history);
+        }
+
         $em->flush();
 
         return new Response();

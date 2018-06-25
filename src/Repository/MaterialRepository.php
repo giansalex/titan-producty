@@ -29,19 +29,27 @@ class MaterialRepository extends ServiceEntityRepository
             $diff = $item->value - $material->getStock();
             $material->setStock($item->value);
 
-            $history = new History();
-            $history->setUser($user)
-                ->setType(1)
-                ->setItemId($material->getId())
-                ->setAmount($diff)
-                ->setTotal($item->value)
-                ->setAction('Ajuste Inventario')
-                ->setDate(new \DateTime())
-                ->setUserAction($user->getId());
+            $history = $this->createHistory($material, $user, $diff);
 
             $em->persist($history);
         }
 
         $em->flush();
+    }
+
+    public function createHistory(Material $material, User $user, $difference)
+    {
+        $history = new History();
+        $history
+            ->setUser($user)
+            ->setType(1)
+            ->setItemId($material->getId())
+            ->setAmount($difference)
+            ->setTotal($material->getStock())
+            ->setAction('Ajuste Inventario')
+            ->setDate(new \DateTime())
+            ->setUserAction($user->getId());
+
+        return $history;
     }
 }
