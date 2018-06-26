@@ -166,7 +166,7 @@ class FormulaApiController extends AbstractController
     {
         $newFormula = $repository->duplicate($id, $this->getUser());
 
-        return new JsonResponse($mapper->map($newFormula, FormulaDto::class));
+        return $this->json($mapper->map($newFormula, FormulaDto::class));
     }
 
     /**
