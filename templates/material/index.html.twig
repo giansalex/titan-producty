@@ -7,7 +7,7 @@
     <div class="block-header">
         <h2>{{ 'page.titles.material'|trans }}</h2>
     </div>
-    <div class="row clearfix" ng-controller="newMaterial as vm" ng-init="vm.list()">
+    <div class="row clearfix" ng-controller="indexMaterial as vm">
         <div class="col-sm-12">
             <div class="card">
                 <div class="header">
@@ -76,5 +76,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('build/material-new.js') }}"></script>
+    <script src="{{ asset('build/material-index.js') }}"></script>
 {% endblock %}
