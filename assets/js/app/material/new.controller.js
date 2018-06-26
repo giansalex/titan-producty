@@ -34,7 +34,7 @@
             if (!vm.material.amount) {
                 return 0;
             }
-            var total = vm.material.packing_price || 0;
+            const total = vm.material.packing_price || 0;
 
             vm.material.price = total / vm.material.amount;
 
@@ -49,13 +49,13 @@
             if (err.status !== 400) {
                 return;
             }
-            var data = err.data;
+            const data = err.data;
             if (!data || !data.errors) {
                 return;
             }
-            var errors = data.errors;
-            for (var i = 0; i < errors.length; i++) {
-                var element = errors[i];
+            const errors = data.errors;
+            for (let i = 0; i < errors.length; i++) {
+                const element = errors[i];
                 console.log(element.field + ':' + element.message);
             }
         }

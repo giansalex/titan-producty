@@ -41,7 +41,7 @@
         }
 
         function getTotal() {
-            var total = 0;
+            let total = 0;
             vm.selected.forEach(function (element) {
                 total += element.total;
             });

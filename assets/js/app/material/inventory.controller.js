@@ -18,7 +18,7 @@
             .then(listSuccess);
 
             function listSuccess(r) {
-                var data = r.data;
+                const data = r.data;
                 data.forEach(function (item) {
                     item.change = item.stock;
                 });
@@ -43,7 +43,7 @@
 
         function getList() {
             const list = vm.selected;
-            var result = [];
+            let result = [];
 
             list.forEach(function (element) {
                 if (element.stock === element.change) {

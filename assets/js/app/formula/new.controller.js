@@ -47,8 +47,8 @@
         }
 
         function getCosto(detail) {
-            var price = detail.price || 0;
-            var amount = detail.amount || 0;
+            const price = detail.price || 0;
+            const amount = detail.amount || 0;
 
             detail.total = price * amount;
 
@@ -56,7 +56,7 @@
         }
 
         function getTotal() {
-            var total = 0;
+            let total = 0;
             vm.selected.forEach(function (element) {
                 total += element.total;
             });
