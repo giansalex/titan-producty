@@ -13,6 +13,11 @@
                     <h2>Ajuste de Inventario</h2>
                 </div>
                 <div class="body">
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            {% include 'shared/_search.htmt.twig' %}
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-condensed">
                             <thead>
@@ -25,7 +30,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="x in vm.selected">
+                            <tr ng-repeat="x in vm.selected | filter: {name: vm.q}">
                                 <td ng-bind="x.name"></td>
                                 <td ng-bind="x.code"></td>                                
                                 <td ng-bind="x.stock"></td>
