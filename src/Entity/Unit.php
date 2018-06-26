@@ -40,6 +40,13 @@ class Unit
         return $this->code;
     }
 
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
     public function getValue(): ?string
     {
         return $this->value;

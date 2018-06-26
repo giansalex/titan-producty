@@ -25,7 +25,7 @@ class UnitApiController extends AbstractController
      */
     public function list(UnitRepository $repository): JsonResponse
     {
-        $items = $repository->findBy(['user' => $this->getUser()]);
+        $items = $repository->findAll();
 
         return $this->json($items);
     }
