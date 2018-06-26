@@ -8,6 +8,7 @@
     indexController.$inject = ['formulaService'];
     function indexController($service) {
         const vm = this;
+        vm.copy = copy;
         vm.getShowUrl = getShowUrl;
         vm.getEditUrl = getEditUrl;
 
@@ -29,6 +30,14 @@
 
         function getEditUrl(id) {
             return Routing.generate('formula_edit', {id: id});
+        }
+
+        function copy(formula) {
+            const idx = vm.formulas.indexOf(formula);
+            $service.copy(formula.id)
+                .then(function (r) {
+                    vm.formulas.splice(idx + 1, 0, r.data);
+                });
         }
     }
 })();

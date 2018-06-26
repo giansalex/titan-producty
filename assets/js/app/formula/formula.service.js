@@ -13,7 +13,8 @@
             get: get,
             list: list,
             edit: edit,
-            materials: materials
+            materials: materials,
+            copy: copy,
         };
 
         function add(formula) {
@@ -34,6 +35,10 @@
 
         function materials(id) {
             return $http.get(Routing.generate('formula_api_material', {id: id}));
+        }
+
+        function copy(id) {
+            return $http.post(Routing.generate('formula_api_duplicate', {id: id}));
         }
     }
 })();

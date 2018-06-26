@@ -68,4 +68,35 @@ class FormulaRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Duplicate entity.
+     *
+     * @param int $id
+     * @param User $user
+     * @return Formula
+     */
+    public function duplicate($id, User $user)
+    {
+        /**@var $formula Formula */
+        $formula = $this->findOneBy(['user' => $user, 'id' => $id]);
+
+        $newFormula = clone $formula;
+        $newFormula->setName($newFormula->getName().' - copia');
+
+        $details = clone $newFormula->getDetails();
+        $newFormula->getDetails()->clear();
+        $em = $this->getEntityManager();
+        foreach ($details as $detail) {
+            $newDetail = clone $detail;
+            $newDetail->setFormula($newFormula);
+
+            $newFormula->addDetail($newDetail);
+        }
+
+        $em->persist($newFormula);
+        $em->flush();
+
+        return $newFormula;
+    }
 }
