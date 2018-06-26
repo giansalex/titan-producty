@@ -12,6 +12,7 @@
             get: get,
             edit: edit,
             list: list,
+            copy: copy,
         };
 
         function get(id) {
@@ -28,6 +29,10 @@
 
         function list() {
             return $http.get(Routing.generate('material_api_list'));
+        }
+
+        function copy(id) {
+            return $http.post(Routing.generate('material_api_duplicate', {id: id}));
         }
     }
 })();

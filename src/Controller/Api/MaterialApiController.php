@@ -162,6 +162,19 @@ class MaterialApiController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/duplicate", methods={"POST"}, name="material_api_duplicate")
+     * @param int $id
+     * @param MaterialRepository $repository
+     * @return JsonResponse
+     */
+    public function duplicate(int $id, MaterialRepository $repository)
+    {
+        $newMaterial = $repository->duplicate($id, $this->getUser());
+
+        return $this->json($newMaterial);
+    }
+
+    /**
      * @param Request $request
      * @param SerializerInterface $serializer
      * @return object

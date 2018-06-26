@@ -52,4 +52,27 @@ class MaterialRepository extends ServiceEntityRepository
 
         return $history;
     }
+
+    /**
+     * Duplicate entity.
+     *
+     * @param int $id
+     * @param User $user
+     * @return Material
+     */
+    public function duplicate($id, User $user)
+    {
+        /**@var $material Material */
+        $material = $this->findOneBy(['user' => $user, 'id' => $id]);
+
+        $newMaterial = clone $material;
+        $newMaterial->setName($newMaterial->getName().' - copia');
+        $newMaterial->setStock(0);
+
+        $em = $this->getEntityManager();
+        $em->persist($newMaterial);
+        $em->flush();
+
+        return $newMaterial;
+    }
 }
