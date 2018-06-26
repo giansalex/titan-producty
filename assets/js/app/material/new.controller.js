@@ -20,6 +20,7 @@
             $unit.list()
                 .then(function (r) {
                     vm.units = r.data;
+                    filterUnits();
                 });
         }
 
@@ -27,6 +28,7 @@
             $material.get(id)
                 .then(function (r) {
                     vm.material = r.data;
+                    filterUnits();
                 });
         }
 
@@ -73,6 +75,21 @@
 
             $material.edit(id, material)
                 .then(successAdded, errorAdded);
+        }
+
+        function filterUnits() {
+            const material = vm.material;
+            if (!material.id ||
+                !vm.units) {
+                return;
+            }
+            const unit = vm.units.find((item) => item.code === material.unit);
+
+            if (!unit) {
+                return;
+            }
+
+            vm.units = vm.units.filter((item) => item.type === unit.type);
         }
     }
 })();
