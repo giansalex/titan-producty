@@ -113,7 +113,7 @@
                                                ng-model="x.amount">
                                     </td>
                                     <td ng-bind="x.unit"></td>
-                                    <td ng-bind="vm.getCosto(x)"></td>
+                                    <td ng-bind="vm.getCosto(x)|currency"></td>
                                     <td>
                                         <button class="btn btn-xs btn-circle btn-danger"
                                                 ng-click="vm.delMaterial($index)">
@@ -123,7 +123,7 @@
                                 </tr>
                                 <tr>
                                     <td class="text-center" colspan="3"><b>Total</b></td>
-                                    <td ng-bind="vm.getTotal()"></td>
+                                    <td ng-bind="vm.getTotal()|currency"></td>
                                 </tr>
                                 </tbody>
                             </table>

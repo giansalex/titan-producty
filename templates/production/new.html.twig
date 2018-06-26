@@ -88,12 +88,12 @@
                                     <td ng-bind="x.name"></td>
                                     <td ng-bind="x.amount"></td>
                                     <td ng-bind="x.unit"></td>
-                                    <td ng-bind="x.price"></td>
-                                    <td ng-bind="x.total"></td>
+                                    <td ng-bind="x.price|currency"></td>
+                                    <td ng-bind="x.total|currency"></td>
                                 </tr>
                                 <tr>
                                     <td class="text-center" colspan="4"><b>Total</b></td>
-                                    <td ng-bind="vm.getTotal()"></td>
+                                    <td ng-bind="vm.getTotal()|currency"></td>
                                 </tr>
                                 </tbody>
                             </table>
