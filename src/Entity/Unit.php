@@ -15,6 +15,7 @@ class Unit
      * @Assert\Length(max="10")
      * @ORM\Id()
      * @ORM\Column(type="string", length=10)
+     * @var string
      */
     private $code;
 
@@ -22,8 +23,17 @@ class Unit
      * @Assert\NotBlank()
      * @Assert\Length(max="50")
      * @ORM\Column(type="string", length=50)
+     * @var string
      */
     private $value;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max="20")
+     * @ORM\Column(type="string", length=20)
+     * @var string
+     */
+    private $type;
 
     public function getCode(): ?string
     {
@@ -38,6 +48,18 @@ class Unit
     public function setValue(string $value): self
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
