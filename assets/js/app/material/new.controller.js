@@ -83,13 +83,18 @@
                 !vm.units) {
                 return;
             }
-            const unit = vm.units.find((item) => item.code === material.unit);
+
+            vm.units = getUnitsByCode(vm.units, material.unit);
+        }
+
+        function getUnitsByCode(units, code) {
+            const unit = units.find((item) => item.code === code);
 
             if (!unit) {
-                return;
+                return units;
             }
 
-            vm.units = vm.units.filter((item) => item.type === unit.type);
+            return units.filter((item) => item.type === unit.type);
         }
     }
 })();
