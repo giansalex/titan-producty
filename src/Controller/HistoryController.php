@@ -8,7 +8,6 @@
 
 namespace App\Controller;
 
-use App\Repository\HistoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,15 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class HistoryController extends AbstractController
 {
     /**
-     * @Route("/{type}", name="history_index", methods="GET|POST")
+     * @Route("/{type}", name="history_index", methods="GET")
      * @param int $type
-     * @param HistoryRepository$repository
      * @return Response
      */
-    public function index($type, HistoryRepository $repository)
+    public function index($type)
     {
-        $items = $repository->listMaterialByType($type, $this->getUser());
-
-        return $this->render('history/index.html.twig', ['histories' => $items]);
+        return $this->render('history/index.html.twig', ['type' => $type]);
     }
 }
