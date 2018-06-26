@@ -5,8 +5,8 @@
         .module('app')
         .controller('newProduct', newController);
 
-    newController.$inject = ['productService', 'formulaService', 'materialService', '$window'];
-    function newController($product, $formula, $material, $window) {
+    newController.$inject = ['productService', 'formulaService', 'materialService', 'unitService', '$window'];
+    function newController($product, $formula, $material, $unit, $window) {
         const vm = this;
         vm.formulas = [];
         vm.selected = [];
@@ -27,30 +27,36 @@
                 .then(getFormulas);
             $material.list()
                 .then(getMaterials);
+            $unit.list()
+                .then(getUnits);
 
             function getFormulas(res) {
                 vm.formulas = res.data;
-                console.log(vm.formulas);
             }
 
             function getMaterials(res) {
                 vm.materials = res.data;
-                console.log(vm.materials);
+            }
+
+            function getUnits(r) {
+                vm.units = r.data;
+                filterUnits();
             }
         }
 
         function get(id) {
             $product.get(id)
-                .then(function (r) {
-                    vm.product = r.data;
-                    console.log(vm.product);
-                });
+                .then(getProduct);
             $product.materials(id)
                 .then(getMaterials);
 
+            function getProduct(r) {
+                vm.product = r.data;
+                filterUnits();
+            }
+
             function getMaterials(res) {
                 vm.selected = res.data;
-                console.log(vm.selected);
             }
         }
 
@@ -134,6 +140,26 @@
                     total: item.total,
                 };
             })
+        }
+
+        function filterUnits() {
+            const product = vm.product;
+            if (!product.id ||
+                !vm.units) {
+                return;
+            }
+
+            vm.units = getUnitsByCode(vm.units, product.unit);
+        }
+
+        function getUnitsByCode(units, code) {
+            const unit = units.find((item) => item.code === code);
+
+            if (!unit) {
+                return units;
+            }
+
+            return units.filter((item) => item.type === unit.type);
         }
     }
 })();
