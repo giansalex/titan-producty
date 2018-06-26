@@ -6,13 +6,18 @@
     <div class="block-header">
         <h2>{{ 'page.titles.history'|trans }}</h2>
     </div>
-    <div class="row clearfix">
+    <div class="row clearfix" ng-controller="indexHistory as vm" ng-init="vm.list('{{ type }}')">
         <div class="col-sm-12">
             <div class="card">
                 <div class="header">
                     <h2>Lista</h2>
                 </div>
                 <div class="body table-responsive">
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            {% include 'shared/_search.htmt.twig' %}
+                        </div>
+                    </div>
                     <table class="table">
                         <thead>
                         <tr>
@@ -27,26 +32,26 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for history in histories %}
-                            <tr>
-                                <td>{{ loop.index }}</td>
-                                <td>{{ history.date|date('d-m-Y') }}</td>
-                                <td>{{ history.name }}</td>
-                                <td>{{ history.code }}</td>
-                                <td>{{ history.action }}</td>
-                                <td>{{ history.amount }}</td>
-                                <td>{{ history.total }}</td>
-                                <td>{{ history.username }}</td>
+                            <tr ng-repeat="history in vm.histories | filter: {name: vm.q} as results">
+                                <td ng-bind="$index + 1"></td>
+                                <td ng-bind="history.date|date:'dd-MM-yyyy'"></td>
+                                <td ng-bind="history.name"></td>
+                                <td ng-bind="history.code"></td>
+                                <td ng-bind="history.action"></td>
+                                <td ng-bind="history.amount"></td>
+                                <td ng-bind="history.total"></td>
+                                <td ng-bind="history.username"></td>
                             </tr>
-                        {% else %}
-                            <tr>
+                            <tr ng-if="results.length === 0">
                                 <td colspan="8">{{ 'page.no_records'|trans }}</td>
                             </tr>
-                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/history-index.js') }}"></script>
 {% endblock %}
