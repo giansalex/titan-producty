@@ -41,6 +41,15 @@ class MaterialController extends Controller
     }
 
     /**
+     * @Route("/order", name="material_order", methods="GET")
+     * @return Response
+     */
+    public function order(): Response
+    {
+        return $this->render('material/order.html.twig');
+    }
+
+    /**
      * @Route("/{id}", name="material_show", methods="GET", options={"expose": true})
      * @param Material $material
      * @return Response
