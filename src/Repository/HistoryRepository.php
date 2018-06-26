@@ -22,15 +22,18 @@ class HistoryRepository extends ServiceEntityRepository
         parent::__construct($registry, History::class);
     }
 
-    public function listMaterialByType($type, User $user)
+    public function getQueryMaterial()
     {
         return $this->createQueryBuilder('h')
             ->select('h.id, h.date, m.id AS ide, m.name, m.code, h.action, h.amount, h.total, u.username')
             ->innerJoin(Material::class, 'm', Join::WITH, 'h.itemId = m.id')
-            ->innerJoin(User::class, 'u', Join::WITH, 'h.userAction = u.id')
-            ->where('h.user = ?0 AND h.type = ?1')
-            ->setParameters([$user, $type])
-            ->getQuery()
-            ->getResult();
+            ->innerJoin(User::class, 'u', Join::WITH, 'h.userAction = u.id');
+    }
+
+    public function getQueryMaterialByUser(User $user)
+    {
+        return $this->getQueryMaterial()
+                ->where('h.user = ?0')
+                ->setParameter(0, $user);
     }
 }

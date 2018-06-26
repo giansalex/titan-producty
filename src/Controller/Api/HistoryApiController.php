@@ -26,7 +26,11 @@ class HistoryApiController extends AbstractController
      */
     public function list($type, HistoryRepository $repository): JsonResponse
     {
-        $items = $repository->listMaterialByType($type, $this->getUser());
+        $items = $repository->getQueryMaterialByUser($this->getUser())
+                    ->andWhere('h.type = ?1')
+                    ->setParameter(1, $type)
+                    ->getQuery()
+                    ->getResult();
 
         return $this->json($items);
     }
