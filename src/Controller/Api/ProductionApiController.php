@@ -138,6 +138,19 @@ class ProductionApiController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/duplicate", methods={"POST"}, name="production_api_duplicate")
+     * @param int $id
+     * @param ProductionRepository $repository
+     * @return JsonResponse
+     */
+    public function duplicate(int $id, ProductionRepository $repository)
+    {
+        $newProduction = $repository->duplicate($id, $this->getUser());
+
+        return $this->json($newProduction);
+    }
+
+    /**
      * @param Request $request
      * @param SerializerInterface $serializer
      * @return object
