@@ -36,14 +36,18 @@
                                            class="form-control">
                                 </div>
                             </div>
-                            <label for="unit">Unidad Base</label>
+                            <label for="unit">Unidad</label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text"
-                                           id="unit"
-                                           required
-                                           ng-model="vm.formula.unit"
-                                           class="form-control">
+                                    <select type="text"
+                                            id="unit"
+                                            required
+                                            ng-model="vm.formula.unit"
+                                            class="form-control">
+                                        <option ng-repeat="unit in vm.units"
+                                                ng-value="unit.code"
+                                                ng-bind="unit.value + '(' + unit.code + ')'"></option>
+                                    </select>
                                 </div>
                             </div>
                             <label for="notes">Observaciones</label>

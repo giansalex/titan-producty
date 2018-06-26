@@ -5,8 +5,8 @@
         .module('app')
         .controller('newFormula', newController);
 
-    newController.$inject = ['materialService', 'formulaService', '$window'];
-    function newController($material, $formula, $window) {
+    newController.$inject = ['materialService', 'formulaService', 'unitService', '$window'];
+    function newController($material, $formula, $unit, $window) {
         const vm = this;
         vm.materials = [];
         vm.selected = [];
@@ -25,24 +25,32 @@
             $material.list()
                 .then(getMaterials);
 
+            $unit.list()
+                .then(getUnits);
+
             function getMaterials(res) {
                 vm.materials = res.data;
-                console.log(vm.materials);
+            }
+
+            function getUnits(r) {
+                vm.units = r.data;
+                filterUnits();
             }
         }
 
         function get(id) {
             $formula.get(id)
-                .then(function (r) {
-                    vm.formula = r.data;
-                    console.log(vm.formula);
-                });
+                .then(getFormula);
             $formula.materials(id)
                 .then(getMaterials);
 
+            function getFormula(r) {
+                vm.formula = r.data;
+                filterUnits();
+            }
+
             function getMaterials(res) {
                 vm.selected = res.data;
-                console.log(vm.selected);
             }
         }
 
@@ -115,6 +123,26 @@
                     total: item.total,
                 };
             })
+        }
+
+        function filterUnits() {
+            const formula = vm.formula;
+            if (!formula.id ||
+                !vm.units) {
+                return;
+            }
+
+            vm.units = getUnitsByCode(vm.units, formula.unit);
+        }
+
+        function getUnitsByCode(units, code) {
+            const unit = units.find((item) => item.code === code);
+
+            if (!unit) {
+                return units;
+            }
+
+            return units.filter((item) => item.type === unit.type);
         }
     }
 })();
