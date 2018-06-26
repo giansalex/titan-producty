@@ -18,7 +18,7 @@
                         <div>
                             <label for="name">Nombre</label>
                             <div class="form-group">
-                                <div class="form-line" ng-class="{'error': vm.material.name.$invalid}">
+                                <div class="form-line" ng-class="{'error': vm.frm.name.$invalid}">
                                     <input type="text"
                                            id="name"
                                            required
@@ -49,11 +49,16 @@
                             <label for="unit">Unidad Base</label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text"
+                                    <select type="text"
                                            id="unit"
                                            required
                                            ng-model="vm.material.unit"
                                            class="form-control">
+                                        <option></option>
+                                        <option ng-repeat="unit in vm.units"
+                                                ng-value="unit.code"
+                                                ng-bind="unit.value + '(' + unit.code + ')'"></option>
+                                    </select>
                                 </div>
                             </div>
                             <label for="packing_price">Costo por Presentación</label>

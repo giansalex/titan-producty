@@ -25,6 +25,9 @@ Encore
     .addEntry('material-new', [
         './assets/js/app/material/new.controller',
     ])
+    .addEntry('material-index', [
+        './assets/js/app/material/index.controller',
+    ])
     .addEntry('history-index', [
         './assets/js/app/history/history.service',
         './assets/js/app/history/index.controller',

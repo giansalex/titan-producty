@@ -5,36 +5,22 @@
         .module('app')
         .controller('newMaterial', newController);
 
-    newController.$inject = ['materialService', '$window'];
-    function newController($material, $window) {
+    newController.$inject = ['materialService', 'unitService', '$window'];
+    function newController($material, $unit, $window) {
         const vm = this;
         vm.material = {};
         vm.get = get;
         vm.create = create;
         vm.edit = edit;
-        vm.list = list;
         vm.getPrice = getPrice;
-        vm.getShowUrl = getShowUrl;
-        vm.getEditUrl = getEditUrl;
 
         activate();
 
         function activate() {
-        }
-
-        function list() {
-            $material.list()
+            $unit.list()
                 .then(function (r) {
-                    vm.materials = r.data;
+                    vm.units = r.data;
                 });
-        }
-
-        function getShowUrl(id) {
-            return Routing.generate('material_show', {id: id});
-        }
-
-        function getEditUrl(id) {
-            return Routing.generate('material_edit', {id: id});
         }
 
         function get(id) {
