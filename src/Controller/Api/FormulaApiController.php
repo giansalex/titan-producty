@@ -156,6 +156,24 @@ class FormulaApiController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/duplicate", methods={"POST"}, name="formula_api_duplicate")
+     * @param Formula $formula
+     * @param Mapper $mapper
+     * @return JsonResponse
+     */
+    public function duplicate(Formula $formula, Mapper $mapper)
+    {
+        $newFormula = clone $formula;
+        $newFormula->setName($newFormula->getName().' - copia');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($newFormula);
+        $em->flush();
+
+        return new JsonResponse($mapper->map($newFormula, FormulaDto::class));
+    }
+
+    /**
      * @param Request $request
      * @param SerializerInterface $serializer
      * @return object
