@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Material;
+use App\Repository\HistoryRepository;
+use App\Repository\MaterialRepository;
+use App\Services\Ensure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,12 +54,31 @@ class MaterialController extends Controller
 
     /**
      * @Route("/{id}", name="material_show", methods="GET", options={"expose": true})
-     * @param Material $material
+     * @param $id
+     * @param MaterialRepository $repository
+     * @param HistoryRepository $historyRepository
+     * @param Ensure $ensure
      * @return Response
      */
-    public function show(Material $material): Response
+    public function show($id,
+             MaterialRepository $repository,
+             HistoryRepository $historyRepository,
+             Ensure $ensure): Response
     {
-        return $this->render('material/show.html.twig', ['material' => $material]);
+        $material = $repository->findOneBy(['user' => $this->getUser(), 'id' => $id]);
+        $ensure->ifNotEmpty($material);
+
+        $items = $historyRepository->getQueryMaterialByUser($this->getUser())
+            ->andWhere('h.type = ?1 AND h.itemId = ?2')
+            ->setParameter(1, 1)
+            ->setParameter(2, $id)
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('material/show.html.twig', [
+            'material' => $material,
+            'histories' => $items
+        ]);
     }
 
     /**
