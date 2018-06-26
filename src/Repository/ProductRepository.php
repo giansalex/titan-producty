@@ -67,4 +67,35 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Duplicate entity.
+     *
+     * @param int $id
+     * @param User $user
+     * @return Product
+     */
+    public function duplicate($id, User $user)
+    {
+        /**@var $product Product */
+        $product = $this->findOneBy(['user' => $user, 'id' => $id]);
+
+        $newProduct = clone $product;
+        $newProduct->setName($newProduct->getName().' - copia');
+
+        $details = clone $newProduct->getDetails();
+        $newProduct->getDetails()->clear();
+        $em = $this->getEntityManager();
+        foreach ($details as $detail) {
+            $newDetail = clone $detail;
+            $newDetail->setProduct($newProduct);
+
+            $newProduct->addDetail($newDetail);
+        }
+
+        $em->persist($newProduct);
+        $em->flush();
+
+        return $newProduct;
+    }
 }

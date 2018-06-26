@@ -14,6 +14,7 @@
             edit: edit,
             list: list,
             materials: materials,
+            copy: copy,
         };
 
         function add(product) {
@@ -34,6 +35,10 @@
 
         function materials(id) {
             return $http.get(Routing.generate('product_api_material', {id: id}));
+        }
+
+        function copy(id) {
+            return $http.post(Routing.generate('product_api_duplicate', {id: id}));
         }
     }
 })();

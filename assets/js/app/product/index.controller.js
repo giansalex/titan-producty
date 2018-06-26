@@ -8,6 +8,7 @@
     indexController.$inject = ['productService'];
     function indexController($service) {
         const vm = this;
+        vm.copy = copy;
         vm.getShowUrl = getShowUrl;
         vm.getEditUrl = getEditUrl;
 
@@ -28,6 +29,14 @@
 
         function getEditUrl(id) {
             return Routing.generate('product_edit', {id: id});
+        }
+
+        function copy(element) {
+            const idx = vm.products.indexOf(element);
+            $service.copy(element.id)
+                .then(function (r) {
+                    vm.products.splice(idx + 1, 0, r.data);
+                });
         }
     }
 })();

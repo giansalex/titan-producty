@@ -155,6 +155,20 @@ class ProductApiController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/duplicate", methods={"POST"}, name="product_api_duplicate")
+     * @param int $id
+     * @param ProductRepository $repository
+     * @param Mapper $mapper
+     * @return JsonResponse
+     */
+    public function duplicate(int $id, ProductRepository $repository, Mapper $mapper)
+    {
+        $newProduct = $repository->duplicate($id, $this->getUser());
+
+        return $this->json($mapper->map($newProduct, ProductDto::class));
+    }
+
+    /**
      * @param Request $request
      * @param SerializerInterface $serializer
      * @return object
