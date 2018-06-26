@@ -32,6 +32,7 @@ class AppExtension extends AbstractExtension
     {
         return array(
             new TwigFilter('state', array($this, 'stateFilter')),
+            new TwigFilter('currency', array($this, 'currencyFilter')),
         );
     }
 
@@ -43,5 +44,12 @@ class AppExtension extends AbstractExtension
         }
 
         return $codes[$code];
+    }
+
+    public function currencyFilter($number, $decimals = 2)
+    {
+        $formatted = number_format($number, $decimals, '.', ',');
+
+        return '$'.$formatted;
     }
 }
