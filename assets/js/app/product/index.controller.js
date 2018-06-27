@@ -32,10 +32,9 @@
         }
 
         function copy(element) {
-            const idx = vm.products.indexOf(element);
             $service.copy(element.id)
                 .then(function (r) {
-                    vm.products.splice(idx + 1, 0, r.data);
+                    vm.products.push(r.data);
                 });
         }
     }

@@ -36,7 +36,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="product in vm.products | filter: {name: vm.q} as results">
+                            <tr ng-repeat="product in vm.products | orderBy: 'name' | filter: {name: vm.q} as results">
                                 <td ng-bind="$index + 1"></td>
                                 <td ng-bind="product.name"></td>
                                 <td ng-bind="product.code"></td>
