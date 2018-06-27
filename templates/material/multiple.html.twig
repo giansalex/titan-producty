@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'page.titles.material'|trans }}{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('build/material-multiple.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="block-header">
+        <h2>{{ 'page.titles.material'|trans }}</h2>
+    </div>
+    <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="header">
+                    <h2>Agregar Multiple</h2>
+                </div>
+                <div class="body">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input id="cantRep"
+                                           type="number"
+                                           minlength="1"
+                                           class="form-control"
+                                           placeholder="Numero de Materias Primas a Ingresar">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6"><button class="btn btn-primary" id="btnAply">Aplicar</button></div>
+                        <br>
+                    </div>
+                    <div class="table-responsive" style="height: auto; width: 100%">
+                        <div id="excel"></div>
+                    </div>
+                    <br>
+                    <button id="btnSave" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/material-multiple.js') }}"></script>
+{% endblock %}

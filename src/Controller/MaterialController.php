@@ -44,6 +44,15 @@ class MaterialController extends Controller
     }
 
     /**
+     * @Route("/multiple", name="material_multiple", methods="GET")
+     * @return Response
+     */
+    public function multiple(): Response
+    {
+        return $this->render('material/multiple.html.twig');
+    }
+
+    /**
      * @Route("/order", name="material_order", methods="GET")
      * @return Response
      */
