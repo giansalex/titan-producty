@@ -14,6 +14,7 @@ Encore
         './assets/js/vendor'
     ])
     .addEntry('admin', [
+        '@babel/polyfill',
         'angular',
         './assets/js/admbs',
         './assets/js/routing',

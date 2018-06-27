@@ -1,9 +1,13 @@
 {
     "name": "titan-producty",
     "devDependencies": {
+        "@babel/core": "^7.0.0-beta.51",
+        "@babel/polyfill": "^7.0.0-beta.51",
+        "@babel/preset-env": "^7.0.0-beta.51",
         "@symfony/webpack-encore": "^0.19.0",
         "adminbsb-materialdesign": "^1.0.5",
         "angular": "^1.7.0",
+        "babel-loader": "^8.0.0-beta.4",
         "bootstrap": "^3.3.7",
         "bootstrap-select": "^1.13.1",
         "handsontable": "^4.0.0",
