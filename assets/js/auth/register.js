@@ -1,4 +1,5 @@
-(function () {
+(function() {
+    'use strict';
     let label;
     const element = $('#fos_user_registration_form_username');
     function createElement() {
