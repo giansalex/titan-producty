@@ -33,6 +33,41 @@ class MaterialApiController extends AbstractController
     }
 
     /**
+     * @Route("/multiple", methods={"POST"}, name="material_api_multiple")
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param ModelStateInterface $validator
+     * @return BadRequestResponse|Response
+     */
+    public function multiple(
+        Request $request,
+        SerializerInterface $serializer,
+        ModelStateInterface $validator)
+    {
+        $materials = $serializer->deserialize(
+            $request->getContent(),
+            'ArrayCollection<'.Material::class.'>',
+            'json'
+        );
+
+        if (!$validator->valid($materials)) {
+
+            return new BadRequestResponse((string) $validator);
+        }
+
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        /**@var $material Material */
+        foreach ($materials as $material) {
+            $material->setUser($user);
+            $em->persist($material);
+        }
+        $em->flush();
+
+        return new Response();
+    }
+
+    /**
      * @Route("/", methods={"POST"}, name="material_api_add")
      * @param Request $request
      * @param SerializerInterface $serializer
