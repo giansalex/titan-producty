@@ -129,7 +129,7 @@ require('../../../node_modules/handsontable/dist/handsontable.css');
             });
         }
 
-        function save() {
+        async function save() {
             const data = hot.getData();
             const materials = getMaterials(data);
 
@@ -138,16 +138,18 @@ require('../../../node_modules/handsontable/dist/handsontable.css');
                 return;
             }
 
-            saveApi(materials)
-                .then(processSuccess, processError);
+            try {
+                await saveApi(materials);
 
-            function processSuccess() {
                 swal('Buen Trabajo!', 'La informacion ha sido guardada.', 'success');
 
                 setTimeout(() => window.location.href = Routing.generate('material_index'), 500);
+            } catch (e) {
+                processError(e);
             }
 
             function processError(r) {
+                console.log(r);
                 if (r.status === 400 &&
                     r.responseJSON &&
                     r.responseJSON.errors) {
