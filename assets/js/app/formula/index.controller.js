@@ -33,10 +33,9 @@
         }
 
         function copy(formula) {
-            const idx = vm.formulas.indexOf(formula);
             $service.copy(formula.id)
                 .then(function (r) {
-                    vm.formulas.splice(idx + 1, 0, r.data);
+                    vm.formulas.push(r.data);
                 });
         }
     }

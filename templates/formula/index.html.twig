@@ -35,7 +35,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="formula in vm.formulas | filter: {name: vm.q} as results">
+                            <tr ng-repeat="formula in vm.formulas | orderBy: 'name' | filter: {name: vm.q} as results">
                                 <td ng-bind="$index + 1"></td>
                                 <td ng-bind="formula.name"></td>
                                 <td ng-bind="formula.amount"></td>
