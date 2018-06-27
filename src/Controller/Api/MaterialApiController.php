@@ -33,19 +33,6 @@ class MaterialApiController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", methods={"GET"}, name="material_api_get")
-     * @param int $id
-     * @param MaterialRepository $repository
-     * @return JsonResponse
-     */
-    public function getItem($id, MaterialRepository $repository)
-    {
-        $material = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
-
-        return $this->json($material);
-    }
-
-    /**
      * @Route("/", methods={"POST"}, name="material_api_add")
      * @param Request $request
      * @param SerializerInterface $serializer
@@ -72,6 +59,19 @@ class MaterialApiController extends AbstractController
         $em->flush();
 
         return new Response();
+    }
+
+    /**
+     * @Route("/{id}", methods={"GET"}, name="material_api_get")
+     * @param int $id
+     * @param MaterialRepository $repository
+     * @return JsonResponse
+     */
+    public function getItem($id, MaterialRepository $repository)
+    {
+        $material = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
+
+        return $this->json($material);
     }
 
     /**
