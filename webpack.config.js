@@ -22,6 +22,9 @@ Encore
         './assets/js/app/material/material.service',
         'sweetalert',
     ])
+    .addEntry('register', [
+        './assets/js/auth/register',
+    ])
     .addEntry('material-new', [
         './assets/js/app/material/new.controller',
     ])
