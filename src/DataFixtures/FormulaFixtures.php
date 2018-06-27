@@ -33,7 +33,7 @@ class FormulaFixtures extends Fixture implements DependentFixtureInterface
             $formula = new Formula();
             $formula
                 ->setName('FORM '.$i)
-                ->setUnit('MM')
+                ->setUnit('cm')
                 ->setAmount(23)
                 ->setUser($user);
 

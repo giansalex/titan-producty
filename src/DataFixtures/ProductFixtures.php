@@ -39,7 +39,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 ->setName('PROD '.$i)
                 ->setCode('AB')
                 ->setBaseAmount(1)
-                ->setUnit('MM')
+                ->setUnit('mm')
                 ->setAmount(23)
                 ->setUser($user);
 
