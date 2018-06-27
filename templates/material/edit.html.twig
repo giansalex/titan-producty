@@ -92,6 +92,12 @@
                                 <span class="input-group-addon" ng-bind="vm.material.unit"></span>
                             </div>
                         </div>
+                        <div class="center">
+                            <p style="font-size: 18px">
+                                <b ng-bind="vm.material.amount"></b> <b ng-bind="vm.material.unit"></b> de <b ng-bind="vm.material.name"></b> cuesta(n) <b ng-bind="vm.material.packing_price|currency"></b><br>
+                                lo que quiere decir que cada <b ng-bind="vm.material.unit"></b> cuesta <b ng-bind="vm.material.price|currency"></b>
+                            </p>
+                        </div>
                         <br>
                         <button class="btn btn-primary" ng-disabled="vm.frm.$invalid">Guardar</button>
                     </form>
