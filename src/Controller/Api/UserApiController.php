@@ -23,12 +23,8 @@ class UserApiController extends AbstractController
      * @param UserManagerInterface $userManager
      * @return JsonResponse
      */
-    public function exists($name = '', UserManagerInterface $userManager): JsonResponse
+    public function exists($name, UserManagerInterface $userManager): JsonResponse
     {
-        if (empty($name)) {
-            $this->createNotFoundException();
-        }
-
         $user = $userManager->findUserByUsername($name);
 
         return $this->json($user !== null);
