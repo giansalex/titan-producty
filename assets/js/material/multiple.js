@@ -1,5 +1,5 @@
 require('../../../node_modules/handsontable/dist/handsontable.css');
-(function() {
+(async function() {
     'use strict';
     const Handsontable = require('handsontable');
 
@@ -7,11 +7,8 @@ require('../../../node_modules/handsontable/dist/handsontable.css');
         let hot;
         let codes;
 
-        function loadUnits() {
-            return $.get(Routing.generate('unit_api_list'))
-                .then((data) => {
-                    codes = data.map((item) => item.code);
-                });
+        function getUnits() {
+            return $.get(Routing.generate('unit_api_list'));
         }
 
         function initTable() {
@@ -43,12 +40,12 @@ require('../../../node_modules/handsontable/dist/handsontable.css');
             });
         }
 
-        function init() {
-            loadUnits()
-                .then(function () {
-                    initTable();
-                    changeRows(2);
-                });
+        async function init() {
+            const data = await getUnits();
+            codes = data.map((item) => item.code);
+
+            initTable();
+            changeRows(2);
         }
 
         function changeRows(cant) {
@@ -181,6 +178,6 @@ require('../../../node_modules/handsontable/dist/handsontable.css');
     $('#btnSave').click(function () {
         mod.save();
     });
-    mod.init();
+    await mod.init();
 
 })();
