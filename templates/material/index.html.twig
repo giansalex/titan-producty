@@ -17,13 +17,16 @@
                             <a href="{{ path('material_new') }}" class="btn btn-success">Nueva Materia Prima</a>
                         </li>
                         <li>
-                            <a href="{{ path('material_inventory') }}" class="btn btn-info">Ajustar Inventario</a>
+                            <a href="{{ path('material_multiple') }}" class="btn btn-info">Ingresar Múltiple</a>
                         </li>
                         <li>
-                            <a href="{{ path('material_order') }}" class="btn btn-success">Ingresar Compra</a>
+                            <a href="{{ path('material_inventory') }}" class="btn btn-success">Ajustar Inventario</a>
                         </li>
                         <li>
-                            <a href="{{ path('history_index', {type: 1}) }}" class="btn btn-info">Historial</a>
+                            <a href="{{ path('material_order') }}" class="btn btn-info">Ingresar Compra</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('history_index', {type: 1}) }}" class="btn btn-success">Historial</a>
                         </li>
                     </ul>
                 </div>
