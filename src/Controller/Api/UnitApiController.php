@@ -9,6 +9,7 @@
 namespace App\Controller\Api;
 
 use App\Repository\UnitRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +21,7 @@ class UnitApiController extends AbstractController
 {
     /**
      * @Route("/", methods={"GET"}, name="unit_api_list")
+     * @Cache(expires="tomorrow")
      * @param UnitRepository $repository
      * @return JsonResponse
      */
