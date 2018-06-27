@@ -43,6 +43,9 @@ Encore
         './assets/js/app/material/inventory.service',
         './assets/js/app/material/order.controller',
     ])
+    .addEntry('material-multiple', [
+        './assets/js/material/multiple',
+    ])
     .addEntry('formula-index', [
         './assets/js/app/formula/formula.service',
         './assets/js/app/formula/index.controller',
