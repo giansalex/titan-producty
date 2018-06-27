@@ -34,10 +34,9 @@
         }
 
         function copy(element) {
-            const idx = vm.materials.indexOf(element);
             $service.copy(element.id)
                 .then(function (r) {
-                    vm.materials.splice(idx + 1, 0, r.data);
+                    vm.materials.push(r.data);
                 });
         }
     }

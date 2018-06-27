@@ -46,7 +46,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="material in vm.materials | filter: {name: vm.q} as results">
+                            <tr ng-repeat="material in vm.materials | orderBy: 'name' | filter: {name: vm.q} as results">
                                 <td ng-bind="$index + 1"></td>
                                 <td ng-bind="material.name"></td>
                                 <td ng-bind="material.code"></td>
