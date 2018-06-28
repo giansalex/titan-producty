@@ -26,45 +26,45 @@ Encore
     .addEntry('register', [
         './assets/js/auth/register',
     ])
-    .addEntry('material-new', [
+    .addEntry('material/new', [
         './assets/js/app/material/new.controller',
     ])
-    .addEntry('material-index', [
+    .addEntry('material/index', [
         './assets/js/app/material/index.controller',
     ])
-    .addEntry('history-index', [
+    .addEntry('history/index', [
         './assets/js/app/history/history.service',
         './assets/js/app/history/index.controller',
     ])
-    .addEntry('material-inventory', [
+    .addEntry('material/inventory', [
         './assets/js/app/material/inventory.service',
         './assets/js/app/material/inventory.controller',
     ])
-    .addEntry('material-order', [
+    .addEntry('material/order', [
         './assets/js/app/material/inventory.service',
         './assets/js/app/material/order.controller',
     ])
-    .addEntry('material-multiple', [
+    .addEntry('material/multiple', [
         './assets/js/material/multiple',
     ])
-    .addEntry('formula-index', [
+    .addEntry('formula/index', [
         './assets/js/app/formula/formula.service',
         './assets/js/app/formula/index.controller',
     ])
-    .addEntry('formula-new', [
+    .addEntry('formula/new', [
         './assets/js/app/formula/formula.service',
         './assets/js/app/formula/new.controller',
     ])
-    .addEntry('product-index', [
+    .addEntry('product/index', [
         './assets/js/app/product/product.service',
         './assets/js/app/product/index.controller',
     ])
-    .addEntry('product-new', [
+    .addEntry('product/new', [
         './assets/js/app/formula/formula.service',
         './assets/js/app/product/product.service',
         './assets/js/app/product/new.controller',
     ])
-    .addEntry('production-new', [
+    .addEntry('production/new', [
         './assets/js/app/product/product.service',
         './assets/js/app/production/production.service',
         './assets/js/app/production/new.controller',
