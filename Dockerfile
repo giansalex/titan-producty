@@ -10,6 +10,7 @@ RUN apk update && apk add --no-cache \
 
 RUN apk add --no-cache --virtual .build-deps \
     $PHPIZE_DEPS && \
+    pecl install apcu && \
     pecl install xdebug && \
     apk del .build-deps && \
     rm -rf /var/cache/apk/*
@@ -17,8 +18,9 @@ RUN apk add --no-cache --virtual .build-deps \
 # Install Composer
 RUN curl --silent --show-error -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN docker-php-ext-install pdo_mysql
-RUN docker-php-ext-enable xdebug
+RUN docker-php-ext-install pdo_mysql && \
+    docker-php-ext-enable xdebug && \
+    docker-php-ext-enable apcu
 
 COPY docker/config/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
