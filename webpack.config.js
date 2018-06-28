@@ -83,4 +83,13 @@ Encore
     .autoProvidejQuery()
 ;
 
+if (Encore.isProduction()) {
+    Encore.setPublicPath('https://d3i2t95ygjzen4.cloudfront.net');
+
+    // guarantee that the keys in manifest.json are *still*
+    // prefixed with build/
+    // (e.g. "build/dashboard.js": "https://my-cool-app.com.global.prod.fastly.net/dashboard.js")
+    Encore.setManifestKeyPrefix('build/');
+}
+
 module.exports = Encore.getWebpackConfig();
