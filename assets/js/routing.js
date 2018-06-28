@@ -1,5 +1,5 @@
 const routes = require('../../public/js/fos_js_routes.json');
-const Routing = require('../../public/bundles/fosjsrouting/js/router').Routing;
+import Routing from '../../public/bundles/fosjsrouting/js/router';
 Routing.setRoutingData(routes);
 
 window.Routing = Routing;
