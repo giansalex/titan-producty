@@ -96,6 +96,12 @@
                         {% endfor %}
                         </tbody>
                     </table>
+                    <div class="center">
+                        <p style="font-size: 18px">
+                            <b>{{ material.amount }}</b> <b>{{ material.unit }}</b> de <b>{{ material.name }}</b> cuesta(n) <b>{{ material.packingPrice|currency }}</b><br>
+                            lo que quiere decir que cada <b>{{ material.unit }}</b> cuesta <b>{{ material.price|currency }}</b>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
