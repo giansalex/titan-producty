@@ -19,6 +19,7 @@ Encore
         './assets/js/admbs',
         './assets/js/routing',
         './assets/js/app/app.module',
+        './assets/js/app/shared/routing.service',
         './assets/js/app/unit/unit.service',
         './assets/js/app/material/material.service',
         'sweetalert',
