@@ -18,14 +18,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserApiController extends AbstractController
 {
     /**
-     * @Route("/exists/{name}", methods={"GET"}, name="user_api_exists")
-     * @param $name
+     * @Route("/exists/{$email}", methods={"GET"}, name="user_api_exists")
+     * @param $email
      * @param UserManagerInterface $userManager
      * @return JsonResponse
      */
-    public function exists($name, UserManagerInterface $userManager): JsonResponse
+    public function exists($email, UserManagerInterface $userManager): JsonResponse
     {
-        $user = $userManager->findUserByUsername($name);
+        $user = $userManager->findUserByEmail($email);
 
         return $this->json($user !== null);
     }
