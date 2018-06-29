@@ -11,6 +11,11 @@
             <div class="card">
                 <div class="header">
                     <h2>Crear Nueva Materia Prima</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li>
+                            <a href="{{ path('material_multiple') }}" class="btn btn-info">Ingresar Múltiple</a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="body">
                     <form name="vm.frm" ng-submit="vm.create()" novalidate>
