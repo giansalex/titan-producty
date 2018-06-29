@@ -52,7 +52,7 @@
                                 <td ng-bind="material.code"></td>
                                 <td ng-bind="material.stock"></td>
                                 <td ng-bind="material.unit"></td>
-                                <td ng-bind="material.price|currency"></td>
+                                <td ng-bind="material.price|currency:'$':0"></td>
                                 <td>{% verbatim %}
                                     <a ng-href="{{ vm.getShowUrl(material.id) }}"
                                        class="waves-effect">
