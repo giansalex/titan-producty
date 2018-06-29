@@ -3,5 +3,5 @@ composer install --no-dev -o
 composer dump-autoload --optimize --no-dev --classmap-authoritative
 composer run routing
 npm run build
-# node ci/s3-upload.js #not manifest.json
+node ci/s3-upload.js --dir=public/build --prefix=minventario/ --skip=manifest.json
 # php ci/publish.php #with manifest.json
