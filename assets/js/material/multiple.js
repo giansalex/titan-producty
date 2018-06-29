@@ -30,8 +30,9 @@ require('../../../node_modules/handsontable/dist/handsontable.css');
                     { type : 'text'},
                     { type : 'numeric'},
                     {
-                        editor: 'select',
-                        selectOptions: codes
+                        type: 'autocomplete',
+                        source: codes,
+                        strict: true
                     },
                     { type : 'numeric'},
                     { type : 'numeric'},
@@ -158,7 +159,7 @@ require('../../../node_modules/handsontable/dist/handsontable.css');
                     return;
                 }
 
-                swal('Error', 'No se pudo guardar la información!', 'error');
+                swal('Error', 'Ocurrio un error al ejecutar la operación!', 'error');
             }
         }
 
