@@ -109,7 +109,6 @@ function clearOldFilesS3(bucketName, folder, files){
         s3.deleteObjects(deleteParams, function(err, data) {
             if (err) throw err;
             if(listObjects.Contents.IsTruncated) clearOldFilesS3(bucketName, dir, files);
-            else callback();
         });
     });
 }
