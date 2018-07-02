@@ -20,7 +20,7 @@ AWS.config.update({
 const s3 = new AWS.S3();
 
 // resolve full folder path
-const distFolderPath = path.join(__dirname, config.folderPath);
+const distFolderPath = path.join(process.cwd(), config.folderPath);
 
 function uploadFiles(directory, files, prefix) {
 
@@ -98,8 +98,8 @@ function clearOldFilesS3(bucketName, folder, files){
         };
 
         listObjects.Contents.forEach(function(content) {
-            const key = content.Key;
-            if (files.includes(key)) {
+            const key = content.Key;           
+            if (key.endsWith('/') || files.includes(key)) {
                 return;
             }
 
