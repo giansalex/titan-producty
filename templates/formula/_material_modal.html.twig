@@ -6,12 +6,19 @@
                 <h4 class="modal-title">Seleccione Material</h4>
             </div>
             <div class="modal-body">
+                {% include 'shared/_search.htmt.twig' %}
                 <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="i in vm.materials"><a href="" ng-click="vm.addMaterial(i)" ng-bind="i.name"></a></li>
+                    {% verbatim %}
+                    <li class="list-group-item" ng-repeat="m in vm.materials | filter: {name: vm.q}">
+                        <input type="checkbox" id="mat_{{m.id}}" ng-model="m.checked" class="filled-in">
+                        <label for="mat_{{m.id}}" ng-bind="m.name"></label>
+                    </li>
+                    {% endverbatim %}
                 </ul>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" ng-click="vm.addMaterial()">Agregar</button>
             </div>
         </div>
     </div>

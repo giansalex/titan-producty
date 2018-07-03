@@ -72,18 +72,31 @@
             return total;
         }
 
-        function addMaterial(material) {
+        function addMaterial() {
             $('#materialModal').modal('hide');
-            const detail = {
-                material_id: material.id,
-                name: material.name,
-                unit: material.unit,
-                amount: 1,
-                price: material.price,
-                total: material.price
-            };
+            const materials = getMaterials();
 
-            vm.selected.push(detail);
+            for (let material of materials) {
+                const detail = {
+                    material_id: material.id,
+                    name: material.name,
+                    unit: material.unit,
+                    amount: 1,
+                    price: material.price,
+                    total: material.price
+                };
+
+                vm.selected.push(detail);
+                material.checked = false;
+            }
+        }
+
+        function* getMaterials() {
+            for (let material of vm.materials) {
+                if (material.checked) {
+                    yield material;
+                }
+            }
         }
 
         function delMaterial(index) {
