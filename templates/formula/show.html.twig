@@ -74,12 +74,12 @@
                                     <td>{{ detail.material.name }}</td>
                                     <td>{{ detail.amount }}</td>
                                     <td>{{ detail.material.unit }}</td>
-                                    <td>{{ costo|currency }}</td>
+                                    <td>{{ costo|currency(0) }}</td>
                                 </tr>
                             {% endfor %}
                                 <tr>
                                     <td class="text-center" colspan="3"><b>Total</b></td>
-                                    <td>{{ total|currency }}</td>
+                                    <td>{{ total|currency(0) }}</td>
                                 </tr>
                             </tbody>
                         </table>

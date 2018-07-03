@@ -88,7 +88,7 @@
                                                ng-model="x.amount">
                                     </td>
                                     <td ng-bind="x.unit"></td>
-                                    <td ng-bind="vm.getCosto(x)"></td>
+                                    <td ng-bind="vm.getCosto(x)|currency:'$':0"></td>
                                     <td>
                                         <button
                                             type="button"
@@ -100,7 +100,7 @@
                                 </tr>
                                 <tr>
                                     <td class="text-center" colspan="3"><b>Total</b></td>
-                                    <td ng-bind="vm.getTotal()"></td>
+                                    <td ng-bind="vm.getTotal()|currency:'$':0"></td>
                                 </tr>
                                 </tbody>
                             </table>
