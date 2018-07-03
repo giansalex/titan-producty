@@ -83,7 +83,8 @@
                     unit: material.unit,
                     amount: 1,
                     price: material.price,
-                    total: material.price
+                    total: material.price,
+                    units: getUnitsByCode(vm.units, material.unit)
                 };
 
                 vm.selected.push(detail);
@@ -155,7 +156,9 @@
                 return units;
             }
 
-            return units.filter((item) => item.type === unit.type);
+            const result = units.filter((item) => item.type === unit.type);
+
+            return result.length === 0 ? units : result;
         }
     }
 })();
