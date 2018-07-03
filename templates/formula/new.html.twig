@@ -87,7 +87,15 @@
                                                class="form-control"
                                                ng-model="x.amount">
                                     </td>
-                                    <td ng-bind="x.unit"></td>
+                                    <td>
+                                        <select title="unit"
+                                                ng-model="x.unit"
+                                                class="form-control">
+                                            <option ng-repeat="unit in vm.units"
+                                                    ng-value="unit.code"
+                                                    ng-bind="unit.value + '(' + unit.code + ')'"></option>
+                                        </select>
+                                    </td>
                                     <td ng-bind="vm.getCosto(x)|currency:'$':0"></td>
                                     <td>
                                         <button
