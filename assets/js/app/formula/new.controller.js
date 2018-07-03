@@ -35,6 +35,7 @@
             function getUnits(r) {
                 vm.units = r.data;
                 filterUnits();
+                filterUnitDetails();
             }
         }
 
@@ -51,6 +52,7 @@
 
             function getMaterials(res) {
                 vm.selected = res.data;
+                filterUnitDetails();
             }
         }
 
@@ -147,6 +149,18 @@
             }
 
             vm.units = getUnitsByCode(vm.units, formula.unit);
+        }
+
+        function filterUnitDetails() {
+            const materials = vm.selected;
+            if (materials.length === 0 ||
+                !vm.units) {
+                return;
+            }
+
+            for (let material of materials) {
+                material.units = getUnitsByCode(vm.units, material.unit);
+            }
         }
 
         function getUnitsByCode(units, code) {
