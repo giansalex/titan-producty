@@ -74,6 +74,7 @@
             vm.selected.forEach(function (element) {
                 total += element.total;
             });
+            vm.product.price = total;
 
             return total;
         }
@@ -137,6 +138,7 @@
                     material_id: item.material_id,
                     amount: item.amount,
                     price: item.price,
+                    unit: item.unit,
                     total: item.total,
                 };
             })
