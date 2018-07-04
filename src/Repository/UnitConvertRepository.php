@@ -19,32 +19,25 @@ class UnitConvertRepository extends ServiceEntityRepository
         parent::__construct($registry, UnitConvert::class);
     }
 
-//    /**
-//     * @return UnitConvert[] Returns an array of UnitConvert objects
-//     */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param string $source
+     * @param string $target
+     * @return float|null
+     */
+    public function getFactor($source, $target)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $converter = $this->findOneBy(['source' => $source, 'target' => $target]);
 
-    /*
-    public function findOneBySomeField($value): ?UnitConvert
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if ($converter) {
+            return $converter->getFactor();
+        }
+
+        $converter = $this->findOneBy(['source' => $target, 'target' => $source]);
+
+        if ($converter) {
+            return 1 / $converter->getFactor();
+        }
+
+        return null;
     }
-    */
 }
