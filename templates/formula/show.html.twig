@@ -66,20 +66,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% set total = 0 %}
                             {% for detail in formula.details %}
-                                {% set costo = detail.amount * detail.price %}
-                                {% set total = total + costo %}
                                 <tr>
                                     <td>{{ detail.material.name }}</td>
                                     <td>{{ detail.amount }}</td>
                                     <td>{{ detail.material.unit }}</td>
-                                    <td>{{ costo|currency(0) }}</td>
+                                    <td>{{ (detail.amount * detail.price)|currency(0) }}</td>
                                 </tr>
                             {% endfor %}
                                 <tr>
                                     <td class="text-center" colspan="3"><b>Total</b></td>
-                                    <td>{{ total|currency(0) }}</td>
+                                    <td>{{ formula.price|currency(0) }}</td>
                                 </tr>
                             </tbody>
                         </table>

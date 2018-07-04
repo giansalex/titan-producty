@@ -70,6 +70,7 @@
             vm.selected.forEach(function (element) {
                 total += element.total;
             });
+            vm.formula.price = total;
 
             return total;
         }
@@ -135,6 +136,7 @@
                 return {
                     material_id: item.material_id,
                     amount: item.amount,
+                    unit: item.unit,
                     price: item.price,
                     total: item.total,
                 };
