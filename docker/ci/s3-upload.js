@@ -106,7 +106,7 @@ function clearOldFilesS3(bucketName, folder, files){
                 return;
             }
 
-            params.Delete.Objects.push({Key: key});
+            deleteParams.Delete.Objects.push({Key: key});
         });
 
         s3.deleteObjects(deleteParams, function(err, data) {
