@@ -35,7 +35,8 @@ class FormulaFixtures extends Fixture implements DependentFixtureInterface
                 ->setName('FORM '.$i)
                 ->setUnit('cm')
                 ->setAmount(23)
-                ->setUser($user);
+                ->setUser($user)
+                ->setPrice(10.67);
 
             $count = random_int(1, 4);
 
@@ -44,8 +45,9 @@ class FormulaFixtures extends Fixture implements DependentFixtureInterface
                 $detail = new FormulaDetail();
                 $detail
                     ->setAmount(4)
-                    ->setPrice(2.3)
-                    ->setTotal(9.2)
+                    ->setUnit('cm')
+                    ->setPrice(1.4)
+                    ->setTotal(5.6)
                     ->setMaterial($manager->find(Material::class, $materialId))
                     ->setFormula($formula);
 

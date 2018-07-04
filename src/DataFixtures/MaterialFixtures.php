@@ -29,7 +29,7 @@ class MaterialFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 10; $i++) {
             $material = new Material();
             $material->setName('MAT '.$i)
-                ->setUnit('mm')
+                ->setUnit('cm')
                 ->setCode('C01')
                 ->setPrice(2.11)
                 ->setAmount(3)

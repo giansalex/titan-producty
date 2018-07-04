@@ -39,8 +39,9 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 ->setName('PROD '.$i)
                 ->setCode('AB')
                 ->setBaseAmount(1)
-                ->setUnit('mm')
+                ->setUnit('cm')
                 ->setAmount(23)
+                ->setPrice(100)
                 ->setUser($user);
 
             $count = random_int(1, 4);
@@ -52,6 +53,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                     ->setAmount(4)
                     ->setPrice(2.3)
                     ->setTotal(9.2)
+                    ->setUnit('cm')
                     ->setMaterial($manager->find(Material::class, $materialId))
                     ->setProduct($product);
 
