@@ -51,14 +51,16 @@ function uploadFiles(directory, files, prefix) {
             if (error) { throw error; }
 
             const base64data = new Buffer(fileContent, 'binary');
+            const key = prefix + fileName;
             // upload file to S3
             s3.putObject({
                 Bucket: config.s3BucketName,
-                Key: prefix + fileName,
+                Key: key,
                 Body: base64data,
                 ACL: 'public-read'
             }, (res) => {
-                console.log(`Successfully uploaded '${fileName}'!`);
+                console.log(res);
+                console.log(`Successfully uploaded '${fileName}' to ${key}!`);
             });
 
         });
