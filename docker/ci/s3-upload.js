@@ -54,7 +54,7 @@ function uploadFiles(directory, files, prefix) {
             const key = prefix + fileName;
             // upload file to S3
             s3.putObject({
-                Bucket: config.s3BucketName,
+                Bucket: config.bucket,
                 Key: key,
                 Body: base64data,
                 ACL: 'public-read'
