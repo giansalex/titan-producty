@@ -5,8 +5,8 @@
         .module('app')
         .controller('newFormula', newController);
 
-    newController.$inject = ['materialService', 'formulaService', 'unitService', '$window'];
-    function newController($material, $formula, $unit, $window) {
+    newController.$inject = ['materialService', 'formulaService', 'unitService', 'unitConvertService', '$window'];
+    function newController($material, $formula, $unit, $convert, $window) {
         const vm = this;
         vm.materials = [];
         vm.selected = [];
