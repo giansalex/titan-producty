@@ -29,6 +29,11 @@ class FormulaDto
     public $amount;
 
     /**
+     * @var float
+     */
+    public $price;
+
+    /**
      * @var $unit string
      */
     public $unit;

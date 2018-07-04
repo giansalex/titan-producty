@@ -34,6 +34,11 @@ class ProductDto
     public $amount;
 
     /**
+     * @var float
+     */
+    public $price;
+
+    /**
      * @var string
      */
     public $unit;
