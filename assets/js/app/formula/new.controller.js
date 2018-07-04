@@ -18,6 +18,7 @@
         vm.create = create;
         vm.getCosto = getCosto;
         vm.getTotal = getTotal;
+        vm.convertUnit = convertUnit;
 
         activate();
 
@@ -52,8 +53,31 @@
 
             function getMaterials(res) {
                 vm.selected = res.data;
+
+                for (let item of vm.selected) {
+                    item.oldUnit = item.unit;
+                }
+
                 filterUnitDetails();
             }
+        }
+
+        function convertUnit(item) {
+            const unit = item.unit;
+            if (!unit || !item.oldUnit || unit === item.oldUnit) {
+                return;
+            }
+
+            $convert.getFactor(item.oldUnit, unit)
+                .then(function (r) {
+                    if (!r.data) {
+                        return;
+                    }
+                    console.log(r.data);
+
+                    item.amount = item.amount * r.data.factor;
+                    item.oldUnit = unit;
+                });
         }
 
         function getCosto(detail) {
@@ -84,6 +108,7 @@
                     material_id: material.id,
                     name: material.name,
                     unit: material.unit,
+                    oldUnit: material.unit,
                     amount: 1,
                     price: material.price,
                     total: material.price,

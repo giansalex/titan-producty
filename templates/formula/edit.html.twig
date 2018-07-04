@@ -90,6 +90,7 @@
                                     <td>
                                         <select title="unit"
                                                 ng-model="x.unit"
+                                                ng-change="vm.convertUnit(x)"
                                                 class="form-control">
                                             <option ng-repeat="unit in x.units"
                                                     ng-value="unit.code"
