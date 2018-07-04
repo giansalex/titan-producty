@@ -11,6 +11,7 @@ const config = {
     prefix: argv.prefix || ''
 };
 
+const operation = argv.action || 'add';
 const exludes = argv.skip ? argv.skip.split(',') : [];
 
 AWS.config.update({
@@ -114,10 +115,16 @@ function clearOldFilesS3(bucketName, folder, files){
 }
 
 const files = getFiles(distFolderPath, '');
-uploadFiles(distFolderPath, files, config.prefix);
 
-// clear old files in folder bucket
-const keyFiles = files.map((file) => config.prefix + file);
-clearOldFilesS3(config.bucket, config.prefix, keyFiles);
+switch (operation) {
+    case 'add':
+        uploadFiles(distFolderPath, files, config.prefix);
+        break;
+    case 'del':
+        // clear old files in folder bucket
+        const keyFiles = files.map((file) => config.prefix + file);
+        clearOldFilesS3(config.bucket, config.prefix, keyFiles);
+        break;
+}
 
 console.log('S3 COMPLETED!!');
