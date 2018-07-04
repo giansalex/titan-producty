@@ -36,6 +36,13 @@ class Formula
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Type("numeric")
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $price;
+
+    /**
+     * @Assert\NotBlank()
      * @Assert\Length(max="10")
      * @ORM\Column(type="string", length=10)
      */
@@ -94,6 +101,18 @@ class Formula
     public function getAmount(): ?float
     {
         return $this->amount;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice($price): self
+    {
+        $this->price = $price;
+
+        return $this;
     }
 
     public function setAmount(float $amount): self

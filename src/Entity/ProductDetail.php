@@ -27,6 +27,13 @@ class ProductDetail
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Length(max="10")
+     * @ORM\Column(type="string", length=10)
+     */
+    private $unit;
+
+    /**
+     * @Assert\NotBlank()
      * @Assert\Type("numeric")
      * @ORM\Column(type="float")
      */
@@ -71,6 +78,18 @@ class ProductDetail
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getUnit(): ?string
+    {
+        return $this->unit;
+    }
+
+    public function setUnit($unit): self
+    {
+        $this->unit = $unit;
 
         return $this;
     }

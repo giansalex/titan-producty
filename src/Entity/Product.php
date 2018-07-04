@@ -43,6 +43,13 @@ class Product
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Type("numeric")
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $price;
+
+    /**
+     * @Assert\NotBlank()
      * @Assert\Length(max="10")
      * @ORM\Column(type="string", length=10)
      */
@@ -135,6 +142,18 @@ class Product
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice($price): self
+    {
+        $this->price = $price;
 
         return $this;
     }
