@@ -5,8 +5,8 @@
         .module('app')
         .controller('newFormula', newController);
 
-    newController.$inject = ['materialService', 'formulaService', 'unitService', 'unitConvertService', '$route', '$window'];
-    function newController($material, $formula, $unit, $convert, $route, $window) {
+    newController.$inject = ['materialService', 'formulaService', 'unitService', 'unitConvertService', '$route', 'validationService', '$window'];
+    function newController($material, $formula, $unit, $convert, $route, $validation, $window) {
         const vm = this;
         vm.materials = [];
         vm.selected = [];
@@ -132,16 +132,20 @@
             vm.selected.splice(index, 1);
         }
 
+        function successAdded() {
+            $window.location.href = $route.generate('formula_index');
+        }
+
+        function errorAdded(err) {
+            $validation.handleFromHttpError(err);
+        }
+
         function create() {
             const formula = vm.formula;
             formula.details = getDetails(vm.selected);
 
             $formula.add(formula)
-                .then(successAdded);
-
-            function successAdded() {
-                $window.location.href = $route.generate('formula_index');
-            }
+                .then(successAdded, errorAdded);
         }
 
         function edit(id) {
@@ -149,11 +153,7 @@
             formula.details = getDetails(vm.selected);
 
             $formula.edit(id, formula)
-                .then(successAdded);
-
-            function successAdded() {
-                $window.location.href = $route.generate('formula_index');
-            }
+                .then(successAdded, errorAdded);
         }
 
         function getDetails(items) {
