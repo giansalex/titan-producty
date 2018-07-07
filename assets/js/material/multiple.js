@@ -83,9 +83,10 @@ require('../../../node_modules/handsontable/dist/handsontable.css');
                     amount: Number(row[2]),
                     unit: row[3],
                     packing_price: Number(row[4]),
-                    price: Number(row[5]),
-                    stock: 0
+                    stock: Number(row[5])
                 };
+                material.price = material.packing_price / material.amount;
+
                 materials.push(material);
             }
 
