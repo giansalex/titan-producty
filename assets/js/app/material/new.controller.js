@@ -47,6 +47,29 @@
             $window.location.href = Routing.generate('material_index');
         }
 
+        function generateListHtmlError(errors) {
+            const cList = $('<ul></ul>')
+                .addClass('text-danger');
+
+            errors.forEach((error) => {
+                $('<li/>')
+                    .text(error.field + ' : ' + error.message)
+                    .appendTo(cList);
+            });
+
+            return cList;
+        }
+
+        function showErrorValidations(errors) {
+            const list = generateListHtmlError(errors);
+
+            swal({
+                icon: 'error',
+                title: 'Error de Validación',
+                content: list.get( 0 )
+            });
+        }
+
         function errorAdded(err) {
             if (err.status !== 400) {
                 return;
@@ -56,10 +79,7 @@
                 return;
             }
             const errors = data.errors;
-            for (let i = 0; i < errors.length; i++) {
-                const element = errors[i];
-                console.log(element.field + ':' + element.message);
-            }
+            showErrorValidations(errors);
         }
 
         function create() {
