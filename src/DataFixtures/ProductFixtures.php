@@ -9,7 +9,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Formula;
-use App\Entity\Material;
 use App\Entity\Product;
 use App\Entity\ProductDetail;
 use App\Entity\User;
@@ -28,7 +27,6 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     {
         /**@var $user User */
         $user = $this->getReference(UserFixtures::USER_REFERENCE);
-        $matIds = $this->getMaterialIds($manager);
         $formulaIds = $this->getFormulaIds($manager);
 
         for ($i = 0; $i < 10; $i++) {
@@ -44,17 +42,14 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 ->setPrice(100)
                 ->setUser($user);
 
-            $count = random_int(1, 4);
-
-            for ($j = 0; $j < $count; $j++) {
-                $materialId = $matIds[array_rand($matIds)];
+            foreach ($product->getFormula()->getDetails() as $formulaDetail) {
                 $detail = new ProductDetail();
                 $detail
-                    ->setAmount(4)
-                    ->setPrice(2.3)
-                    ->setTotal(9.2)
-                    ->setUnit('cm')
-                    ->setMaterial($manager->find(Material::class, $materialId))
+                    ->setAmount($formulaDetail->getAmount())
+                    ->setPrice($formulaDetail->getPrice())
+                    ->setTotal($formulaDetail->getTotal())
+                    ->setUnit($formulaDetail->getUnit())
+                    ->setMaterial($formulaDetail->getMaterial())
                     ->setProduct($product);
 
                 $product->addDetail($detail);
@@ -64,19 +59,6 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $manager->flush();
-    }
-
-    private function getMaterialIds(ObjectManager $manager)
-    {
-        $ids = $manager->getRepository(Material::class)
-            ->createQueryBuilder('c')
-            ->select('c.id')
-            ->getQuery()
-            ->getArrayResult();
-
-        return array_map(function ($item) {
-            return $item['id'];
-        }, $ids);
     }
 
     private function getFormulaIds(ObjectManager $manager)
