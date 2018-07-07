@@ -28,9 +28,8 @@ class Material
     private $name;
 
     /**
-     * @Assert\NotBlank()
      * @Assert\Length(max="30")
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $code;
 
