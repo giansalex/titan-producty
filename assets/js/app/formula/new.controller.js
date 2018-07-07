@@ -5,8 +5,8 @@
         .module('app')
         .controller('newFormula', newController);
 
-    newController.$inject = ['materialService', 'formulaService', 'unitService', 'unitConvertService', '$window'];
-    function newController($material, $formula, $unit, $convert, $window) {
+    newController.$inject = ['materialService', 'formulaService', 'unitService', 'unitConvertService', '$route', '$window'];
+    function newController($material, $formula, $unit, $convert, $route, $window) {
         const vm = this;
         vm.materials = [];
         vm.selected = [];
@@ -140,7 +140,7 @@
                 .then(successAdded);
 
             function successAdded() {
-                $window.location.href = Routing.generate('formula_index');
+                $window.location.href = $route.generate('formula_index');
             }
         }
 
@@ -152,7 +152,7 @@
                 .then(successAdded);
 
             function successAdded() {
-                $window.location.href = Routing.generate('formula_index');
+                $window.location.href = $route.generate('formula_index');
             }
         }
 

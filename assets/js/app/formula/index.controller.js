@@ -5,8 +5,8 @@
         .module('app')
         .controller('indexFormula', indexController);
 
-    indexController.$inject = ['formulaService'];
-    function indexController($service) {
+    indexController.$inject = ['formulaService', '$route'];
+    function indexController($service, $route) {
         const vm = this;
         vm.copy = copy;
         vm.getShowUrl = getShowUrl;
@@ -25,11 +25,11 @@
         }
 
         function getShowUrl(id) {
-            return Routing.generate('formula_show', {id: id});
+            return $route.generate('formula_show', {id: id});
         }
 
         function getEditUrl(id) {
-            return Routing.generate('formula_edit', {id: id});
+            return $route.generate('formula_edit', {id: id});
         }
 
         function copy(formula) {
