@@ -31,7 +31,7 @@
                             <th>Nombre</th>
                             <th>Cantidad Base</th>
                             <th>Unidad Base</th>
-                            <th>Costo</th>
+                            <th>Costo Unitario</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -41,7 +41,7 @@
                                 <td ng-bind="formula.name"></td>
                                 <td ng-bind="formula.amount"></td>
                                 <td ng-bind="formula.unit"></td>
-                                <td ng-bind="formula.price"></td>
+                                <td ng-bind="formula.price|currency:'$':0"></td>
                                 <td>{% verbatim %}
                                     <a ng-href="{{ vm.getShowUrl(formula.id) }}"
                                        class="waves-effect">
