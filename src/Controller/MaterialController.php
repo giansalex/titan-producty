@@ -6,6 +6,7 @@ use App\Entity\Material;
 use App\Repository\HistoryRepository;
 use App\Repository\MaterialRepository;
 use App\Services\Ensure;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -104,14 +105,19 @@ class MaterialController extends Controller
      * @Route("/{id}", name="material_delete", methods="DELETE")
      * @param Request $request
      * @param Material $material
+     * @param LoggerInterface $logger
      * @return Response
      */
-    public function delete(Request $request, Material $material): Response
+    public function delete(Request $request, Material $material, LoggerInterface $logger): Response
     {
         if ($this->isCsrfTokenValid('delete'.$material->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($material);
-            $em->flush();
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($material);
+                $em->flush();
+            } catch (\Exception $ex) {
+                $logger->error($ex->getMessage());
+            }
         }
 
         return $this->redirectToRoute('material_index');
