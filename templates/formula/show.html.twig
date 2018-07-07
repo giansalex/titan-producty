@@ -70,8 +70,8 @@
                                 <tr>
                                     <td>{{ detail.material.name }}</td>
                                     <td>{{ detail.amount }}</td>
-                                    <td>{{ detail.material.unit }}</td>
-                                    <td>{{ (detail.amount * detail.price)|currency(0) }}</td>
+                                    <td>{{ detail.unit }}</td>
+                                    <td>{{ detail.total|currency(0) }}</td>
                                 </tr>
                             {% endfor %}
                                 <tr>
