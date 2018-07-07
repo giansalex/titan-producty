@@ -43,7 +43,7 @@
                                             required
                                             ng-model="vm.formula.unit"
                                             class="form-control">
-                                        <option ng-repeat="unit in vm.units"
+                                        <option ng-repeat="unit in vm.editUnits"
                                                 ng-value="unit.code"
                                                 ng-bind="unit.value + '(' + unit.code + ')'"></option>
                                     </select>

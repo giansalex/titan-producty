@@ -155,7 +155,7 @@
                 return;
             }
 
-            vm.units = getUnitsByCode(vm.units, product.unit);
+            vm.editUnits = getUnitsByCode(vm.units, product.unit);
         }
 
         function getUnitsByCode(units, code) {

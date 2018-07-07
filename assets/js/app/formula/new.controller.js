@@ -175,7 +175,7 @@
                 return;
             }
 
-            vm.units = getUnitsByCode(vm.units, formula.unit);
+            vm.editUnits = getUnitsByCode(vm.units, formula.unit);
         }
 
         function filterUnitDetails() {
