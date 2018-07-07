@@ -50,11 +50,11 @@
                         </tr>
                         <tr>
                             <th>Costo por Presentación</th>
-                            <td>{{ material.packingPrice }}</td>
+                            <td>{{ material.packingPrice|currency(0) }}</td>
                         </tr>
                         <tr>
                             <th>Costo Unitario</th>
-                            <td>{{ material.price }}</td>
+                            <td>{{ material.price|currency(0) }}</td>
                         </tr>
                         </tbody>
                     </table>
