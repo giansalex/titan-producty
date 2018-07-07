@@ -5,8 +5,8 @@
         .module('app')
         .controller('newMaterial', newController);
 
-    newController.$inject = ['materialService', 'unitService', '$window'];
-    function newController($material, $unit, $window) {
+    newController.$inject = ['materialService', 'unitService', '$route', 'validationService' ,'$window'];
+    function newController($material, $unit, $route, $validation, $window) {
         const vm = this;
         vm.material = {};
         vm.get = get;
@@ -44,42 +44,11 @@
         }
 
         function successAdded() {
-            $window.location.href = Routing.generate('material_index');
-        }
-
-        function generateListHtmlError(errors) {
-            const cList = $('<ul></ul>')
-                .addClass('text-danger');
-
-            errors.forEach((error) => {
-                $('<li/>')
-                    .text(error.field + ' : ' + error.message)
-                    .appendTo(cList);
-            });
-
-            return cList;
-        }
-
-        function showErrorValidations(errors) {
-            const list = generateListHtmlError(errors);
-
-            swal({
-                icon: 'error',
-                title: 'Error de Validación',
-                content: list.get( 0 )
-            });
+            $window.location.href = $route.generate('material_index');
         }
 
         function errorAdded(err) {
-            if (err.status !== 400) {
-                return;
-            }
-            const data = err.data;
-            if (!data || !data.errors) {
-                return;
-            }
-            const errors = data.errors;
-            showErrorValidations(errors);
+            $validation.handleFromHttpError(err);
         }
 
         function create() {

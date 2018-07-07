@@ -5,8 +5,8 @@
         .module('app')
         .controller('newProduct', newController);
 
-    newController.$inject = ['productService', 'formulaService', 'materialService', 'unitService', '$window'];
-    function newController($product, $formula, $material, $unit, $window) {
+    newController.$inject = ['productService', 'formulaService', 'materialService', 'unitService', '$route', 'validationService', '$window'];
+    function newController($product, $formula, $material, $unit, $route, $validation, $window) {
         const vm = this;
         vm.formulas = [];
         vm.selected = [];
@@ -98,7 +98,11 @@
         }
 
         function successAdded() {
-            $window.location.href = Routing.generate('product_index');
+            $window.location.href = $route.generate('product_index');
+        }
+
+        function errorAdded(err) {
+            $validation.handleFromHttpError(err);
         }
 
         function create() {
@@ -106,7 +110,7 @@
             product.details = getDetails(vm.selected);
 
             $product.add(product)
-                .then(successAdded);
+                .then(successAdded, errorAdded);
         }
 
         function edit(id) {
@@ -114,7 +118,7 @@
             product.details = getDetails(vm.selected);
 
             $product.edit(id, product)
-                .then(successAdded);
+                .then(successAdded, errorAdded);
         }
         
         function changeFormula() {
