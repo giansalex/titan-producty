@@ -3,9 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Formula;
+use App\Entity\FormulaDetail;
 use App\Entity\Material;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -98,5 +100,46 @@ class FormulaRepository extends ServiceEntityRepository
         $em->flush();
 
         return $newFormula;
+    }
+
+    /**
+     * Calculate price from changes on details.
+     *
+     * @param int $id
+     * @param User $user
+     */
+    public function updatePriceFromDetails(int $id, User $user)
+    {
+        $details = $this->getMaterials($id, $user);
+
+        $price = array_reduce($details, function ($carry, $item) {
+            $total = $item->amount * $item->price;
+            $carry += $total;
+
+            return $carry;
+        });
+
+        $formula = $this->findOneBy(['id' => $id, 'user' => $user]);
+        $formula->setPrice($price);
+
+        $this->getEntityManager()->flush();
+    }
+
+    public function updateFormulasByMaterial(Material $material)
+    {
+        $result = $this->createQueryBuilder('c')
+                ->select('c.id')
+                ->innerJoin('c.details', 'd')
+                ->where('d.material = ?1')
+                ->groupBy('c.id')
+                ->setParameter(1, $material)
+                ->getQuery()
+                ->getResult();
+
+        foreach ($result as $item) {
+            $id = $item->id;
+
+            $this->updatePriceFromDetails($id, $material->getUser());
+        }
     }
 }
