@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\Material;
+use App\Event\MaterialEditEvent;
 use App\Http\BadRequestResponse;
 use App\Repository\MaterialRepository;
 use App\Services\Ensure;
@@ -10,6 +11,7 @@ use App\Services\Mapper;
 use App\Services\ModelStateInterface;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -139,6 +141,7 @@ class MaterialApiController extends AbstractController
      * @param SerializerInterface $serializer
      * @param ModelStateInterface $validator
      * @param MaterialRepository $repository
+     * @param EventDispatcherInterface $dispatcher
      * @param Mapper $mapper
      * @param Ensure $ensure
      * @return BadRequestResponse|Response
@@ -149,6 +152,7 @@ class MaterialApiController extends AbstractController
         SerializerInterface $serializer,
         ModelStateInterface $validator,
         MaterialRepository $repository,
+        EventDispatcherInterface $dispatcher,
         Mapper $mapper,
         Ensure $ensure)
     {
@@ -173,6 +177,7 @@ class MaterialApiController extends AbstractController
         }
 
         $em->flush();
+        $dispatcher->dispatch(MaterialEditEvent::NAME, new MaterialEditEvent($material));
 
         return new Response();
     }
