@@ -57,7 +57,7 @@ class FormulaRepository extends ServiceEntityRepository
     public function getMaterials(int $id, User $user)
     {
         return $this->createQueryBuilder('f')
-            ->select('d.materialId AS material_id, m.name, d.amount, d.unit, d.price, d.total')
+            ->select('d.materialId AS material_id, m.name, d.amount, d.unit, m.price, d.total')
             ->leftJoin('f.details', 'd')
             ->leftJoin('d.material', 'm')
             ->where('f.id = ?1 AND f.user = ?2')
