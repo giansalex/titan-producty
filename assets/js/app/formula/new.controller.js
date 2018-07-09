@@ -74,17 +74,20 @@
                         return;
                     }
                     console.log(r.data);
+                    const factor = r.data.factor;
 
-                    item.amount = item.amount * r.data.factor;
+                    item.amount = item.amount * factor;
                     item.oldUnit = unit;
+                    item.factor = factor;
                 });
         }
 
         function getCosto(detail) {
             const price = detail.price || 0;
             const amount = detail.amount || 0;
+            const factor = detail.factor || 1;
 
-            detail.total = price * amount;
+            detail.total = (price * amount) / factor;
 
             return detail.total;
         }
@@ -109,6 +112,7 @@
                     name: material.name,
                     unit: material.unit,
                     oldUnit: material.unit,
+                    factor: 1,
                     amount: 1,
                     price: material.price,
                     total: material.price,
