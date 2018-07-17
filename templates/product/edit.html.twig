@@ -60,7 +60,7 @@
                                            class="form-control">
                                 </div>
                             </div>
-                            <label for="unit">Unidad</label>
+                            <label for="unit">Unidad Base</label>
                             <div class="form-group">
                                 <div class="form-line">
                                     <select type="text"
@@ -74,14 +74,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <label for="base_amount">Cantidad Relación</label>
+                            <label for="amount">Costo Total Unitario</label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text"
-                                           id="base_amount"
-                                           required
-                                           ng-model="vm.product.base_amount"
-                                           class="form-control">
+                                    <p ng-bind="vm.product.price|currency"></p>
                                 </div>
                             </div>
                             <label for="notes">Observaciones</label>
