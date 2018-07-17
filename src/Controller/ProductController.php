@@ -34,6 +34,24 @@ class ProductController extends Controller
     }
 
     /**
+     * @Route("/inventory", name="product_inventory", methods="GET")
+     * @return Response
+     */
+    public function inventory(): Response
+    {
+        return $this->render('product/inventory.html.twig');
+    }
+
+    /**
+     * @Route("/sale", name="product_sale", methods="GET")
+     * @return Response
+     */
+    public function sale(): Response
+    {
+        return $this->render('product/sale.html.twig');
+    }
+
+    /**
      * @Route("/{id}", name="product_show", methods="GET", options={"expose": true})
      * @param int $id
      * @param ProductRepository $repository
