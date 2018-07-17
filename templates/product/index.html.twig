@@ -30,7 +30,6 @@
                             <th>#</th>
                             <th>Nombre</th>
                             <th>Código</th>
-                            <th>Unidad</th>
                             <th>Cantidad</th>
                             <th>Costo Unitario</th>
                             <th>Costo Inventario</th>
@@ -42,7 +41,6 @@
                                 <td ng-bind="$index + 1"></td>
                                 <td ng-bind="product.name"></td>
                                 <td ng-bind="product.code"></td>
-                                <td ng-bind="product.unit"></td>
                                 <td ng-bind="product.amount"></td>
                                 <td ng-bind="product.price|currency:'$':0"></td>
                                 <td ng-bind="(product.amount * product.price)|currency:'$':0"></td>
@@ -61,7 +59,7 @@
                                 </td>{% endverbatim %}
                             </tr>
                             <tr ng-if="results.length === 0">
-                                <td colspan="8">{{ 'page.no_records'|trans }}</td>
+                                <td colspan="7">{{ 'page.no_records'|trans }}</td>
                             </tr>
                         </tbody>
                     </table>
