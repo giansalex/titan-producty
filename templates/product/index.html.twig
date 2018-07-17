@@ -14,7 +14,16 @@
                     <h2>Lista</h2>
                     <ul class="header-dropdown m-r--5">
                         <li>
-                            <a href="{{ path('product_new') }}" class="btn btn-success">Nuevo Producto</a>
+                            <a href="{{ path('product_new') }}" class="btn btn-info">Nuevo Producto</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('product_inventory') }}" class="btn btn-success">Ajustar Inventario</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('product_sale') }}" class="btn btn-info">Ingresar Venta</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('history_index', {type: 2}) }}" class="btn btn-success">Historial</a>
                         </li>
                     </ul>
                 </div>
