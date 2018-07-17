@@ -40,6 +40,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 ->setUnit('cm')
                 ->setAmount(23)
                 ->setPrice(100)
+                ->setStock(20)
                 ->setUser($user);
 
             foreach ($product->getFormula()->getDetails() as $formulaDetail) {

@@ -36,6 +36,11 @@ class ProductDto
     /**
      * @var float
      */
+    public $stock;
+
+    /**
+     * @var float
+     */
     public $price;
 
     /**

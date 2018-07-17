@@ -72,6 +72,13 @@ class Product
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Type("numeric")
+     * @ORM\Column(type="integer")
+     */
+    private $stock;
+
+    /**
+     * @Assert\NotBlank()
      * @Assert\Type("integer")
      * @ORM\Column(name="formula_id", type="integer")
      */
@@ -192,6 +199,18 @@ class Product
     public function setBaseAmount(float $baseAmount): self
     {
         $this->baseAmount = $baseAmount;
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?int $stock): self
+    {
+        $this->stock = $stock;
 
         return $this;
     }
