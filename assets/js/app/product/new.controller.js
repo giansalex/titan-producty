@@ -127,7 +127,9 @@
 
             $formula.get(id)
                 .then(function (r) {
-                    vm.product.unit = r.data.unit;
+                    const formula = r.data;
+                    vm.product.unit = formula.unit;
+                    vm.product.base_amount = formula.amount;
                 });
             $formula.materials(id)
                 .then(getMaterials);

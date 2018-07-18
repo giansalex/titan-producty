@@ -95,6 +95,20 @@
                                 </div>
                             </div>
                         </div>
+                        <h2 class="card-inside-title">Información de la formulación</h2>
+                        <div>
+                            <label for="stock">Cantidad base</label>
+                            <div class="input-group">
+                                <div class="form-line">
+                                    <input type="number"
+                                           id="stock"
+                                           required
+                                           ng-model="vm.product.base_amount"
+                                           class="form-control">
+                                </div>
+                                <span class="input-group-addon" ng-bind="vm.product.unit"></span>
+                            </div>
+                        </div>
                         <br>
                         <div class="table-responsive">
                             <table class="table table-bordered table-condensed">
