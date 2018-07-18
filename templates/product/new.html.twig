@@ -109,6 +109,13 @@
                                 <span class="input-group-addon" ng-bind="vm.product.unit"></span>
                             </div>
                         </div>
+                        <div>
+                            <p style="font-size: 18px" class="text-center">
+                                Cada <b ng-bind="vm.product.name"></b> equivale/contiene <br>
+                                <b ng-bind="vm.product.amount"></b> <b ng-bind="vm.product.unit"></b> siguiendo la relación de que <br>
+                                cada <b ng-bind="vm.product.base_amount"></b>  <b ng-bind="vm.product.unit"></b> de <b ng-bind="vm.formula.name"> equivale/contiene
+                            </p>
+                        </div>
                         <br>
                         <div class="table-responsive">
                             <table class="table table-bordered table-condensed">

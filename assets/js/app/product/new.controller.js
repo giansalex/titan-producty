@@ -10,6 +10,7 @@
         const vm = this;
         vm.formulas = [];
         vm.selected = [];
+        vm.formula = {};
         vm.product = {};
         vm.addMaterial = addMaterial;
         vm.delMaterial = delMaterial;
@@ -127,7 +128,7 @@
 
             $formula.get(id)
                 .then(function (r) {
-                    const formula = r.data;
+                    vm.formula = r.data;
                     vm.product.unit = formula.unit;
                     vm.product.base_amount = formula.amount;
                 });
