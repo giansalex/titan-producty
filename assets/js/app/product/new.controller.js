@@ -20,6 +20,7 @@
         vm.edit = edit;
         vm.getCosto = getCosto;
         vm.getTotal = getTotal;
+        vm.getCantUnidad = getCantUnidad;
 
         activate();
 
@@ -136,7 +137,9 @@
                 .then(getMaterials);
 
             function getMaterials(res) {
-                vm.selected = res.data;
+                const data = res.data;
+                data.forEach((item) => item.newunit = item.unit);
+                vm.selected = data;
                 console.log(vm.selected);
             }
         }
@@ -147,10 +150,22 @@
                     material_id: item.material_id,
                     amount: item.amount,
                     price: item.price,
-                    unit: item.unit,
+                    unit: item.newunit,
                     total: item.total,
                 };
             })
+        }
+
+        function getCantUnidad(value) {
+            if (!value) {
+                return;
+            }
+            const amount = vm.product.amount || 0;
+            const base = vm.product.base_amount || 0;
+
+            const factor = amount / base;
+
+            return value / factor;
         }
 
         function getUnitsByCode(units, code) {
