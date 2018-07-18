@@ -5,9 +5,9 @@
         .module('app')
         .factory('formulaService', formulaService);
 
-    formulaService.$inject = ['$http'];
+    formulaService.$inject = ['$http', '$route'];
 
-    function formulaService($http) {
+    function formulaService($http, $route) {
         return {
             add: add,
             get: get,
@@ -18,27 +18,27 @@
         };
 
         function add(formula) {
-            return $http.post(Routing.generate('formula_api_add'), formula);
+            return $http.post($route.generate('formula_api_add'), formula);
         }
 
         function get(id) {
-            return $http.get(Routing.generate('formula_api_get', {id: id}));
+            return $http.get($route.generate('formula_api_get', {id: id}));
         }
 
         function list() {
-            return $http.get(Routing.generate('formula_api_list'));
+            return $http.get($route.generate('formula_api_list'));
         }
 
         function edit(id, formula) {
-            return $http.put(Routing.generate('formula_api_edit', {id: id}), formula);
+            return $http.put($route.generate('formula_api_edit', {id: id}), formula);
         }
 
         function materials(id) {
-            return $http.get(Routing.generate('formula_api_material', {id: id}));
+            return $http.get($route.generate('formula_api_material', {id: id}));
         }
 
         function copy(id) {
-            return $http.post(Routing.generate('formula_api_duplicate', {id: id}));
+            return $http.post($route.generate('formula_api_duplicate', {id: id}));
         }
     }
 })();
