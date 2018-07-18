@@ -40,7 +40,6 @@
 
             function getUnits(r) {
                 vm.units = r.data;
-                filterUnits();
             }
         }
 
@@ -52,7 +51,6 @@
 
             function getProduct(r) {
                 vm.product = r.data;
-                filterUnits();
             }
 
             function getMaterials(res) {
@@ -127,6 +125,10 @@
                 return;
             }
 
+            $formula.get(id)
+                .then(function (r) {
+                    vm.product.unit = r.data.unit;
+                });
             $formula.materials(id)
                 .then(getMaterials);
 
@@ -146,16 +148,6 @@
                     total: item.total,
                 };
             })
-        }
-
-        function filterUnits() {
-            const product = vm.product;
-            if (!product.id ||
-                !vm.units) {
-                return;
-            }
-
-            vm.editUnits = getUnitsByCode(vm.units, product.unit);
         }
 
         function getUnitsByCode(units, code) {

@@ -63,15 +63,7 @@
                             <label for="unit">Unidad Base</label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select type="text"
-                                            id="unit"
-                                            required
-                                            ng-model="vm.product.unit"
-                                            class="form-control">
-                                        <option ng-repeat="unit in vm.editUnits"
-                                                ng-value="unit.code"
-                                                ng-bind="unit.value + '(' + unit.code + ')'"></option>
-                                    </select>
+                                    <p ng-bind="vm.product.unit"></p>
                                 </div>
                             </div>
                             <label for="amount">Costo Total Unitario</label>
