@@ -8,6 +8,7 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\HistoryType;
 use App\Repository\HistoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,7 +29,7 @@ class HistoryApiController extends AbstractController
     {
         $items = $repository->getQueryMaterialByUser($this->getUser())
                     ->andWhere('h.type = ?1')
-                    ->setParameter(1, $type)
+                    ->setParameter(HistoryType::MATERIAL, $type)
                     ->getQuery()
                     ->getResult();
 
