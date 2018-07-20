@@ -57,6 +57,29 @@ class ProductApiController extends AbstractController
     }
 
     /**
+     * @Route("/inventory", methods={"PUT"}, name="product_api_inventory")
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param ProductRepository $repository
+     * @return Response
+     */
+    public function updateInventory(
+        Request $request,
+        SerializerInterface $serializer,
+        ProductRepository $repository)
+    {
+        $list = $serializer->deserialize(
+            $request->getContent(),
+            'ArrayCollection<App\Dto\SimpleDto>',
+            'json'
+        );
+
+        $repository->updateInventory($list, $this->getUser());
+
+        return new Response();
+    }
+
+    /**
      * @Route("/", methods={"POST"}, name="product_api_add")
      * @param Request $request
      * @param SerializerInterface $serializer

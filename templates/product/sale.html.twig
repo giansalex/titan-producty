@@ -25,9 +25,8 @@
                                 <th>Nombre</th>
                                 <th>Código</th>
                                 <th>Cantidad Actual</th>
-                                <th>Cantidad Comprada</th>
+                                <th>Cantidad Vendida</th>
                                 <th>Cantidad Final</th>
-                                <th>Unidad</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -41,8 +40,7 @@
                                             class="form-control"
                                             ng-model="x.change">
                                 </td>
-                                <td ng-bind="x.stock + x.change"></td>
-                                <td ng-bind="x.unit"></td>
+                                <td ng-bind="x.stock - x.change"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -54,5 +52,5 @@
     </div>
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('build/material/order.js') }}"></script>
+    <script src="{{ asset('build/material/sale.js') }}"></script>
 {% endblock %}

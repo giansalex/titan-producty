@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Formula;
+use App\Entity\History;
+use App\Entity\HistoryType;
 use App\Entity\Material;
 use App\Entity\Product;
 use App\Entity\User;
@@ -66,6 +68,38 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameters([$id, $user])
             ->getQuery()
             ->getResult();
+    }
+
+    public function updateInventory(array $list, User $user)
+    {
+        $em = $this->getEntityManager();
+        foreach ($list as $item) {
+            $product = $this->findOneBy(['id' => $item->id, 'user' => $user]);
+            $diff = $product->getStock() - $item->value;
+            $product->setStock($item->value);
+
+            $history = $this->createHistory($product, $user, $diff);
+
+            $em->persist($history);
+        }
+
+        $em->flush();
+    }
+
+    public function createHistory(Product $product, User $user, $difference)
+    {
+        $history = new History();
+        $history
+            ->setUser($user)
+            ->setType(HistoryType::PRODUCT)
+            ->setItemId($product->getId())
+            ->setAmount($difference)
+            ->setTotal($product->getStock())
+            ->setAction('Ajuste Inventario')
+            ->setDate(new \DateTime())
+            ->setUserAction($user->getId());
+
+        return $history;
     }
 
     /**
