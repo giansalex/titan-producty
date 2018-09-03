@@ -71,7 +71,7 @@ Encore
         './assets/js/app/product/inventory.service',
         './assets/js/app/product/sale.controller',
     ])
-    .addEntry('material/inventory', [
+    .addEntry('product/inventory', [
         './assets/js/app/product/inventory.service',
         './assets/js/app/product/inventory.controller',
     ])
