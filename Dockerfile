@@ -29,7 +29,7 @@ VOLUME /var/www/symfony/
 
 COPY . .
 
-RUN composer install && composer run routing && npm i && npm run dev
+RUN composer install && composer run routing && composer run up-db && composer run fixtures && npm i && npm run dev
 
 EXPOSE 8000
 
