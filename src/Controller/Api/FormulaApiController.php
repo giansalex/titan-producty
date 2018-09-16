@@ -12,6 +12,7 @@ use App\Dto\FormulaDto;
 use App\Entity\Formula;
 use App\Http\BadRequestResponse;
 use App\Repository\FormulaRepository;
+use App\Repository\UnitConvertRepository;
 use App\Services\Ensure;
 use App\Services\Mapper;
 use App\Services\ModelStateInterface;
@@ -146,11 +147,12 @@ class FormulaApiController extends AbstractController
      * @Route("/{id}/material", methods={"GET"}, name="formula_api_material")
      * @param int $id
      * @param FormulaRepository $repository
+     * @param UnitConvertRepository $converter
      * @return JsonResponse
      */
-    public function materials(int $id, FormulaRepository $repository)
+    public function materials(int $id, FormulaRepository $repository, UnitConvertRepository $converter)
     {
-        $items = $repository->getMaterials($id, $this->getUser());
+        $items = $repository->getMaterialsWithFactor($id, $this->getUser(), $converter);
 
         return $this->json($items);
     }

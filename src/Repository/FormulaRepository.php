@@ -59,7 +59,7 @@ class FormulaRepository extends ServiceEntityRepository
     public function getMaterials(int $id, User $user)
     {
         return $this->createQueryBuilder('f')
-            ->select('d.materialId AS material_id, m.name, d.amount, d.unit, m.price, d.total')
+            ->select('d.materialId AS material_id, m.name, d.amount, d.unit, m.unit AS m_unit, m.price, d.total')
             ->leftJoin('f.details', 'd')
             ->leftJoin('d.material', 'm')
             ->where('f.id = ?1 AND f.user = ?2')
@@ -68,7 +68,29 @@ class FormulaRepository extends ServiceEntityRepository
                 2 => $user,
             ])
             ->getQuery()
-            ->getResult();
+            ->getArrayResult();
+    }
+
+    public function getMaterialsWithFactor(int $id, User $user, UnitConvertRepository $converter)
+    {
+        $items = $this->getMaterials($id, $user);
+        $total = count($items);
+
+        for ($i = 0; $i < $total; $i++)
+        {
+            $item = $items[$i];
+            $unit = $item['unit'];
+            $matUnit = $item['m_unit'];
+            unset($items[$i]['m_unit']);
+
+            if ($matUnit == $unit) {
+                continue;
+            }
+
+            $items[$i]['factor'] = $converter->getFactor($matUnit, $unit);
+        }
+
+        return $items;
     }
 
     /**

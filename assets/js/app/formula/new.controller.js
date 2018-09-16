@@ -55,7 +55,7 @@
                 vm.selected = res.data;
 
                 for (let item of vm.selected) {
-                    item.oldUnit = item.unit;
+                    item.actualUnit = item.unit;
                 }
 
                 filterUnitDetails();
@@ -63,12 +63,12 @@
         }
 
         function convertUnit(item) {
-            const unit = item.unit;
-            if (!unit || !item.oldUnit || unit === item.oldUnit) {
+            const newUnit = item.unit;
+            if (!newUnit || !item.actualUnit || newUnit === item.actualUnit) {
                 return;
             }
 
-            $convert.getFactor(item.oldUnit, unit)
+            $convert.getFactor(item.actualUnit, newUnit)
                 .then(function (r) {
                     if (!r.data) {
                         return;
@@ -77,8 +77,8 @@
                     const factor = r.data.factor;
 
                     item.amount = item.amount * factor;
-                    item.oldUnit = unit;
-                    item.factor = factor;
+                    item.actualUnit = newUnit;
+                    item.factor = (item.factor || 1) * factor;
                 });
         }
 
@@ -86,8 +86,9 @@
             const price = detail.price || 0;
             const amount = detail.amount || 0;
             const factor = detail.factor || 1;
+            const origin = amount / factor;
 
-            detail.total = (price * amount) / factor;
+            detail.total = price * origin;
 
             return detail.total;
         }
@@ -111,11 +112,10 @@
                     material_id: material.id,
                     name: material.name,
                     unit: material.unit,
-                    oldUnit: material.unit,
+                    actualUnit: material.unit,
                     factor: 1,
                     amount: 1,
                     price: material.price,
-                    total: material.price,
                     units: getUnitsByCode(vm.units, material.unit)
                 };
 
