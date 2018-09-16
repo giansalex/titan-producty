@@ -55,7 +55,7 @@
                 vm.selected = res.data;
 
                 for (let item of vm.selected) {
-                    item.actualUnit = item.unit;
+                    item.prevUnit = item.unit;
                 }
 
                 filterUnitDetails();
@@ -64,11 +64,11 @@
 
         function convertUnit(item) {
             const newUnit = item.unit;
-            if (!newUnit || !item.actualUnit || newUnit === item.actualUnit) {
+            if (!newUnit || !item.prevUnit || newUnit === item.prevUnit) {
                 return;
             }
 
-            $convert.getFactor(item.actualUnit, newUnit)
+            $convert.getFactor(item.prevUnit, newUnit)
                 .then(function (r) {
                     if (!r.data) {
                         return;
@@ -77,7 +77,7 @@
                     const factor = r.data.factor;
 
                     item.amount = item.amount * factor;
-                    item.actualUnit = newUnit;
+                    item.prevUnit = newUnit;
                     item.factor = (item.factor || 1) * factor;
                 });
         }
@@ -112,7 +112,7 @@
                     material_id: material.id,
                     name: material.name,
                     unit: material.unit,
-                    actualUnit: material.unit,
+                    prevUnit: material.unit,
                     factor: 1,
                     amount: 1,
                     price: material.price,
