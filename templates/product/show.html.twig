@@ -36,8 +36,12 @@
                             <td>{{ product.name }}</td>
                         </tr>
                         <tr>
-                            <th>Cantidad Base</th>
+                            <th>Cantidad Equivalente</th>
                             <td>{{ product.amount }}</td>
+                        </tr>
+                        <tr>
+                            <th>Cantidad Base</th>
+                            <td>{{ product.baseAmount }}</td>
                         </tr>
                         <tr>
                             <th>Unidad Base</th>
@@ -53,10 +57,10 @@
                         <p style="font-size: 18px" class="text-center">
                             Cada <b>{{ product.name }}</b> equivale/contiene <br>
                             <b>{{ product.amount }}</b> <b>{{ product.unit }}</b> siguiendo la relación de que <br>
-                            cada <b>{{ product.formula.amount }}</b>  <b>{{ product.unit }}</b> de <b>{{ product.formula.name }}</b> equivale/contiene
+                            cada <b>{{ product.baseAmount }}</b>  <b>{{ product.unit }}</b> de <b>{{ product.formula.name }}</b> equivale/contiene
                         </p>
                     </div>
-                    {% set base = product.amount / product.formula.amount %}
+                    {% set base = product.amount / product.baseAmount %}
                     <h2 class="card-inside-title">Detalles</h2>
                     <div class="table-responsive">
                         <table class="table table-bordered table-condensed">
