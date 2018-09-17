@@ -52,12 +52,13 @@
             }
 
             function getMaterials(res) {
-                vm.selected = res.data;
+                const data = res.data;
 
-                for (let item of vm.selected) {
+                for (let item of data) {
                     item.prevUnit = item.unit;
                 }
 
+                vm.selected = data;
                 filterUnitDetails();
             }
         }

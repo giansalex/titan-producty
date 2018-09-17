@@ -12,6 +12,7 @@ use App\Dto\ProductDto;
 use App\Entity\Product;
 use App\Http\BadRequestResponse;
 use App\Repository\ProductRepository;
+use App\Repository\UnitConvertRepository;
 use App\Services\Ensure;
 use App\Services\Mapper;
 use App\Services\ModelStateInterface;
@@ -147,11 +148,12 @@ class ProductApiController extends AbstractController
      * @Route("/{id}/material", methods={"GET"}, name="product_api_material")
      * @param int $id
      * @param ProductRepository $repository
+     * @param UnitConvertRepository $converter
      * @return JsonResponse
      */
-    public function materials(int $id, ProductRepository $repository)
+    public function materials(int $id, ProductRepository $repository, UnitConvertRepository $converter)
     {
-        $items = $repository->getMaterials($id, $this->getUser());
+        $items = $repository->getMaterialsWithFactor($id, $this->getUser(), $converter);
 
         return $this->json($items);
     }

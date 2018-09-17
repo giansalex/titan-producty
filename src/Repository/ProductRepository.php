@@ -61,13 +61,35 @@ class ProductRepository extends ServiceEntityRepository
     public function getMaterials(int $id, User $user)
     {
         return $this->createQueryBuilder('p')
-            ->select('d.materialId AS material_id, m.name, d.amount, d.unit, m.price, d.total')
+            ->select('d.materialId AS material_id, m.name, d.amount, d.unit, m.unit AS m_unit, m.price, d.total')
             ->leftJoin('p.details', 'd')
             ->leftJoin('d.material', 'm')
             ->where('p.id = ?0 AND p.user = ?1')
             ->setParameters([$id, $user])
             ->getQuery()
             ->getResult();
+    }
+
+    public function getMaterialsWithFactor(int $id, User $user, UnitConvertRepository $converter)
+    {
+        $items = $this->getMaterials($id, $user);
+        $total = count($items);
+
+        for ($i = 0; $i < $total; $i++)
+        {
+            $item = $items[$i];
+            $unit = $item['unit'];
+            $matUnit = $item['m_unit'];
+            unset($items[$i]['m_unit']);
+
+            if ($matUnit == $unit) {
+                continue;
+            }
+
+            $items[$i]['factor'] = $converter->getFactor($matUnit, $unit);
+        }
+
+        return $items;
     }
 
     public function updateInventory(array $list, User $user)

@@ -58,7 +58,13 @@
             }
 
             function getMaterials(res) {
-                vm.selected = res.data;
+                const data = res.data;
+
+                for (let item of data) {
+                    item.prevUnit = item.unit;
+                }
+
+                vm.selected = data;
                 filterUnitDetails();
             }
         }
@@ -104,11 +110,11 @@
             return total;
         }
 
-        function addMaterial(material) {
+        function addMaterial() {
             $('#materialModal').modal('hide');
             const materials = getMaterials();
             for (let material of materials) {
-                var unit = material.unit;
+                const unit = material.unit;
                 const detail = {
                     material_id: material.id,
                     name: material.name,

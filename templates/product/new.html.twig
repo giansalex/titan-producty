@@ -133,7 +133,6 @@
                                     <td ng-bind="x.name"></td>
                                     <td>
                                         <input title="amount"
-                                               min="0"
                                                class="form-control"
                                                ng-model="x.amount">
                                     </td>
@@ -149,7 +148,7 @@
                                                     ng-bind="unit.value + '(' + unit.code + ')'"></option>
                                         </select>
                                     </td>
-                                    <td ng-bind="vm.getCosto(x)|currency"></td>
+                                    <td ng-bind="vm.getCosto(x)|currency:'$':0"></td>
                                     <td>
                                         <button
                                             type="button"
@@ -161,7 +160,7 @@
                                 </tr>
                                 <tr>
                                     <td class="text-center" colspan="5"><b>Total</b></td>
-                                    <td ng-bind="vm.getTotal()|currency"></td>
+                                    <td ng-bind="vm.getTotal()|currency:'$':0"></td>
                                 </tr>
                                 </tbody>
                             </table>

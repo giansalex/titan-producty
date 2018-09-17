@@ -89,6 +89,7 @@
                                 <tr>
                                     <th>Materia Prima</th>
                                     <th>Cantidad</th>
+                                    <th>Cantidad para 1 producto</th>
                                     <th>Unidad</th>
                                     <th>Costo</th>
                                     <th>Opciones</th>
@@ -99,12 +100,21 @@
                                     <td ng-bind="x.name"></td>
                                     <td>
                                         <input title="amount"
-                                               min="0"
                                                class="form-control"
                                                ng-model="x.amount">
                                     </td>
-                                    <td ng-bind="x.unit"></td>
-                                    <td ng-bind="vm.getCosto(x)|currency"></td>
+                                    <td ng-bind="vm.getCantUnidad(x.amount)"></td>
+                                    <td>
+                                        <select title="unit"
+                                                ng-model="x.unit"
+                                                ng-change="vm.convertUnit(x)"
+                                                class="form-control">
+                                            <option ng-repeat="unit in x.units"
+                                                    ng-value="unit.code"
+                                                    ng-bind="unit.value + '(' + unit.code + ')'"></option>
+                                        </select>
+                                    </td>
+                                    <td ng-bind="vm.getCosto(x)|currency:'$':0"></td>
                                     <td>
                                         <button class="btn btn-xs btn-circle btn-danger"
                                                 ng-click="vm.delMaterial($index)">
@@ -113,8 +123,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center" colspan="3"><b>Total</b></td>
-                                    <td ng-bind="vm.getTotal()|currency"></td>
+                                    <td class="text-center" colspan="5"><b>Total</b></td>
+                                    <td ng-bind="vm.getTotal()|currency:'$':0"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -128,7 +138,7 @@
                         <br>
                         <button type="submit"
                                 class="btn btn-primary"
-                                ng-disabled="vm.frm.$invalid">Guardar</button>
+                                ng-disabled="vm.frm.$invalid">Guardar cambios</button>
                     </form>
                 </div>
             </div>
