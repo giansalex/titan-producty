@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\HistoryType;
 use App\Entity\Material;
 use App\Repository\HistoryRepository;
 use App\Repository\MaterialRepository;
@@ -80,7 +81,7 @@ class MaterialController extends Controller
 
         $items = $historyRepository->getQueryMaterialByUser($this->getUser())
             ->andWhere('h.type = ?1 AND h.itemId = ?2')
-            ->setParameter(1, 1)
+            ->setParameter(1, HistoryType::MATERIAL)
             ->setParameter(2, $id)
             ->getQuery()
             ->getResult();
