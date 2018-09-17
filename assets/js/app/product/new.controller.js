@@ -5,8 +5,8 @@
         .module('app')
         .controller('newProduct', newController);
 
-    newController.$inject = ['productService', 'formulaService', 'materialService', 'unitService', '$route', 'validationService', '$window'];
-    function newController($product, $formula, $material, $unit, $route, $validation, $window) {
+    newController.$inject = ['productService', 'formulaService', 'materialService', 'unitService', 'unitConvertService', '$route', 'validationService', '$window'];
+    function newController($product, $formula, $material, $unit, $convert, $route, $validation, $window) {
         const vm = this;
         vm.formulas = [];
         vm.selected = [];
@@ -21,6 +21,7 @@
         vm.getCosto = getCosto;
         vm.getTotal = getTotal;
         vm.getCantUnidad = getCantUnidad;
+        vm.convertUnit = convertUnit;
 
         activate();
 
@@ -42,6 +43,7 @@
 
             function getUnits(r) {
                 vm.units = r.data;
+                filterUnitDetails();
             }
         }
 
@@ -57,14 +59,37 @@
 
             function getMaterials(res) {
                 vm.selected = res.data;
+                filterUnitDetails();
             }
+        }
+
+        function convertUnit(item) {
+            const newUnit = item.unit;
+            if (!newUnit || !item.prevUnit || newUnit === item.prevUnit) {
+                return;
+            }
+
+            $convert.getFactor(item.prevUnit, newUnit)
+                .then(function (r) {
+                    if (!r.data) {
+                        return;
+                    }
+                    console.log(r.data);
+                    const factor = r.data.factor;
+
+                    item.amount = item.amount * factor;
+                    item.prevUnit = newUnit;
+                    item.factor = (item.factor || 1) * factor;
+                });
         }
 
         function getCosto(detail) {
             const price = detail.price || 0;
             const amount = detail.amount || 0;
+            const factor = detail.factor || 1;
+            const origin = amount / factor;
 
-            detail.total = price * amount;
+            detail.total = price * origin;
 
             return detail.total;
         }
@@ -81,16 +106,32 @@
 
         function addMaterial(material) {
             $('#materialModal').modal('hide');
-            const detail = {
-                material_id: material.id,
-                name: material.name,
-                unit: material.unit,
-                amount: 1,
-                price: material.price,
-                total: material.price
-            };
+            const materials = getMaterials();
+            for (let material of materials) {
+                var unit = material.unit;
+                const detail = {
+                    material_id: material.id,
+                    name: material.name,
+                    unit: unit,
+                    funit: unit,
+                    prevUnit: unit,
+                    factor: 1,
+                    amount: 1,
+                    price: material.price,
+                    units: getUnitsByCode(vm.units, unit)
+                };
 
-            vm.selected.push(detail);
+                vm.selected.push(detail);
+                material.checked = false;
+            }
+        }
+
+        function* getMaterials() {
+            for (let material of vm.materials) {
+                if (material.checked) {
+                    yield material;
+                }
+            }
         }
 
         function delMaterial(index) {
@@ -129,7 +170,8 @@
 
             $formula.get(id)
                 .then(function (r) {
-                    vm.formula = r.data;
+                    const formula = r.data;
+                    vm.formula = formula;
                     vm.product.unit = formula.unit;
                     vm.product.base_amount = formula.amount;
                 });
@@ -138,7 +180,11 @@
 
             function getMaterials(res) {
                 const data = res.data;
-                data.forEach((item) => item.newunit = item.unit);
+                data.forEach((item) => {
+                    item.funit = item.unit;
+                    item.prevUnit = item.unit;
+                    item.units = getUnitsByCode(vm.units, item.unit);
+                });
                 vm.selected = data;
                 console.log(vm.selected);
             }
@@ -150,7 +196,7 @@
                     material_id: item.material_id,
                     amount: item.amount,
                     price: item.price,
-                    unit: item.newunit,
+                    unit: item.unit,
                     total: item.total,
                 };
             })
@@ -160,12 +206,24 @@
             if (!value) {
                 return;
             }
-            const amount = vm.product.amount || 0;
-            const base = vm.product.base_amount || 0;
+            const amount = vm.product.amount || 1;
+            const base = vm.product.base_amount || 1;
 
             const factor = amount / base;
 
             return value / factor;
+        }
+
+        function filterUnitDetails() {
+            const materials = vm.selected;
+            if (materials.length === 0 ||
+                !vm.units) {
+                return;
+            }
+
+            for (let material of materials) {
+                material.units = getUnitsByCode(vm.units, material.unit);
+            }
         }
 
         function getUnitsByCode(units, code) {

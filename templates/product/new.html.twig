@@ -100,9 +100,8 @@
                             <label for="stock">Cantidad base</label>
                             <div class="input-group">
                                 <div class="form-line">
-                                    <input type="number"
-                                           id="stock"
-                                           required
+                                    <input id="stock"
+                                           readonly
                                            ng-model="vm.product.base_amount"
                                            class="form-control">
                                 </div>
@@ -140,11 +139,11 @@
                                                class="form-control"
                                                ng-model="x.amount">
                                     </td>
-                                    <td ng-bind="x.unit"></td>
+                                    <td ng-bind="x.funit"></td>
                                     <td ng-bind="vm.getCantUnidad(x.amount)"></td>
                                     <td>
                                         <select title="unit"
-                                                ng-model="x.newunit"
+                                                ng-model="x.unit"
                                                 ng-change="vm.convertUnit(x)"
                                                 class="form-control">
                                             <option ng-repeat="unit in x.units"
@@ -163,7 +162,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center" colspan="3"><b>Total</b></td>
+                                    <td class="text-center" colspan="5"><b>Total</b></td>
                                     <td ng-bind="vm.getTotal()|currency"></td>
                                 </tr>
                                 </tbody>
