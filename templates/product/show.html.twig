@@ -49,6 +49,14 @@
                         </tr>
                         </tbody>
                     </table>
+                    <div class="center">
+                        <p style="font-size: 18px" class="text-center">
+                            Cada <b>{{ product.name }}</b> equivale/contiene <br>
+                            <b>{{ product.amount }}</b> <b>{{ product.unit }}</b> siguiendo la relación de que <br>
+                            cada <b>{{ product.formula.amount }}</b>  <b>{{ product.unit }}</b> de <b>{{ product.formula.name }}</b> equivale/contiene
+                        </p>
+                    </div>
+                    {% set base = product.amount / product.formula.amount %}
                     <h2 class="card-inside-title">Detalles</h2>
                     <div class="table-responsive">
                         <table class="table table-bordered table-condensed">
@@ -56,6 +64,7 @@
                             <tr>
                                 <th>Materia Prima</th>
                                 <th>Cantidad</th>
+                                <th>Cantidad para 1 producto</th>
                                 <th>Unidad</th>
                                 <th>Costo</th>
                             </tr>
@@ -65,6 +74,7 @@
                                 <tr>
                                     <td>{{ detail.material.name }}</td>
                                     <td>{{ detail.amount }}</td>
+                                    <td>{{ detail.amount * base }}</td>
                                     <td>{{ detail.unit }}</td>
                                     <td>{{ detail.total|currency(0) }}</td>
                                 </tr>
@@ -73,6 +83,31 @@
                                     <td class="text-center" colspan="3"><b>Total</b></td>
                                     <td>{{ product.price|currency(0) }}</td>
                                 </tr>
+                            </tbody>
+                        </table>
+                        <h2 class="card-inside-title">Balance de Movimientos</h2>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Tipo de Movimiento</th>
+                                <th>Cambio</th>
+                                <th>Responsable</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for history in histories %}
+                                <tr>
+                                    <td>{{ history.date|date('d-m-Y') }}</td>
+                                    <td>{{ history.action }}</td>
+                                    <td>{{ history.amount }}</td>
+                                    <td>{{ history.username }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="8">{{ 'page.no_records'|trans }}</td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>

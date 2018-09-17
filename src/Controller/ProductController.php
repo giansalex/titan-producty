@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\HistoryType;
 use App\Entity\Product;
+use App\Repository\HistoryRepository;
 use App\Repository\ProductRepository;
 use App\Services\Ensure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -55,16 +57,25 @@ class ProductController extends Controller
      * @Route("/{id}", name="product_show", methods="GET", options={"expose": true})
      * @param int $id
      * @param ProductRepository $repository
+     * @param HistoryRepository $historyRepository
      * @param Ensure $ensure
      * @return Response
      */
-    public function show($id, ProductRepository $repository, Ensure $ensure): Response
+    public function show($id, ProductRepository $repository, HistoryRepository $historyRepository, Ensure $ensure): Response
     {
         $product = $repository->findOneBy(['id' => $id, 'user' => $this->getUser()]);
         $ensure->ifNotEmpty($product);
 
+        $items = $historyRepository->getQueryMaterialByUser($this->getUser())
+            ->andWhere('h.type = ?1 AND h.itemId = ?2')
+            ->setParameter(1, HistoryType::PRODUCT)
+            ->setParameter(2, $id)
+            ->getQuery()
+            ->getResult();
+
         return $this->render('product/show.html.twig', [
-            'product' => $product
+            'product' => $product,
+            'histories' => $items
         ]);
     }
 
