@@ -6,7 +6,7 @@ RUN apk update && apk add --no-cache \
     openssl \
     git \
     unzip \
-    nodejs
+    nodejs-npm
 
 RUN apk add --no-cache --virtual .build-deps \
     $PHPIZE_DEPS && \
@@ -29,7 +29,7 @@ VOLUME /var/www/symfony/
 
 COPY . .
 
-RUN composer install && composer run routing && composer run up-db && composer run fixtures && npm i && npm run dev
+RUN composer install
 
 EXPOSE 8000
 
