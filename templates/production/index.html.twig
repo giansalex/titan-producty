@@ -22,6 +22,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th>Estado</th>
                             <th>#</th>
                             <th>Cliente</th>
                             <th>Producto</th>
@@ -29,13 +30,13 @@
                             <th>Costo Unitario</th>
                             <th>Total Kg</th>
                             <th>Total Costo</th>
-                            <th>Estado</th>
                             <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for production in productions %}
                             <tr>
+                                <td>{{ production.state|state }}</td>
                                 <td>{{ loop.index }}</td>
                                 <td>{{ production.client }}</td>
                                 <td>{{ production.product.name }}</td>
@@ -43,7 +44,6 @@
                                 <td>{{ production.price|currency }}</td>
                                 <td>{{ production.weight }}</td>
                                 <td>{{ (production.price * production.amount)|currency }}</td>
-                                <td>{{ production.state|state }}</td>
                                 <td>
                                     <a href="{{ path('production_show', {'id': production.id}) }}"
                                        class="waves-effect">
