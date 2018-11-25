@@ -15,6 +15,15 @@
                 <div class="body">
                     <form name="vm.frm" ng-submit="vm.create()">
                         <div>
+                            <label for="code">Nùmero de Orden</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text"
+                                           id="code"
+                                           ng-model="vm.production.code"
+                                           class="form-control">
+                                </div>
+                            </div>
                             <label for="product">Producto</label>
                             <div class="form-group">
                                 <div class="form-line">

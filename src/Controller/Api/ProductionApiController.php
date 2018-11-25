@@ -8,7 +8,6 @@
 
 namespace App\Controller\Api;
 
-use App\Dto\ProductionDto;
 use App\Entity\Production;
 use App\Http\BadRequestResponse;
 use App\Repository\ProductionRepository;
@@ -31,15 +30,15 @@ class ProductionApiController extends AbstractController
     /**
      * @Route("/", methods={"GET"}, name="production_api_list")
      * @param ProductionRepository $repository
-     * @param Mapper $mapper
      * @param StateCodeProvider $provider
      * @return JsonResponse
      */
-    public function list(ProductionRepository $repository, Mapper $mapper, StateCodeProvider $provider): JsonResponse
+    public function list(ProductionRepository $repository, StateCodeProvider $provider): JsonResponse
     {
         $items = $repository->getList($this->getUser());
-        foreach ($items as $item) {
-            $item['state'] =  $provider->getValue($item['state']);
+        $len = count($items);
+        for ($i = 0; $i < $len; $i++) {
+            $items[$i]['state'] =  $provider->getValue($items[$i]['state']);
         }
 
         return $this->json($items);
