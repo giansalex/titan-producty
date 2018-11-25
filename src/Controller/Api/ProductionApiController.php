@@ -8,12 +8,14 @@
 
 namespace App\Controller\Api;
 
+use App\Dto\ProductionDto;
 use App\Entity\Production;
 use App\Http\BadRequestResponse;
 use App\Repository\ProductionRepository;
 use App\Services\Ensure;
 use App\Services\Mapper;
 use App\Services\ModelStateInterface;
+use App\Services\StateCodeProvider;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,11 +31,16 @@ class ProductionApiController extends AbstractController
     /**
      * @Route("/", methods={"GET"}, name="production_api_list")
      * @param ProductionRepository $repository
+     * @param Mapper $mapper
+     * @param StateCodeProvider $provider
      * @return JsonResponse
      */
-    public function list(ProductionRepository $repository): JsonResponse
+    public function list(ProductionRepository $repository, Mapper $mapper, StateCodeProvider $provider): JsonResponse
     {
-        $items = $repository->findBy(['user' => $this->getUser()]);
+        $items = $repository->getList($this->getUser());
+        foreach ($items as $item) {
+            $item['state'] =  $provider->getValue($item['state']);
+        }
 
         return $this->json($items);
     }

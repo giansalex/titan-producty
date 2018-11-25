@@ -21,6 +21,19 @@ class ProductionRepository extends ServiceEntityRepository
         parent::__construct($registry, Production::class);
     }
 
+    public function getList(User $user)
+    {
+        $items = $this->createQueryBuilder('p')
+            ->select('p.id,p.code,p.client,p.state,p.amount,p.weight,p.price, pr.name AS product')
+            ->leftJoin('p.product', 'pr')
+            ->where('p.user = ?0')
+            ->setParameter(0, $user)
+            ->getQuery()
+            ->getResult();
+
+        return $items;
+    }
+
     public function add(Production $production)
     {
         $em = $this->getEntityManager();
@@ -51,6 +64,7 @@ class ProductionRepository extends ServiceEntityRepository
         $production = $this->findOneBy(['user' => $user, 'id' => $id]);
 
         $newProduction = clone $production;
+        $newProduction->setCode($newProduction->getCode().' - copia');
 
         $em = $this->getEntityManager();
         $em->persist($newProduction);
