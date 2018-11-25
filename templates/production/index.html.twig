@@ -7,7 +7,7 @@
     <div class="block-header">
         <h2>Producción</h2>
     </div>
-    <div class="row clearfix">
+    <div class="row clearfix" ng-controller="indexProduction as vm">
         <div class="col-sm-12">
             <div class="card">
                 <div class="header">
@@ -19,51 +19,57 @@
                     </ul>
                 </div>
                 <div class="body table-responsive">
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            {% include 'shared/_search.htmt.twig' %}
+                        </div>
+                    </div>
                     <table class="table">
                         <thead>
                         <tr>
                             <th>Estado</th>
-                            <th>#</th>
+                            <th>Nùmero de Orden</th>
                             <th>Cliente</th>
                             <th>Producto</th>
                             <th>Total de Unidades</th>
                             <th>Costo Unitario</th>
                             <th>Total Kg</th>
-                            <th>Total Costo</th>
                             <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for production in productions %}
-                            <tr>
-                                <td>{{ production.state|state }}</td>
-                                <td>{{ loop.index }}</td>
-                                <td>{{ production.client }}</td>
-                                <td>{{ production.product.name }}</td>
-                                <td>{{ production.amount }}</td>
-                                <td>{{ production.price|currency }}</td>
-                                <td>{{ production.weight }}</td>
-                                <td>{{ (production.price * production.amount)|currency }}</td>
-                                <td>
-                                    <a href="{{ path('production_show', {'id': production.id}) }}"
+                            <tr ng-repeat="production in vm.productions | orderBy: 'code' | filter: {code: vm.q} as results">
+                                <td ng-bind="production.state"></td>
+                                <td ng-bind="production.code"></td>
+                                <td ng-bind="production.client"></td>
+                                <td ng-bind="production.product"></td>
+                                <td ng-bind="production.amount"></td>
+                                <td ng-bind="production.price|currency"></td>
+                                <td ng-bind="production.weight"></td>
+                                <td>{% verbatim %}
+                                    <a ng-href="{{ vm.getShowUrl(production.id) }}"
                                        class="waves-effect">
                                         <i class="material-icons">visibility</i>
                                     </a>
-                                    <a href="{{ path('production_edit', {'id': production.id}) }}"
+                                    <a ng-href="{{ vm.getEditUrl(production.id) }}"
                                        class="waves-effect">
                                         <i class="material-icons">edit</i>
                                     </a>
-                                </td>
+                                    <span class="waves-effect text-info" ng-click="vm.copy(production)">
+                                        <i class="material-icons">file_copy</i>
+                                    </span>
+                                </td>{% endverbatim %}
                             </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="9">{{ 'page.no_records'|trans }}</td>
+                            <tr ng-if="results.length === 0">
+                                <td colspan="8">{{ 'page.no_records'|trans }}</td>
                             </tr>
-                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/production/index.js') }}"></script>
 {% endblock %}
