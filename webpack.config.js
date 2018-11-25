@@ -75,6 +75,10 @@ Encore
         './assets/js/app/product/inventory.service',
         './assets/js/app/product/inventory.controller',
     ])
+    .addEntry('production/index', [
+        './assets/js/app/production/production.service',
+        './assets/js/app/production/index.controller',
+    ])
     .addEntry('production/new', [
         './assets/js/app/product/product.service',
         './assets/js/app/production/production.service',
