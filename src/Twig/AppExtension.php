@@ -38,12 +38,7 @@ class AppExtension extends AbstractExtension
 
     public function stateFilter($code)
     {
-        $codes = $this->provider->getCodes();
-        if (!isset($codes[$code])) {
-            return '';
-        }
-
-        return $codes[$code];
+        return $this->provider->getValue($code);
     }
 
     public function currencyFilter($number, $decimals = 2)

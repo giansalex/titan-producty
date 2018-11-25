@@ -11,10 +11,22 @@ namespace App\Services;
 
 class StateCodeProvider
 {
-    public function getCodes() {
+    public function getCodes()
+    {
         return [
             '01' => 'En Proceso',
             '02' => 'Terminado',
         ];
+    }
+
+    public function getValue(string $code)
+    {
+        $codes = $this->getCodes();
+
+        if (!isset($codes[$code])) {
+            return '';
+        }
+
+        return $codes[$code];
     }
 }
