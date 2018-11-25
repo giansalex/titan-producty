@@ -32,6 +32,7 @@ class ProductionFixtures extends Fixture implements DependentFixtureInterface
             $productId = $prodIds[array_rand($prodIds)];
             $production = new Production();
             $production
+                ->setCode('P'.$i)
                 ->setProduct($manager->find(Product::class, $productId))
                 ->setState('01')
                 ->setClient('CLIENTE')

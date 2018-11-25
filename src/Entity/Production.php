@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductionRepository")
+ * @UniqueEntity("code")
  */
 class Production
 {
@@ -17,6 +19,12 @@ class Production
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @Assert\Length(max="30")
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $code;
 
     /**
      * @Assert\NotBlank()
@@ -76,6 +84,25 @@ class Production
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     * @return Production
+     */
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
     }
 
     public function getClient(): ?string
