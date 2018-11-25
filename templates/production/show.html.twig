@@ -32,7 +32,15 @@
                     <table class="table table-condensed">
                         <tbody>
                         <tr>
-                            <th class="col-xs-6">Producto</th>
+                            <th class="col-xs-6">Estado</th>
+                            <td>{{ production.state|state }}</td>
+                        </tr>
+                        <tr>
+                            <th>Número de Orden</th>
+                            <td>{{ production.code }}</td>
+                        </tr>
+                        <tr>
+                            <th>Producto</th>
                             <td>{{ production.product.name }}</td>
                         </tr>
                         <tr>
@@ -40,20 +48,16 @@
                             <td>{{ production.client }}</td>
                         </tr>
                         <tr>
-                            <th>Total Unidades</th>
+                            <th>Total de Productos</th>
                             <td>{{ production.amount }}</td>
                         </tr>
                         <tr>
-                            <th>Total Kg</th>
-                            <td>{{ production.weight }}</td>
+                            <th>Cantidad a producir</th>
+                            <td>{{ production.weight }}</td> {{ production.product.unit }}
                         </tr>
                         <tr>
                             <th>Costo Unitario</th>
-                            <td>{{ production.price }}</td>
-                        </tr>
-                        <tr>
-                            <th>Estado</th>
-                            <td>{{ production.state|state }}</td>
+                            <td>{{ production.product.price|currency(0) }}</td>
                         </tr>
                         </tbody>
                     </table>
