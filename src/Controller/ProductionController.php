@@ -17,14 +17,11 @@ class ProductionController extends Controller
 {
     /**
      * @Route("/", name="production_index", methods="GET", options={"expose": true})
-     * @param ProductionRepository $repository
      * @return Response
      */
-    public function index(ProductionRepository $repository): Response
+    public function index(): Response
     {
-        $items = $repository->findBy(['user' => $this->getUser()]);
-
-        return $this->render('production/index.html.twig', ['productions' => $items]);
+        return $this->render('production/index.html.twig');
     }
 
     /**
@@ -37,7 +34,7 @@ class ProductionController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="production_show", methods="GET")
+     * @Route("/{id}", name="production_show", methods="GET", options={"expose": true})
      * @param int $id
      * @param ProductionRepository $repository
      * @param Ensure $ensure
@@ -55,7 +52,7 @@ class ProductionController extends Controller
 
 
     /**
-     * @Route("/{id}/edit", name="production_edit", methods="GET")
+     * @Route("/{id}/edit", name="production_edit", methods="GET", options={"expose": true})
      * @param int $id
      * @return Response
      */
