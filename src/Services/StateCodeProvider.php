@@ -16,6 +16,7 @@ class StateCodeProvider
         return [
             '01' => 'En Proceso',
             '02' => 'Terminado',
+            '03' => 'Borrador',
         ];
     }
 
