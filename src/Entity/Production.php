@@ -41,6 +41,8 @@ class Production
     private $state;
 
     /**
+     * Total de Productos.
+     *
      * @Assert\NotBlank()
      * @Assert\Type("numeric")
      * @ORM\Column(type="float")
@@ -48,6 +50,8 @@ class Production
     private $amount;
 
     /**
+     * Cantidad a producir.
+     *
      * @Assert\NotBlank()
      * @Assert\Type("numeric")
      * @ORM\Column(type="float")
